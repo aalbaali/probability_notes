@@ -1,3 +1,6 @@
 [submodule "Templates"]
 	path = Templates
 	url = https://github.com/aalbaa/latex_classes.git
+[submodule "References"]
+	path = References
+	url = https://github.com/aalbaa/Latex_bibliography.git
