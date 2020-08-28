@@ -112,32 +112,58 @@ which is a least squares problem.
     Note that if $\mbf{g}$ is invertible but $\mbf{f}$ is non-invertible, then \eqref{eq:conditional prob xyz eq xz} does not hold in general!
 \end{mytheorem}
 \begin{proof}
-    \begin{align}
-        \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}} 
-        &=
-        \f{
-            \pdf{\mbf{y}, \mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
-        }{
-            \pdf{\mbf{y}, \mbf{z}}
-        }\\
-        &= 
-        \f{
-            \pdf{\mbf{z}\middle|~\mbf{y},\mbf{x}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
-        }{
-            \pdf{\mbf{z}\middle|~\mbf{y}}\pdf{\mbf{y}}
-        }\\
-        &= 
-        \f{
-            \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
-        }{
-            \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}}
-        }\\
-        &= 
+    \begin{enumerate}
+        \item The first part.
+        \begin{align}
+            \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}} 
+            &=
             \f{
-                \pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+                \pdf{\mbf{y}, \mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
             }{
-                \pdf{\mbf{y}}
+                \pdf{\mbf{y}, \mbf{z}}
             }\\
-        &= \pdf{\mbf{x}\middle|~\mbf{y}}.
-    \end{align}
+            &= 
+            \f{
+                \pdf{\mbf{z}\middle|~\mbf{y},\mbf{x}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{z}\middle|~\mbf{y}}\pdf{\mbf{y}}
+            }\\
+            &= 
+            \f{
+                \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}}
+            }\\
+            &= 
+                \f{
+                    \pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+                }{
+                    \pdf{\mbf{y}}
+                }\\
+            &= \pdf{\mbf{x}\middle|~\mbf{y}}.
+        \end{align}
+
+        \item The second part. Let's expand $\pdf{\mbf{x}\middle|~\mbf{y},\mbf{z}}$.
+        \begin{align}
+            \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}}
+            &=
+            \f{
+                \pdf{\mbf{y},\mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{y}, \mbf{z}}
+            }\\
+            &=
+            \f{
+                \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}}\pdf{\mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{y}\middle|~\mbf{z}}\pdf{\mbf{z}}
+            }\\
+            &=
+            \f{
+                \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}}\pdf{\mbf{x}\middle|~\mbf{z}}
+            }{
+                \pdf{\mbf{y}\middle|\mbf{z}}
+            }
+        \end{align}
+    \end{enumerate}
 \end{proof}
