@@ -78,4 +78,66 @@ The \emph{maximum a-posteriori} (MAP) estimate, as the name suggests, finds the 
     \f{1}{2}\sum_{k=1}^{K}\norm{\mbf{x}_{k} - \mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}_{\mbs{\Sigma}_{\mbf{w}}\inv}^{2} +
     \f{1}{2}\sum_{k=1}^{M}\norm{\mbf{y}_{k} - \mbf{g}\left(\mbf{x}_{k}\right)}_{\mbs{\Sigma}_{\mbf{v}}\inv}^{2}
 \end{align}
-which is a least squares problem that can be solved using th methods discussed in Section~\ref{sec: least squares}.
+which is a least squares problem.
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Conditional probability
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Passing measurements through a function}
+\begin{mytheorem}
+   [Passing measurements through a function]    
+   Let $\mbfrv{y}\in\rnums^{m}$ be a (vector) random variable that depends on $\mbfrv{x}\in\rnums^{n}$ through
+   \begin{align}
+       \mbfrv{y} &= \mbf{g}\left( \mbfrv{x} \right).
+   \end{align}
+   Furthermore, let $\mbfrv{z}\in\rnums^{p}$ be a transformed random variable given by
+   \begin{align}
+       \mbfrv{z} &= \mbf{f}\left( \mbfrv{y} \right).
+   \end{align}
+   Then 
+   \begin{align}
+       \pdf{\mbfrv{x}\middle|~\mbf{y}, \mbf{z}} 
+       &=
+       \pdf{\mbfrv{x}\middle|~\mbf{y}}.
+    \end{align}
+    Furthermore, if $\mbf{g}$ is invertible and $\mbf{f}$ is invertible, then 
+    \begin{align}
+        \label{eq:conditional prob xyz eq xz}
+        \pdf{\mbfrv{x}\middle|~\mbf{y}, \mbf{z}} 
+        &=
+        \pdf{\mbfrv{x}\middle|~\mbf{z}}.
+    \end{align}
+    Note that if $\mbf{g}$ is invertible but $\mbf{f}$ is non-invertible, then \eqref{eq:conditional prob xyz eq xz} does not hold in general!
+\end{mytheorem}
+\begin{proof}
+    \begin{align}
+        \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}} 
+        &=
+        \f{
+            \pdf{\mbf{y}, \mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
+        }{
+            \pdf{\mbf{y}, \mbf{z}}
+        }\\
+        &= 
+        \f{
+            \pdf{\mbf{z}\middle|~\mbf{y},\mbf{x}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+        }{
+            \pdf{\mbf{z}\middle|~\mbf{y}}\pdf{\mbf{y}}
+        }\\
+        &= 
+        \f{
+            \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+        }{
+            \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}}
+        }\\
+        &= 
+            \f{
+                \pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{y}}
+            }\\
+        &= \pdf{\mbf{x}\middle|~\mbf{y}}.
+    \end{align}
+\end{proof}
