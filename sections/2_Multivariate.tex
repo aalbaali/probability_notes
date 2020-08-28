@@ -1,0 +1,1110 @@
+\section{Multivariate random variables and distributions}
+In this chapter, we are dealing with multiple random variables. 
+
+\begin{mydefinition}
+  [Multiple random variable]    
+  Let $\rv{x}_{1}, \rv{x}_{2},\ldots,\rv{x}_n$ be $n$ random variables defined on the \emph{same} probability space ($S, \mc{F}, \prob{})$. Then, the mapping
+  \begin{align}
+      s\in S\to \left[ \rv{x}_{1}(s), \rv{x}_{2}(s),\ldots,\rv{x}_n(s) \right]^{\trans}\in\rnums^n
+  \end{align}
+  defines an $n$-dimensional random variable (random vector or column matrix). Random vectors will be denoted by boldface underlined alphabet. Specifically,
+  \begin{align}
+      \mbfrv{x} &= 
+      \bbm \rv{x}_{1} & \rv{x}_{2} & \ldots &\rv{x}_n \ebm^{\trans},
+  \end{align}
+  where $\rv{x}_{i}, i=1,\ldots, n$ are random variables. 
+\end{mydefinition}
+
+\subsection{Joint cumulative distribution function (JCDF)}
+\begin{mydefinition}[Joint cumalitive distribution function (JCDF)]
+    Let $\rv{x}_{1}, \rv{x}_{2}, \ldots, \rv{x}_n$ be $n$ random variables defined on the same probability space $(S,\mc{F},\prob{})$. Then, the \emph{joint cumulative distribution function (JCDF)} of these random variables are 
+    \begin{align}
+        \cdf{}_{x_{1},x_{2},\ldots,x_n}(x_{1},x_{2},\ldots,x_n) 
+        &= \prob{\rv{x}_{1}\leq x_{1}, \rv{x}_{2}\leq x_{2}, \ldots, \rv{x}_n\leq x_n}\\
+        &= \cdf{}_{\mbf{x}}(\mbf{x})\\
+        &= \cdf{\mbf{x}}\\
+        &= \prob{\mbfrv{x}\leq\mbf{x}}.
+    \end{align}
+\end{mydefinition}
+\subsubsection*{Properties of JCDFs}
+\begin{enumerate}
+    \item $\cdf{\mbf{x}}$ is non-decreasing in each of its arguments.
+    \item $\cdf{\mbf{x}}$ is right-continuous in each of its arguments.
+    \item For a fixed $i$, $\lim_{x_{i}\to-\infty} \cdf{\mbf{x}}=0$.
+    \item When $\rv{x}_{i}\to\infty$ for \emph{all} $i$, then $\cdf{\mbf{x}}\to 1$.
+\end{enumerate}
+
+\begin{mydefinition}[Marginal CDF]
+    % \emph{Marginalization} of a joint CDF is the process of ``eliminating'' a subset of the random variables to be \emph{marginalized}. This is done by taking the limit of the JCDF $\cdf{\mbf{x}}$ for the marginalized variables to $+\infty$. 
+    %
+    Let $\mbfrv{x}=\bbm \mbfrv{x}_{1}^{\trans} &\mbfrv{x}_{2}^{\trans}\ebm^{\trans}\in\rnums^{n}$ with joint CDF $\cdf{\mbf{x}}$. Say we want to know the joint CDF of a subset of these random variables ${\mbfrv{x}}_{1}$. That is, we want to \emph{marginalize out} the random variables ${\mbfrv{x}}_{2}$. The joint CDF of $\mbfrv{x}_{1}$ is computed by taking the limit
+    \begin{align}
+        \cdf{{\mbf{x}}_{1}} &= \lim_{{\mbf{x}_{2}}\to\infty} \cdf{\mbf{x}}.
+    \end{align}
+
+    Here are the definitions:
+    \begin{itemize}
+        \item The process is called \emph{marginalization}. 
+        \item The retained random variables $\mbfrv{x}_{1}$ are called \emph{marginal random variables}.
+        \item The joint CDF of the marginal random variables is called the \emph{marginal CDF}.
+        \item The discarded random variables $\mbfrv{x}_{2}$ is said to be \emph{marginalized out}.
+    \end{itemize}
+    
+\end{mydefinition}
+\begin{example}[Marginalizing a CDF]
+    Given the joint CDF $\cdf{{x}_{1},{x}_{2},{x}_{3}}$, then the joint CDF $\cdf{x_{1},x_{3}}$ is given by
+    \begin{align}
+        \cdf{x_{1},x_{3}} &= \lim_{x_{2}\to\infty} \cdf{x_{1},x_{2},x_{3}}.
+    \end{align}
+    \triqed
+\end{example}
+
+\subsection{Joint probability mass function (JPMF)}
+\begin{mydefinition}[Joint probability mass function (JPMF)]
+        This is the analog to joint CDF for discrete random variables. The \emph{joint probability mass function (JPMF)} of the discrete random variables $\rv{x}_{1},\ldots,\rv{x}_{n}$ is
+        \begin{align}
+            \pmf{}_{x_{1},\ldots,x_{n}}(x_{1},\ldots,x_{n})
+            &= \prob{\rv{x}_{1}=x_{1},\ldots,\rv{x}_{n}=x_{n}}\\
+            &= \pmf{}_{\mbf{x}}(\mbf{x})\\
+            &= \prob{\mbfrv{x}=\mbf{x}}.
+        \end{align}
+        Note that the subscripts may be omitted. That is, $\pmf{}_{\mbf{x}}(\mbf{x}) = \pmf{\mbf{x}}$.
+\end{mydefinition}
+
+\subsubsection*{Properties of JPMFs}
+\begin{enumerate}
+    \item \textbf{Total probability}: $0\leq \pmf{\mbf{x}}\leq 1$.
+    \item \textbf{Normalization Property}:
+    \begin{align}
+        \sum_{\mbf{x}\in\mc{R}_{\mbf{x}}}\pmf{\mbf{x}} &=
+        \sum_{x_{1}\in\mc{R}_{x_{1}}}\ldots\sum_{x_{n}\in\mc{R}_{x_{n}}}
+         \pmf{x_{1},\ldots,x_{n}}\\
+         &= 1.
+    \end{align}
+    \item Probability that $\mbfrv{x}$ is in a region $\mc{D}$ (i.e., $\mbfrv{x}\in\mc{D}$) is given by
+    \begin{align}
+        \prob{\mbfrv{x}\in\mc{D}} &= \sum_{\mbfrv{x}\in\mc{D}}\pmf{\mbf{x}}.
+    \end{align}
+    \item \textbf{Marginalization property}: Let $\mbfrv{x}=\bbm \mbfrv{x}_{1}^{\trans}&\mbfrv{x}_{2}^{\trans} \ebm^{\trans}$ be a discrete random variable with joint PMF $\pmf{\mbf{x}}$. Then the joint PMF of $\mbfrv{x}_{1}$ is given by marginalization. Specifically,
+    \begin{align}
+        \pmf{\mbf{x}_{1}}&= \sum_{\mbf{x}_{2}\in\mc{R}_{\mbf{x}_{2}}}\pmf{\mbf{x}}.
+    \end{align}
+\end{enumerate}
+
+\subsection{Joint probability density function (JPDF)}
+\begin{mydefinition}[Joint probability density function (JPDF)]
+    The \emph{joint PDF} of random variables $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$, $\pdf{\mbf{x}}$, is given by
+    \begin{align}
+        \pdf{\mbf{x}} 
+        &= \pdf{x_{1},\ldots,x_{n}}\\
+        &= \f{\partial^{n} \cdf{x_{1},\ldots,x_{n}}}{\partial x_{1}\cdots\partial x_{n}}.
+    \end{align} 
+    Often, subscripts will be dropped (i.e., $\pdf{}_{\mbf{x}}(\mbf{x}) =\pdf{\mbf{x}}$).
+\end{mydefinition}
+
+\subsubsection*{Properties of JPDFs}
+\begin{enumerate}
+    \item $\pdf{\mbf{x}}\geq0$.
+    \item \textbf{Normalization}: 
+    \begin{align}
+        \int_{\rnums^{n}} \pdf{\mbf{x}} &= \int_{\rnums^{n}}\pdf{x_{1},\ldots,x_{n}}\dee x_{1}\cdots\dee x_{n}\\
+        &= 1.
+    \end{align}
+    \item Probability that $\mbfrv{x}$ is in a region $\mc{D}$:
+    \begin{align}
+        \prob{\mbfrv{x}\in\mc{D}} &= \int_{\mc{D}}\pdf{\mbf{x}}\dee\mbf{x}.
+    \end{align}
+    \item \textbf{Marginalization property}: Let $\mbfrv{x}=\bbm \mbfrv{x}_{1}^{\trans}&\mbfrv{x}_{n}^{\trans} \ebm^{\trans}$ be a continuous random variable with joint PDF $\pdf{\mbf{x}}$. Then the joint PDF of $\mbfrv{x}_{1}$ is 
+    \begin{align}
+        \pdf{\mbf{x}_{1}} &= \int_{-\infty}^{\infty}\pdf{\mbf{x}}\dee\mbf{x}.
+    \end{align}
+\end{enumerate}
+
+\subsection{Independence}
+\begin{mydefinition}[Mutual independence]
+    The random variables $\rv{x}_{1},\ldots,\rv{x}_{n}$ are called \emph{mutually independent} if the events $\left\{ \rv{x}_{1}\leq x_{1}\right\}, \ldots, \left\{ \rv{x}_{n}\leq x_{n}\right\}$ are independent for any $x_{1}, \ldots, x_{n} \in \rnums^{n}$.
+
+    It follows that
+    \begin{align}
+        \cdf{x_{1},\ldots,x_{n}} &= \cdf{x_{1}}\cdots\cdf{x_{n}},\\
+        \pdf{x_{1},\ldots,x_{n}} &= \pdf{x_{1}}\cdots\pdf{x_{n}},\\
+        \pmf{x_{1},\ldots,x_{n}} &= \pmf{x_{1}}\cdots\pmf{x_{n}}.
+    \end{align}
+\end{mydefinition}
+
+\begin{remark}
+    Here some remarks about mutual independence.
+    \begin{itemize}
+        \item Any subset of the mutually independent random variables $\left\{ \rv{x}_{1}, \ldots, \rv{x}_{n}\right\}$ is a set of mutually independent random variables. 
+        \item If $\left\{ \rv{x}_{1},\ldots, \rv{x}_{n}\right\}$ are independent \emph{in pairs}, they are not necessarily independent.
+        \item The random variables $\rv{y}_{1}=g_{1}(\rv{x}_{1}),\ldots,\rv{y}_{n}=g_{n}(\rv{x}_{n})$ are independent if $\left\{ \rv{x}_{1},\ldots, \rv{x}_{n}\right\}$ are independent. Note that the functions $g_{1}, \ldots, g_{n}$ need not be the same.
+        \item Care must be taken when talking about independence. For instance, ``independence'' of a group of random variables may signify pairwise independence which does not imply mutual independence.
+    \end{itemize}
+\end{remark}
+
+\begin{mydefinition}[Group independence]
+    A group of random variables $\mc{G}_{\mbf{x}} = \left\{ \rv{x}_{1}, \ldots,\rv{x}_{n}\right\}$ is \emph{independent} of a group of random variables $\mc{G}_{\mbf{y}} = \left\{ \rv{y}_{1}, \ldots,\rv{y}_{m}\right\}$ if 
+    \begin{align}
+        \pdf{\mbf{x},\mbf{y}} &= \pdf{\mbf{x}}\pdf{\mbf{y}}.
+    \end{align}
+\end{mydefinition}
+
+\begin{mydefinition}[Independent and identically distributed (i.i.d.) random variables]
+    The random variables $\rv{x}_{1}, \ldots, \rv{x}_{n}$ are called \emph{independent and identically distributed (i.i.d.)} if 
+    \begin{enumerate}
+        \item they are independent, and
+        \item $\cdf{}_{x_{1}}(x) = \cdf{}_{x_{2}}(x) = \cdots = \cdf{}_{x_{n}}(x)$, or equivalently
+        \begin{align}
+            \pdf{}_{x_{1}}(x) &= \cdots = \pdf{}_{x_{n}}(x), \quad \text{ or}\\
+            \pmf{}_{x_{1}}(x) &= \cdots = \pmf{}_{x_{n}}(x).           
+        \end{align}
+    \end{enumerate}
+\end{mydefinition}
+
+\subsubsection{Complex random variables}
+The statistics (PDF, CDF, etc.) of the $n$ complex random variables
+\begin{align}
+    \label{eq:def. complex RV}
+    \nonumber
+    \rv{z}_{1} &= \rv{x}_{1} + \jmath\rv{y}_{1}\\
+    &\quad\vdots\\
+    \nonumber
+    \rv{z}_{n} &= \rv{x}_{n} + \jmath\rv{y}_{n}
+\end{align}
+are determined by the joint PDF $\pdf{x_{1},\ldots,x_{n},y_{1},\ldots,y_{n}}$ of the $2n$ real random variables $\mbf{x}, \mbf{y}$.
+\begin{mydefinition}[Mutually independent complex random variables]
+    The complex random variables $\rv{z}_{1},\ldots,\rv{z}_{n}$ as defined in \eqref{eq:def. complex RV} are \emph{mutually independent} if 
+    \begin{align}
+        \pdf{\mbf{x},\mbf{y}} &= \pdf{x_{1},y_{1}}\cdots\pdf{x_{n},x_{n}}.
+    \end{align}
+\end{mydefinition}
+
+
+\section{Transformed random variables}
+Consider $n$ random variables $\rv{x}_{1}, \rv{x}_{2},\ldots, \rv{x}_{n}$ with joint PDF $\pdf{x_{1},\ldots,x_{n}}$. Further, given a function $g:\rnums^{n}\to\rnums^{k}$
+\begin{align}
+    g(\mbf{x}) &= 
+    \bbm g_{1}(\mbf{x}) \\ \vdots\\ g_{k}(\mbf{x}) \ebm.
+\end{align}
+Then there are $k$ new random variables $\mbfrv{y}=\bbm \rv{y}_{1}&\cdots&\rv{y}_{k} \ebm^{\trans}$. Specifically,
+\begin{align}
+    \mbfrv{y} &= g(\mbfrv{x}).
+\end{align}
+
+\subsection*{Basic concepts}
+If $\mbfrv{x}$ is continuous, then
+\begin{align}
+    \cdf{\mbf{y}} &= \cdf{y_{1},\ldots,y_{k}}\\
+    &= \prob{\rv{y}_{1}\leq y_{1},\ldots, \rv{y}_{k}\leq y_{k}}\\
+    &= \prob{g_{1}(\mbfrv{x})\leq y_{1}, \ldots, g_{k}(\mbfrv{x})\leq y_{k}}\\
+    &= \int_{\mc{D}} \pdf{\mbf{x}}\dee \mbf{x},
+\end{align}
+where
+\begin{align}
+    \mc{D}
+    &= \left\{ \mbf{x}\in\rnums^{n} \text{ s.t. } g_{1}(\mbf{x})\leq y_{1},\ldots, g_{k}(\mbf{x})\leq y_{k}\right\}\\
+    &= \left\{ x_{1},\ldots,x_{n} \text{ s.t. } g_{1}(\cdot)\leq y_{1}, \ldots, g_{k}(\cdot)\leq y_{k}\right\}.
+\end{align}
+That is, $\mc{D}$ depends on $\mbf{y}$. 
+
+If $\mbfrv{x}$ is discrete, then
+\begin{align}
+    p(\mbf{y}) &= \prob{y_{1},\ldots, y_{k}}\\
+    &= \sum_{\mbf{x}\in\mc{D}}\prob{x_{1},\ldots,x_{n}}
+\end{align}
+where 
+\begin{align}
+    \mc{D} &=
+    \left\{ \mbf{x}\in\rnums^{n} \text{ s.t. } g_{1}(\mbf{x})=y_{1},\ldots, g_{k}(\mbf{x})=y_{k}\right\}\\
+    &= \left\{ x_{1},\ldots, x_{n} \text{ s.t. } g_{1}(\cdot)=y_{1},\ldots, g_{k}(\cdot)=y_{k}\right\}.
+\end{align}
+Again, $\mc{D}$ depends on $\mbf{y}$.
+
+\subsection*{Transformed variables distribution}
+Given the distribution of $\mbfrv{x}$ (CDF, PDF, or PMF) and the function $g:\rnums^{k}\to\rnums^{n}$, then what is the distribution of $\mbfrv{y}=g(\mbfrv{x})\in\rnums^{k}$?
+
+Assumption: $k\leq n$. That is, the mapping $g$ is surjective.
+
+
+Just as is the case for a single transformed random variable (Section~\ref{sec: SRV: Transformed random variables}), there are different methods to find the distribution of a transformed random variable (i.e., $\rv{y}=g(\rv{x})$) depending on the types of variables.
+\begin{enumerate}
+    \item \textbf{Method of distributions} works for \emph{any} type of random variables (continuous or discrete). However, it is the most exhaustive method.
+    \item \textbf{Method of transformations} works for \emph{continuous} random variables. Specifically, both $\mbfrv{x}$ and $\mbfrv{y}$ are continuous.
+\end{enumerate}
+
+\subsection{Method of distribution}
+\begin{myBlackBox}
+    Given the function $g:\rnums^{n}\to\rnums^{k}$, where $k\leq n$, then carry the following. 
+    \begin{enumerate}
+        \item For all $\mbf{y}\in\rnums^{k}$, find $\mbf{x}\in D_{y}\subseteq \rnums^{n}$ such that
+        \begin{align}
+            g(\mbf{x}) &\leq \mbf{y}.
+            % &\iff \mbf{x}\in D_{y}.
+        \end{align}
+        Note that $D_{y}$ is a function of $\mbf{y}$.
+        \item The CDF of $\mbfrv{y}$ is then
+        \begin{align}
+            \cdf{\mbf{y}} 
+            &= \prob{\mbfrv{y}\leq \mbf{y}}\\
+            &= \prob{\mbfrv{x}\in D_{y}}\\
+            &= \int_{D_{y}} \pdf{\mbf{x}}\dee\mbf{x}.
+        \end{align}
+        \item The PDF of $\mbfrv{y}$ is then
+        \begin{align}
+            \pdf{\mbf{y}} &= 
+            \td{\cdf{\mbf{y}}}{\mbf{y}}.
+        \end{align}
+    \end{enumerate}
+\end{myBlackBox}
+
+\begin{example}
+    Consider the transformed random variable
+    \begin{align}
+        \rv{y} &= g(\rv{x}_{1},\rv{x}_{2})\\
+        &= \rv{x}_{1} + \rv{x}_{2}.
+    \end{align}
+    To find the PDF of $\rv{y}$, the steps outlined above will be follows.
+    \begin{enumerate}
+        \item Find $D_{y}$:
+        \begin{align}
+            D_{y} &= \left\{ (x_{1},x_{2})\in\rnums^{2} : x_{2} \leq y-x_{1}\right\}.
+        \end{align}
+
+        \item CDF of $\rv{y}$:
+        \begin{align}
+            \cdf{y} 
+            &= \int\int_{D_{y}} \pdf{x_{1},x_{2}}\dee x_{1}\dee x_{2}\\
+            &= \int_{-\infty}^{\infty}\int_{-\infty}^{y-x_{1}}\pdf{x_{1},x_{2}}\dee x_{2}\dee x_{1}.
+        \end{align}
+        \item PDF of $\rv{y}$ is
+        \begin{align}
+            \pdf{y} 
+            &= \td{\cdf{y}}{y}\\
+            &= \int_{-\infty}^{\infty}\td{}{y}\int_{-\infty}^{y-x_{1}} \pdf{x_{1},x_{2}}\dee x_{2}\dee x_{1}\\
+            &= \int_{-\infty}^{\infty}\pdf{x_{1},y-x_{1}}\dee x_{1}.
+        \end{align}
+    \end{enumerate}
+    \triqed
+\end{example}
+
+\begin{mytheorem}
+   [Transformed variable PDF of linear combination of random variables]    
+       Let $\rv{x}_{1}$ and $\rv{x}_{2}$ be jointly distributed random variables with joint PDF $\pdf{x_{1},x_{2}}$. The PDF of $\rv{y}=\rv{x}_{1} + \rv{x}_{2}$ is given by
+       \begin{align}
+           \pdf{y} &=
+           \int_{-\infty}^{\infty} \pdf{\lambda, y-\lambda} \dee \lambda.
+       \end{align}
+\end{mytheorem}
+\begin{mytheorem}
+   [Transformed variable PDF of linear combination of independent random variables]    
+       Let $\rv{x}_{1}$ and $\rv{x}_{2}$ be \emph{independent} random variables with marginal PDFs $\pdf{}_{1}(x_{1})$ and $\pdf{}_{2}(x_{2})$, respectively. Then, the PDF of $\rv{y}=\rv{x}_{1} + \rv{x}_{2}$ is given by
+       \begin{align}
+           \pdf{y} &=
+           \int_{-\infty}^{\infty} \pdf{}_{1}(\lambda)\pdf{}_{2}(y-\lambda)\dee\lambda\\
+           &= \pdf{}_{1}(y)\ast \pdf{}_{2}(y),
+       \end{align}
+       where $\ast$ denotes the convolution operator.
+\end{mytheorem}
+
+\subsection{Method of transformation}
+\subsubsection{Approach 1}
+\label{sec: MV method of transformation approach 1}
+\begin{myBlackBox}
+    Given the transformed random variable    
+    \begin{align}
+        \mbfrv{y} &= g(\mbfrv{x}),
+    \end{align}
+    where $\mbfrv{y}\in\rnums^{k}$ (i.g., $g:\rnums^{n}\to\rnums^{k}$) and given the PDF of the random variable $\mbfrv{x}$. For now, \textbf{assume $k=n$}. The distribution of $\mbfrv{y}$ is then found as follows.
+    \begin{enumerate}
+        \item For all $\mbf{y}$, solve the system of equations
+        \begin{align}
+            \mbf{y} &= g(\mbf{x})
+        \end{align}
+        for $\mbf{x}$. For a given $\mbf{y}$, the system has either
+        \begin{enumerate}
+            \item $m$ solutions
+            \begin{align}
+                \mbf{x}^{(1)}, \ldots, \mbf{x}^{(m)},
+            \end{align}
+            \item or no solutions.
+        \end{enumerate}
+        Note that the system will not have infinite solutions since it is assumed that $k=n$.
+        \item Evaluate the Jacobian of $g$
+        \begin{align}
+            J(\mbf{x})                         
+            &= \td{g(\mbf{x})}{\mbf{x}}.
+        \end{align}
+        \item Then, the PDF of $\mbfrv{y}$ is
+        \begin{align}
+            \pdf{\mbf{y}} &= 
+            \sum_{i=1}^{m} \f{\pdf{\mbf{x}^{(i)}}}{\abs{\operatorname{det}\left(J(\mbf{x}^{(i)})\right)}},
+        \end{align}
+        where $\operatorname{det}(\cdot)$ is the determinant of a square matrix and $\abs{\cdot}$ is the absolute value. \textbf{If for $\mbf{y}$ the system has no solution}, then 
+        \begin{align}
+            \pdf{\mbf{y}} &= \mbf{0}.
+        \end{align}
+    \end{enumerate}
+\end{myBlackBox}
+\subsubsection{Approach 2}
+\begin{myBlackBox}
+    Given the transformed random variable    
+    \begin{align}
+        \mbfrv{y} &= g(\mbfrv{x}),
+    \end{align}
+    where $\mbfrv{y}\in\rnums^{k}$ (i.g., $g:\rnums^{n}\to\rnums^{k}$) and given the PDF of the random variable $\mbf{x}$. For now, \textbf{assume $k=n$}. The distribution of $\mbfrv{y}$ is then found as follows.
+    \begin{enumerate}
+        \item Identical to in Step~1 of approach 1 (Section~\ref{sec: MV method of transformation approach 1}): for all $\mbf{y}$, solve the system of equations
+        \begin{align}
+            \mbf{y} &= g(\mbf{x})
+        \end{align}
+        for $\mbf{x}$. For a given $\mbf{y}$, the system has either
+        \begin{enumerate}
+            \item $m$ solutions
+            \begin{align}
+                \mbf{x}^{(1)}, \ldots, \mbf{x}^{(m)},
+            \end{align}
+            \item or no solutions.
+        \end{enumerate}
+        Note that the system will not have infinite solutions since it is assumed that $k=n$.
+        \item Evaluate the Jacobian 
+        \begin{align}
+            \tilde{J}_{i}(\mbf{y})           
+            &= \td{\mbf{x}^{(i)}}{\mbf{y}}\\
+            &= \bbm
+             \pd{{x}_{1}^{(i)}}{y_{1}} &\cdots &\pd{{x}_{1}^{(i)}}{y_{n}} \\
+                \vdots & & \vdots\\
+             \pd{{x}_{n}^{(i)}}{y_{1}} &\cdots &\pd{{x}_{n}^{(i)}}{y_{n}}
+             \ebm
+        \end{align}
+        for each solution $i=1,\ldots,m$.
+        \item Then, the PDF of $\mbfrv{y}$ is
+        \begin{align}
+            \pdf{y} &= 
+            \sum_{i=1}^{m} {\abs{\operatorname{det}\left(\tilde{J}_{i}(\mbf{x}^{(i)})\right)}}{\pdf{\mbf{x}^{(i)}}},
+        \end{align}
+        where $\operatorname{det}(\cdot)$ is the determinant of a square matrix and $\abs{\cdot}$ is the absolute value. \textbf{If for $\mbf{y}$ the system has no solution}, then 
+        \begin{align}
+            \pdf{\mbf{y}} &= \mbf{0}.
+        \end{align}
+    \end{enumerate}
+\end{myBlackBox}
+\begin{example}
+    Consider the transformed random variable $\mbfrv{y}$ given by
+    \begin{align}
+        \mbfrv{y} &= g(\mbfrv{x})\\
+        &= 
+        \bbm \rv{x}_{1}^{2} \\ \rv{x}_{1} + \rv{x}_{2} \ebm.
+    \end{align}
+    \begin{enumerate}
+        \item For all $\mbf{y}$ solve 
+        \begin{align}
+            \mbf{y} &= g(\mbf{x})\\
+            &= 
+            \bbm \rv{x}_{1}^{2} \\ \rv{x}_{1} + \rv{x}_{2} \ebm
+        \end{align}
+        for $\mbf{x}$.
+        \begin{enumerate}[label=Case~\Roman*]
+            \item ($y_{1}<0$): No solutions.
+            \item ($y_{1}=0$): One solution
+            \begin{align}
+                \mbf{x} &= \bbm 0\\ y_{2} \ebm.
+            \end{align}
+            \item $(y_{1}>0)$: two solutions:
+            \begin{align}
+                \mbf{x}^{(1)} &= \bbm \sqrt{y_{1}} \\ y_{2}-\sqrt{y_{1}} \ebm\\
+                \mbf{x}^{(2)} &= \bbm -\sqrt{y_{1}} \\ y_{2}+\sqrt{y_{1}} \ebm.
+            \end{align}
+        \end{enumerate}
+        \item For the $i$th solution (using approach 1):
+        \begin{align}
+            \det\left(J_{i}(\mbf{x})\right) &= \det\left(\td{g(\mbf{x})}{\mbf{x}}\right)\\
+            &= \det\left(\bbm 
+            \pd{x_{1}^{(i)}}{y_{1}} & \pd{x_{1}^{(i)}}{y_{2}} \\ 
+            \pd{x_{2}^{(i)}}{y_{1}} & \pd{x_{2}^{(i)}}{y_{2}}
+            \ebm\right)\\
+            &= \pd{x_{1}^{(i)}}{y_{1}}\pd{x_{2}^{(i)}}{y_{2}} - \pd{x_{2}^{(i)}}{y_{1}}\pd{x_{1}^{(i)}}{y_{2}}.
+        \end{align}
+        \begin{enumerate}[label=Case~\Roman*]
+            \item ($y_{1}<0$): no solutions.
+            \item ($y_{1}=0$): one solution:
+            \begin{align}
+                \det\left(J(\mbf{x})\right) &= 0.
+            \end{align}
+            \item ($y_{1}>0$): two solutions:
+            \begin{align}
+                J_{1}(\mbf{x}) &= \f{1}{2\sqrt{y_{1}}}\\
+                J_{2}(\mbf{x}) &= -\f{1}{2\sqrt{y_{1}}}.
+            \end{align}
+        \end{enumerate}
+        \item The JPDF of $\mbfrv{y}$ is then 
+        \begin{align}
+            \pdf{}_{\mbf{y}}(\mbf{y}) &= 
+            \sum_{i} \pdf{}_{\mbf{x}}(\mbf{x})\abs{\det\left(J_{i}\right)}
+        \end{align}
+        or $\pdf{}_{\mbf{y}}(\mbf{y})=\mbf{0}$ if there are no solutions.
+        \begin{align}
+            \pdf{}_{\mbf{y}}(\mbf{y}) &=
+            \pdf{}_{\mbf{x}^{(1)}}(\mbf{x})\abs{\det J_{1}} +
+            \pdf{}_{\mbf{x}^{(2)}}(\mbf{x})\abs{\det J_{2}}\\
+            &= \pdf{}_{\mbf{x}}(\sqrt{y_{1}}, y_{2}-\sqrt{y_{1}})\abs{\f{1}{2\sqrt{y_{1}}}} + 
+            \pdf{}_{\mbf{x}}(-\sqrt{y_{1}}, y_{2}+\sqrt{y_{1}})\abs{-\f{1}{2\sqrt{y_{1}}}}.
+        \end{align}
+    \end{enumerate}
+    \triqed
+\end{example}
+\begin{myBlackBox}
+    So far, in this method, we assumed that $k=n$. But if $k<n$, then follow the following steps.
+    \begin{enumerate}
+        \item Introduce $n-k$ ``dummy'' variables\footnote{I believe it's better if the introduced mapping is bijective.}:
+        \begin{align}
+            \rv{y}_{k+1} &= g_{k+1}(\mbfrv{x})\\
+            &\vdots \\
+            \rv{y}_{n} &= g_{n}(\mbfrv{x}).
+        \end{align}
+        \item Evaluate $\pdf{y_{1},\ldots,y_{k},\ldots,y_{n}}$ using the methods outlined before (now we have $k=n$).
+        \item Marginalize out $\rv{y}_{k+1},\ldots,\rv{y}_{n}$ to obtain $\pdf{\rv{y}_{1},\ldots,\rv{y}_{k}}$.
+    \end{enumerate}
+\end{myBlackBox}
+ 
+\subsection{Covariances of propagated random variables}
+Given a random variable $\mbfrv{x}\sim\mc{N}(\mbfbar{x},\mbs{\Sigma}_{x})$ and a deterministic function $\mbf{g}$, then an important parameter is the covariance on the transformed random variable
+\begin{align}
+    \mbfrv{y} &= \mbf{g}(\mbfrv{x}).
+\end{align}
+
+\subsection{Linear transformation}
+If $\mbf{g}(\mbf{x})=\mbf{A}\mbf{x}$ (i.e., $\mbf{g}$ is linear), then the covariance is \emph{exactly} given by
+\begin{align}
+    \expect{\mbfrv{y}} &= \mbf{A}\mbfbar{x},\\
+    \cov{\mbfrv{y}} &= \expect{\left(\mbfrv{y}-\mbfbar{y}\right)\left(\mbfrv{y}-\mbfbar{y}\right)^{\trans}}\\
+    &= \expect{\mbf{A}\left(\mbfrv{x}-\mbfbar{x}\right)\left(\mbf{A}(\mbfrv{x}-\mbfbar{x})\right)^{\trans}}\\
+    &= \mbf{A}\expect{\left(\mbfrv{x}-\mbfbar{x}\right)\left(\mbfrv{x}-\mbfbar{x}\right)^{\trans}}\mbf{A}^{\trans}\\
+    &= \mbf{A}\mbs{\Sigma}_{x}\mbf{A}^{\trans}.
+\end{align}
+
+%% Nonlinear transformation
+\subsection{Nonlinear transformation (covariance propagation)}
+For the nonlinear case, getting the exact transformed covariance is tedious and cumbersome. Therefore, tools that approximate the covariance are used that trade off between accuracy and computational efficiency. Most of the information from this section is obtained from \cite{gustafsson_nonlinear_2008}. Table~\ref{tab: summary transforms propagated covariances} summarizes the results.
+
+\begin{table}
+    \begin{small}
+        \begin{center}
+            \begin{tabular}[c]{|l|c|p{0.25\textwidth}|p{0.25\textwidth}|}
+                \hline
+                \textbf{Transform}   &   \textbf{Acronym}   & \textbf{Benefits} & \textbf{Drawbacks}\\
+                \hline
+                First order Taylor expansion & TT1 & Simple and fast to compute. & Inaccurate for highly nonlinear functions.\\
+                \hline
+                Second order Taylor expansion & TT2 & Better accuracy than TT1. & Requires computation of Hessian of the function.\\
+                \hline
+                Monte-Carlo simulation & MCT & Very accurate. & Requires many samples, thus computationally inefficient.\\
+                \hline
+                Unscented transform & UCT & Accuracy close to TT2 & Doesn't require second order information (Hessian).\\
+                \hline
+            \end{tabular}
+        \end{center}
+        \caption{Summary of transforms that approximate the covariances of propagated random variables.}
+        \label{tab: summary transforms propagated covariances}
+    \end{small}
+\end{table}
+
+\subsubsection{First order Taylor expansion}
+%% First order Taylor expansion transformation
+For a nonlinear transformation, a simple approximation is linearization. Thus, 
+\begin{align}
+    \mbfrv{y} &\approx \mbf{g}(\mbfbar{x}) + \mbf{g}'(\mbfbar{x})\delta\mbfrv{x}.
+\end{align}
+The random variable becomes $\delta\mbfrv{x}\sim\mc{N}(\mbfrv{x}-\mbfbar{x},\mbs{\Sigma}_{x})$. The covariance of $\mbfrv{y}$ is then given by
+\begin{align}
+    \expect{\mbfrv{y}} &= \mbf{g}(\mbfbar{x}),\\
+    \cov{\mbfrv{y}} 
+    &= \expect{\left(\mbfrv{y}-\mbfbar{y}\right)\left(\mbfrv{y}-\mbfbar{y}\right)^{\trans}}\\
+    &= \expect{\left(\mbfrv{y}-\mbf{g}(\mbfbar{x})\right)\left(\mbfrv{y}-\mbf{g}(\mbfbar{x})\right)^{\trans}}\\
+    &= \expect{\mbf{g}'(\mbfbar{x})\delta\mbfrv{x}\delta\mbfrv{x}^{\trans}\mbf{g}'(\mbfbar{x})^{\trans}}\\
+    &= \mbf{g}'(\mbfbar{x})\mbs{\Sigma}_{x}\mbf{g}'(\mbfbar{x})^{\trans}.
+\end{align}
+
+
+\subsubsection{Monte-Carlo simulation}
+Monte-Carlo simulation consists of simply sampling a \emph{large} number (say in the order of $N=10^{4}$) of the domain random variable $\mbfrv{x}$ and passing it through the nonlinear function $\mbf{g}$ to get a large number of samples of $\mbfrv{y}$, $\mbf{y}^{(i)}, i=1,\ldots,N$. The mean and covariance are then given by  
+\begin{align}
+    \mbfbar{y} &= \f{1}{N}\sum_{i=1}^{N}\mbf{y}^{(i)}, \\
+    \cov{\mbfbar{y}} &\approx \f{1}{N-1}\sum_{i=1}^{N}\left( \mbf{y}^{(i)}-\mbfbar{y} \right)\left( \mbf{y}^{(i)}-\mbfbar{y} \right)^{\trans},
+\end{align}
+where the $\f{1}{N-1}$ term is to ensure that the estimator is \emph{unbiased}.
+
+\subsubsection{Unscented transform}
+Let $n_{x}$ be the length of the domain random variable (i.e., $\mbfrv{x}\in\rnums^{n_{x}}$). Further, let $\mbf{u}_{i}\in\rnums^{n_{x}}$ be the left singular vector of the singular value $\sigma_{i}$ of the domain covariance matrix $\mbs{\Sigma}_{x}$. That is, 
+\begin{align}
+    \mbs{\Sigma}_{x} &= \mbf{U}\mbs{\Sigma}\mbf{U}^{\trans}\\
+    &= \sum_{i=1}^{n_{x}} \sigma_{i}^{2}\mbf{u}_{i}\mbf{u}_{i}^{\trans},
+\end{align}
+where $\mbs{\Sigma}$ is a diagonal matrix of the singular values.
+
+Let $\mbf{x}^{(i)}$ be the $i$-th realization of $\mbfrv{x}$. For this version of the unscented transform (UT), the number of realizations will be $2n_{x}+1$. Specifically, set
+\begin{align}
+    \mbf{x}^{(0)} &= \mbfbar{x}, \\
+    \mbf{x}^{(\pm i)} &= \mbfbar{x} \pm \sqrt{n_{x} + \lambda} \sigma_{i}\mbf{u}_{i}, \qquad i=1,\ldots,n_{x},
+\end{align}
+where $\lambda$ is a user-defined parameter to be discussed and $\mbfbar{x}$ is the mean of $\mbfrv{x}$ (in estimation problems, this is usually the predicted value). 
+Further, let 
+\begin{align}
+    \omega^{(0)} &= \f{\lambda}{n_{x} + \lambda}, \\
+    \omega^{(\pm i)} &= \f{1}{2(n_{x}+\lambda)}, \qquad i=1,\ldots,n_{x}.
+\end{align}
+Next, set
+\begin{align}
+    \mbf{y}^{(\pm i)} &= \mbf{g}(\mbf{x}^{(\pm i)}), i = 0, \ldots, n_{x}.
+\end{align}
+Then, the stats of the propagated random variable $\mbfrv{y}$ are
+\begin{align}
+    \mbfbar{y} &= \sum_{i=-n_{x}}^{n_{x}} \omega^{(i)}\mbf{y}^{(i)},\\
+    \label{eq:UT mod propagated covariance}
+    \mbs{\Sigma}_{y} &= \left( 1-\alpha^{2}+\beta\right)\left( \mbf{y}^{(0)}-\mbfbar{y} \right)\left( \mbf{y}^{(0)}-\mbfbar{y} \right)^{\trans} \\
+    &\qquad +\sum_{i=-n_{x}}^{n_{x}} \omega^{(i)}\left( \mbf{y}^{(i)}-\mbfbar{y} \right)\left( \mbf{y}^{(i)}-\mbfbar{y} \right)^{\trans},
+\end{align}
+where $\alpha$ and $\beta$ are user-defined parameters to be discussed. Further, $\omega^{(0)}+(1-\alpha^{2}+\beta)$ is often denoted $\omega^{(0)}_{c}$. The UT discussed above is the `mod' version of the UT. There is another version denoted `std' obtained by removing the first term in \eqref{eq:UT mod propagated covariance}. I have no idea about the differences between the `std' and `mod' versions.
+
+\subsubsection*{User-defined parameters}
+The authors of \cite{gustafsson_nonlinear_2008} discuss the values to set the user-defined parameters. 
+\begin{itemize}
+    \item $\alpha$ controls the spread of the sigma points and is suggested to be approximately $10^{-3}$.
+    \item $\beta$ compensates for the distribution (not really sure what that means), and should be chosen as $\beta=2$ when $\mbfrv{x}$ is Gaussian.
+    \item $\lambda$ is defined by $\lambda = \alpha^{2}\left( n_{x}+\kappa \right)-n_{x}$, where $\kappa$ is usually zero.
+    \item $\omega^{(0)} = 1 - \f{n_{x}}{3}$ for the `std' version of the UT when $\mbfrv{x}$ is Gaussian.
+\end{itemize}
+
+\subsubsection{Spherical cubature method}
+Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$, then the spherical cubature method\footnote{It's a type of a sigma-point transformation.} approximates the mean and the covariance of the transformed random variable $\mbfrv{y}=\mbf{g}(\mbfrv{x})$. The method is summarized in Algorithm~\ref{alg: spherical cubature}. More details are available in \cite{sarkka_bayesian_2013}
+
+
+\begin{algorithm}
+    \caption{Nonlinear transformation: The spherical cubature}
+    \label{alg: spherical cubature}
+    \begin{algorithmic}[1]
+        \State \textbf{Input}: The distribution on the random variable $\mbfrv{x}\sim\mc{N}\left( \mbs{\mu}_{x},\mbs{\Sigma}_{x} \right)$ where $\mbf{x}\in\rnums^{n_{x}}$, and the nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$.
+        \State Generate the unit sigma points using
+        \begin{align}
+            \mbs{\xi} &= \sqrt{n_{x}} \bbm \eye&-\eye \ebm\in\rnums^{n_{x} \times 2*n_{x}}.
+        \end{align}
+        \State Generate the sigma points
+        \begin{align}
+            \mc{X}^{(i)} &= \mbs{\mu}_{x} + \sqrt{\mbs{\Sigma}_{x}}\mbs{\xi}^{(i)}, \quad, i=1,\ldots, 2n_{x},
+        \end{align}
+        where $\mbs{\xi}^{(i)}\in\rnums^{n_{x}}$ is the $i$-th column of $\mbs{\xi}$.
+        \State Pass the sigma-points through the nonlinearity
+        \begin{align}
+            \mc{Y}^{(i)} &= \mbf{g}(\mc{X}^{(i)}), \quad i=1, \ldots, 2n_{x}.
+        \end{align}
+        \State Compute
+        \begin{align}
+            \mbs{\mu}_{y} &= \f{1}{2n_{x}}\sum_{i=1}^{2n_{x}}\mc{Y}^{(i)},\\
+            \mbs{\Sigma}_{y} &= \f{1}{2n_{x}}\sum_{i=1}^{2n_{x}}\left( \mc{Y}^(i)-\mbs{\mu}_{y} \right)\left( \mc{Y}^(i)-\mbs{\mu}_{y} \right)^{\trans}.
+        \end{align}
+    \end{algorithmic}
+\end{algorithm}
+
+
+
+
+\section{Statistics of random variables}
+\subsection{Order statistics}
+\begin{mydefinition}[Order statistics]
+    Let $\rv{x}_{1},\ldots,\rv{x}_{n}$ be i.i.d. random variables with marginal CDF and PDF $\cdf{\cdot}$ and $\pdf{\cdot}$, respectively. Consider the transformation
+    \begin{align}
+        \rv{x}_{(1)}&= \text{ smallest value of } (\rv{x}_{1},\ldots,\rv{x}_{n})\\
+        \rv{x}_{(2)}&= \text{ 2nd smallest value of } (\rv{x}_{1},\ldots,\rv{x}_{n})\\
+        &\quad\vdots\\
+        \rv{x}_{(n)}&= \text{ $n$th smallest (i.e., largest) value of} (\rv{x}_{1},\ldots,\rv{x}_{n}),
+    \end{align}
+    then $\rv{x}_{(1)},\ldots,\rv{x}_{(n)}$ are the \emph{order statistics} of $\rv{x}_{1},\ldots,\rv{x}_{n}$. Furthermore, $\rv{x}_{(k)}$ is the \emph{$k$th order statistic} of $\rv{x}_{1},\ldots,\rv{x}_{n}$.
+\end{mydefinition}
+
+\begin{mytheorem}
+   [CDF of order statistics]    
+    The CDF of the $k$th order statistic of $\rv{x}_{1},\ldots,\rv{x}_{n}$ is
+    \begin{align}
+        \cdf{}_{(k)}(x) &= \sum_{i=k}^{n} {n\choose i} \cdf{x}^{i}(1-\cdf{x})^{n-i}.
+    \end{align}
+\end{mytheorem}
+\subsection{Mean}
+\begin{mytheorem}
+   [Mean of a function]    
+    The \emph{mean} of a function $g: \rnums^{n}\to\rnums$ of the $n$ real random variables $\rv{x}_{1},\ldots,\rv{x}_{n}$ is given by 
+    \begin{align}
+        \expect{g(\mbf{x})} &= \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty}g(\mbf{x})\pdf{\mbf{x}}\dee\mbf{x},
+    \end{align}
+    where $\expect{\cdot}$ is the multidimensional expectation operator (Definition~\ref{def: SRV expectation operator}).
+\end{mytheorem}
+\begin{mytheorem}
+   [Mean of a function of complex random variables]    
+    Mean of a function $g: \rnums^{n}\to\rnums$ of the $n$ complex random variables $\rv{z}_{i}=\rv{x}_{i}+\jmath\rv{y}_{i}, i=1,\ldots,n$ is given by 
+    \begin{align}
+        \expect{g(\rv{z}_{1},\ldots,\rv{z}_{n})} &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty}g(x_{1}+\jmath y_{1},\ldots, x_{n}+\jmath y_{n})\pdf{x_{1},\ldots,x_{n},y_{1},\ldots,y_{n}}\dee\mbf{x}\dee\mbf{y},
+    \end{align}
+    where $\expect{\cdot}$ is the multidimensional expectation operator (Definition~\ref{def: SRV expectation operator}).
+\end{mytheorem}
+
+\begin{mydefinition}[Mean of a random vector]
+    The \emph{mean} of a random vector $\mbfrv{x} = \bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$ is defined as
+    \begin{align}
+        \expect{\mbfrv{x}} &= 
+        \bbm \expect{\rv{x}_{1}} & \cdots &   \expect{\rv{x}_{n}}\ebm^{\trans}.
+    \end{align}
+    Note that the mean of a random vector is also a vector of the same length. That is, $\expect{\mbfrv{x}}\in\rnums^{n}$.
+\end{mydefinition}
+
+\begin{mydefinition}[Mean of a random matrix]
+    Let 
+    \begin{align}
+        \mbfrv{X} &= 
+        \bbm \mbfrv{x}_{1}^{\trans}\\\vdots\\\mbfrv{x}_{m}^{\trans} \ebm_{m\times n},
+    \end{align}
+    be a random matrix, where $\mbfrv{x}_{i}\in\rnums^{n}, i=1,\ldots,m$. Then, the mean of $\mbfrv{X}$ is given by
+    \begin{align}
+        \expect{\mbfrv{X}} &=
+        \bbm \expect{\mbfrv{x}_{1}}^{\trans} \\ \vdots\\ \expect{\mbfrv{x}_{m}}^{\trans} \ebm.
+    \end{align}
+\end{mydefinition}
+
+\subsubsection*{Properties of the expectation operator}
+The expectation operator is linear. That is
+\begin{align}
+    \expect{\alpha_{1}g_{1}(\mbfrv{x}) + \ldots + \alpha_{m}g_{m}(\mbfrv{x})} &= 
+    \alpha_{1}\expect{g_{1}(\mbfrv{x})} + \ldots + \alpha_{m}\expect{g_{m}(\mbfrv{x})}
+\end{align}
+for any $\mbfrv{x}$ (real or complex) and any \emph{deterministic} $\alpha_{1},\ldots,\alpha_{m}$ (real or complex). As a result, 
+\begin{align}
+    \expect{\mbf{A}\mbfrv{x}} &= \mbf{A}\expect{\mbfrv{x}},
+\end{align}
+for any deterministic matrix $\mbf{A}$.
+
+\subsection{Covariance and correlation}
+\begin{mydefinition}[Correlation matrix]
+    The \emph{correlation matrix} of the (complex) random variable $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$ is defined as
+    \begin{align}
+        \mbf{R} &= \expect{\mbfrv{x}\mbfrv{x}^{\herm}},
+    \end{align}
+    where $(\cdot)^{\herm}$ is the Hermitian\footnote{Hermitian: $\mbf{x}^{\herm}=\left(\mbf{x}^{\ast}\right)^{\trans}=\left(\mbf{x}^{\trans}\right)^{\ast}$.} of a vector. The $(i,j)$th element of $\mbf{R}$ is the correlation of $\rv{x}_{i}$ and $\rv{x}_{j}$.
+\end{mydefinition}
+
+\begin{mydefinition}[Covariance matrix]
+   The \emph{covariance matrix} of the random vector $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$ is 
+   \begin{align}
+       \mbf{C} &= \expect{\left(\mbfrv{x}-\expect{\mbfrv{x}}\right)\left(\mbfrv{x}-\expect{\mbfrv{x}}\right)^{\herm}}.
+   \end{align}
+   The $(i,j)$th element of $\mbf{C}$ is the covariance of $\rv{x}_{i}$ and $\rv{x}_{j}$. That is, 
+   \begin{align}
+       C_{ij} = \expect{\left(\rv{x}_{i}-\expect{\rv{x}_{i}}\right)\left(\rv{x}_{j}-\expect{\rv{x}_{j}}\right)^{\ast}}.
+   \end{align}
+   The covariance matrix $\mbf{C}$ of $\mbfrv{x}$ is equal to the correlation matrix of the ``centered'' random vector $\mbfrv{x}-\expect{\mbfrv{x}}$.
+\end{mydefinition}
+
+\begin{mydefinition}[Mutually orthogonal random variables]
+    The random variables $\stringRVs{x}{n}$ are called \emph{mutually orthogonal} if the correlation matrix $\mbf{R}$ is diagonal. That is, $R_{ij}=0, i\neq j$.
+\end{mydefinition}
+\begin{mydefinition}[Mutually uncorrelated random variables]
+    The random variables $\stringRVs{x}{n}$ are called \emph{mutually uncorrelated} if the covariance matrix $\mbf{C}$ is diagonal. That is, $C_{ij}=0, i\neq j$.
+\end{mydefinition}
+
+\begin{myBlueBox}
+    \textbf{Notes:} If the random variables $\stringRVs{x}{n}$ are independent then they are uncorrelated. The converse is not true in general.
+\end{myBlueBox}
+
+\begin{mydefinition}[Uncorrelated random vectors]
+    Two random vectors $\mbfrv{x}$ and $\mbfrv{y}$  are called \emph{uncorrelated} if 
+    \begin{align}
+        \expect{\left(\mbfrv{x}-\expect{\mbfrv{x}}\right)\left(\mbfrv{y}-\expect{\mbfrv{y}}\right)^{\herm}}=\mbf{0}.
+    \end{align}
+    Or equivalently
+    \begin{align}
+        \expect{\mbfrv{x}\mbfrv{y}^{\herm}} &= \expect{\mbfrv{x}}\expect{\mbfrv{y}}^{\herm}.
+    \end{align}
+\end{mydefinition}
+\begin{mydefinition}[Orthogonal random vectors]
+    Two random vectors $\mbfrv{x}$ and $\mbfrv{y}$ are called orthogonal if 
+    \begin{align}
+        \expect{\mbfrv{x}\mbfrv{y}^{\herm}} &= \mbf{0}.
+    \end{align}
+\end{mydefinition}
+
+\subsubsection*{Properties}
+\begin{enumerate}
+    \item Relationship between the correlation and covariance matrix
+    \begin{align}
+        \mbf{C} &= \mbf{R} - \expect{\mbfrv{x}}\expect{\mbfrv{x}}^{\herm}\\
+        &= \expect{\mbfrv{x}\mbfrv{x}^{\herm}} - \expect{\mbfrv{x}}\expect{\mbfrv{x}}^{\herm}.
+    \end{align}
+    \item The correlation and covariance matrix are positive semidefinite matrices.
+    \begin{proof}
+        For any vector $\mbf{a}$, 
+        \begin{align}
+            \mbf{a}^{\herm}\mbf{R}\mbf{a} &= \mbf{a}^{\herm}\expect{\mbfrv{x}\mbfrv{x}^{\herm}}\mbf{a}\\
+            &= \expect{\left(\mbf{a}^{\herm}\mbfrv{x}\right)\left(\mbf{a}^{\herm}\mbfrv{x}\right)^{\herm}}\\
+            &= \expect{\abs{\mbf{a}^{\herm}\mbfrv{x}}^{2}}\\
+            &\geq 0.
+        \end{align}
+    \end{proof}
+    \item The eigenvalues of the correlation and covariance matrix are real and non-negative.
+\end{enumerate}
+
+\begin{mytheorem}       
+       If $\mbf{R}$ is the correlation matrix of the $n$-dimensional random vector $\mbfrv{x}$. Then,
+       \begin{align}
+           \expect{\mbfrv{x}^{\herm}\mbf{R}\inv\mbfrv{x}} &= n.
+       \end{align}
+\end{mytheorem}
+\begin{proof}
+    Since $\mbfrv{x}^{\herm}\mbf{R}\inv\mbfrv{x}$ is a scalar, we have
+    \begin{align}
+        \expect{\mbfrv{x}^{\herm}\mbf{R}\inv\mbfrv{x}} &= \expect{\trace\left(\mbfrv{x}^{\herm}\mbf{R}\inv\mbfrv{x}\right)}\\
+        &= \expect{\trace\left(\mbfrv{x}\mbfrv{x}^{\herm}\mbf{R}\inv\right)}\\
+        &= \trace\expect{\mbfrv{x}\mbfrv{x}^{\herm}\mbf{R}\inv}\\
+        &= \trace\left(\expect{\mbfrv{x}\mbfrv{x}^{\herm}}\mbf{R}\inv\right)\\
+        &= \trace\left(\mbf{R}\mbf{R}\inv\right)\\
+        &= \trace{\eye}\\
+        &= n.
+    \end{align}
+\end{proof}
+
+\section{Moments and characteristic functions}
+
+\begin{mydefinition}[Moments of random vectors]
+    Consider the random variables $\stringRVs{x}{N}$ and $n_{i}=0,1,\ldots$.
+    \begin{itemize}
+        \item The $(n_{1},n_{2},\ldots,n_{N})$th \emph{moment} of $\rv{x}_{1},\ldots,\rv{x}_{N}$ is
+        \begin{align}
+            \expect{\rv{x}_{1}^{n_{1}}\cdots\rv{x}_{N}^{n_{N}}}.
+        \end{align}
+        Example ($N=3$): (2,3,1)th moment is $\expect{\rv{x}_{1}^{2}\cdot\rv{x}_{2}^{3}\cdot\rv{x}_{3}^{1}}$.
+        \item The $(n_{1},\ldots,n_{N})$th \emph{central moment} of $\stringRVs{x}{N}$ is
+        \begin{align}
+            \expect{(\rv{x}_{1}-\expect{\rv{x}_{1}})^{n_{1}}\cdots(\rv{x}_{N}-\expect{\rv{x}_{N}})^{n_{N}}}.
+        \end{align}
+        \item The $(n_{1},\ldots,n_{N})$th \emph{absolute moment} of $\stringRVs{x}{N}$ is
+        \begin{align}
+            \expect{\abs{\rv{x}_{1}}^{n_{1}}\cdots\abs{\rv{x}_{N}}^{n_{N}}}.
+        \end{align}
+    \end{itemize}
+\end{mydefinition}
+
+\begin{mydefinition}[Characteristic function]
+    The \emph{characteristic function} of a random vector $\mbfrv{x}$ is defined as  
+    \begin{align}
+        \Phi_{\mbf{x}}(\Omega) &= \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} e^{\jmath(\omega_{1}x_{1}+\ldots+\omega_{N}x_{N})}\pdf{x_{1},\ldots,x_{N}}\dee x_{1}\cdots\dee x_{N}\\
+         &= \expect{e^{\jmath\Omega^{\trans}\mbfrv{x}}}
+    \end{align}
+    where $\Omega = \bbm \omega_{1}&\cdots&\omega_{N} \ebm^{\trans}\in\rnums^{N}$ and $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{N} \ebm^{\trans}$. The inverse relation is given by
+    \begin{align}
+        \pdf{x_{1},\ldots,x_{N}} &= \f{1}{(2\pi)^{N}}\int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty}\Phi_{\mbf{x}}(\Omega)e^{-\jmath(\omega_{1}x_{1}+\ldots+\omega_{N}x_{N})}\dee\omega_{1}\cdots\dee\omega_{N}.
+    \end{align}
+
+    Note that it looks similar to the Fourier transform of the PDF but it's not exactly the same because of the sign in the exponential.
+\end{mydefinition}
+
+
+\begin{mydefinition}[Moment generating function]
+    The \emph{moment generating function} of a random vector $mbfrv{x}$ is defined as
+    \begin{align}
+        \var{\Phi}_{\mbf{x}}(\mbf{s}) &= \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} e^{s_{1}x_{1}+\ldots+s_{N}x_{N}}\pdf{x_{1},\ldots,x_{N}}\dee x_{1}\cdots\dee x_{N}\\
+        &= \expect{e^{\mbf{s}^{\trans}\mbfrv{x}}}
+    \end{align}
+    where
+    \begin{align}
+        \mbf{s} = \bbm s_{1} & \cdots & s_{N} \ebm^{\trans}.
+    \end{align}
+\end{mydefinition}
+
+
+
+\begin{mytheorem}
+   [Characteristic functions]    
+       The ($n_{1},\ldots,n_{N})$th \emph{moment} of $\mbfrv{x}$ is given by
+       \begin{align}
+           m_{n_{1},\ldots,n_{N}} 
+           &= \expect{\rv{x}_{1}^{n_{1}\cdots\rv{x}_{N}^{n_{N}}}}\\
+           &= \left.\f{\partial^{n_{1}+\cdots+n_{N}}}{\partial s_{1}^{n_{1}}\cdots\partial s_{N}^{n_{N}}}\bar{\Phi}_{\mbf{x}}(\mbf{s})\right|_{s_{1}=\cdots=s_{N}=0}\\
+           &=\f{1}{\jmath^{n_{1}+\cdots+n_{N}}} \left.\f{\partial^{n_{1}+\cdots+n_{N}}}{\partial \omega_{1}^{n_{1}}\cdots\partial \omega_{N}^{n_{N}}}\bar{\Phi}_{\mbf{x}}(\Omega)\right|_{\omega_{1}=\cdots=\omega_{N}=0}.
+       \end{align}
+\end{mytheorem}
+
+
+\begin{mytheorem}
+   [PDF of independent random variables]    
+       Let $\stringRVs{x}{n}$ be independent random variables with marginal PDFs $\pdf{}_{i}(x), i=1,\ldots,n$, respectively. The PDF of $\rv{y}=\rv{x}_{1} + \cdots + \rv{x}_{n}$ is
+       \begin{align}
+           \pdf{}_{y}(y) &= \pdf{}_{1}(y)\ast\cdots\ast\pdf{}_{n}(y),
+       \end{align}
+       where $\ast$ denotes the convolution.
+\end{mytheorem}
+
+
+
+\section{Conditional distributions}
+Similar to the single random variable definition of conditional distributions (Definition~\ref{def:SRV conitional distributions}), the following are extensions for such definitions to the multivariate case.
+
+\begin{mydefinition}[CDF of continuous RV conditioned on discrete RV]
+    Let $\rv{x}$ and $\rv{y}$ be two random variables with $\rv{x}$ \emph{discrete}. The \emph{conditional CDF of $\rv{y}$ given $\rv{x}=x$} is defined as
+    \begin{align}
+        \cdf{y\middle|~\rv{x}=x} &= \prob{\rv{y}\leq y\middle|~ \rv{x}=x}.
+    \end{align}
+\end{mydefinition}
+\begin{myremark}
+    Some remarks about CDFs.
+    \begin{itemize}
+        \item Conditions: $\pmf{x}=\prob{\rv{x}=x}\neq0$.
+        \item Notation: $\cdf{y\middle|~\rv{x}=x}\to\cdf{}_{y|x}(y|x)$, or $\cdf{y|x}$.
+    \end{itemize}
+\end{myremark}
+
+
+\begin{mydefinition}[PMF of discrete RV conditioned a discrete RV] 
+    Let $\rv{x}$ and $\rv{y}$ be two joint discrete random variables. The \emph{conditional PMF of $\rv{y}$ given $\rv{x}=x$} is defined as
+    \begin{align}
+        \pmf{y\middle|~\rv{x}=x} &= \prob{\rv{y}=y\middle|~\rv{x}=x}\\
+        &= \f{\pmf{}_{xy}(x,y)}{\pmf{}_{x}(x)}.
+    \end{align}
+    Notation: $\pmf{y\middle|~\rv{x}=x}\to\pmf{}_{y|x}(y|x)$, or $\pmf{y|x}$.
+\end{mydefinition}
+
+\begin{mydefinition}[PDF of continuous RV conditioned on continuous RV]
+    Let $\rv{x}$ and $\rv{y}$ be two jointly continuous random variables. The \emph{conditional PDF of $\rv{y}$ given $\rv{x}=x$} is defined as
+    \begin{align}
+        \pdf{y\middle|~\rv{x}=x} &= \f{\pdf{}_{xy}(x,y)}{\pdf{}_{x}(x)}.
+    \end{align}
+\end{mydefinition}
+\begin{myremark}
+    Some remarks about PDFs.
+    \begin{itemize}
+        \item Note: if $\rv{x}$ is continuous, then $\prob{\rv{x}=x}=0$. Therefore, it is not possible to use a PDF definition similar to that of a PMF.
+        \item Notation: $\pdf{y\middle|~\rv{x}=x}\to\pdf{}_{y|x}(y|x)$, or $\pdf{y|x}$.
+    \end{itemize}
+\end{myremark}
+
+\begin{mydefinition}[CDF of continous RV conditioned on continuous RV]
+    Let $\rv{x}$, $\rv{y}$ be two jointly continuous random variables. The \emph{conditional CDF of $\rv{y}$ given $\rv{x}=x$} is defined as
+    \begin{align}
+        \cdf{y\middle|~\rv{x}=x}=\int_{-\infty}^{y}\pdf{}_{y|x}(\lambda|x)\dee\lambda.
+    \end{align}
+    \begin{itemize}
+        \item Notation: $\cdf{y|\rv{x}=x}\to\cdf{}_{y|x}(y|x)$, or $\cdf{y|x}$.
+    \end{itemize}
+\end{mydefinition}
+\begin{myremark}
+    Some remarks about CDFs.
+    \begin{enumerate}
+        \item Note that the conditional CDF is derived from the conditional PDF, rather than the other way around (deriving PDF from CDF as was done in the unconditional case).
+        \item For a given $x$, $\pdf{y|x}$ is a valid PDF. That is,
+        \begin{enumerate}
+            \item $\pdf{y|x}\geq0$
+            \item $\int_{-\infty}^{\infty}\pdf{y|x}\dee y=1$.
+        \end{enumerate}
+        \item $\pdf{x|y}=\f{\pdf{x,y}}{\pdf{y}}=\f{\pdf{y|x}\pdf{x}}{\pdf{y}}$.
+        \item If $\rv{x}$ and $\rv{y}$ are independent, then $\pdf{x,y}=\pdf{x}\pdf{y}$. Therefore,
+        \begin{align}
+            \pdf{y|x} &= \pdf{y},\\
+            \pdf{x|y} &= \pdf{x}.
+        \end{align}
+    \end{enumerate}
+\end{myremark}
+
+
+
+\begin{mydefinition}[Multivaraite conditional PDF]
+    The \emph{multivariate conditional PDF} of $\rv{x}_{n},\ldots,\rv{x}_{k+1}$ given $\rv{k}=x_{k}, \ldots,\rv{x}_{1}=x_{1}$ is
+    \begin{align}
+        \pdf{x_{N},\ldots,x_{k+1}\middle|~ x_{k},\ldots,x_{1}} &= 
+        \f{
+            \pdf{x_{n},\ldots,x_{k+1},x_{k},\ldots,x_{1}}
+            }{
+                \pdf{x_{k},\ldots,x_{1}}
+                }
+            \end{align} 
+        \end{mydefinition}
+
+\begin{mydefinition}[Multivariate conditional CDF]
+    The \emph{multivariate conditional CDF} of $\rv{x}_{n},\ldots,\rv{x}_{k+1}$ given $\rv{k}=x_{k}, \ldots,\rv{x}_{1}=x_{1}$ is
+    \begin{align}
+        \cdf{x_{N},\ldots,x_{k+1}\middle|~ x_{k},\ldots,x_{1}} &= \\
+        \int_{-\infty}^{x_{n}}\cdots\int_{-\infty}^{x_{k+1}} &\pdf{}_{x_{n},\ldots,x_{k+1}|x_{k},\ldots,x_{1}}(\lambda_{n},\ldots,\lambda_{k+1}|~x_{k},\ldots,x_{1})\dee\lambda_{n}\cdots\dee\lambda_{k+1}.
+    \end{align} 
+\end{mydefinition}
+
+\subsection{Properties of conditional probability}
+\begin{enumerate}
+    
+    \item \textbf{Total probability}: 
+    \begin{align}
+        \pdf{y} &= \int_{-\infty}^{\infty}\pdf{y|x}\pdf{x}\dee x.
+    \end{align}
+    
+    \item \textbf{Bayes Theorem}:
+    \begin{align}
+        \pdf{x|y} &= \f{\pdf{y|x}\pdf{x}}{\int_{-\infty}^{\infty}\pdf{y|x}\pdf{x}\dee x}.
+    \end{align}
+
+    \item \textbf{Chain rule}: 
+    \begin{align}
+        \pdf{x_{1},\ldots,x_{n}} &= \pdf{x_{n}|x_{n-1},\ldots,x_{1}}\cdots\pdf{x_{3}|x_{2},x_{1}}\pdf{x_{2}|x_{1}}\pdf{x_{1}}.
+    \end{align}
+
+    \item \textbf{Marginalization}: Removing any number of variables on the left of the conditional line can be done by integrating the PDF with respect to them. For example,
+    \begin{align}
+        \pdf{\mbf{x}_{1}\middle|~\mbf{x}_{3}} &= \int_{\infty}^{\infty}\pdf{\mbf{x}_{1},\mbf{x}_{2}\middle|~\mbf{x}_{3}}\dee\mbf{x}_{2}.
+    \end{align}
+    % 
+    % \begin{align}
+    %     \pdf{x_{1}|x_{3}} &= \int_{-\infty}^{\infty}\pdf{x_{1},x_{2}\middle|~x_{3}}\dee x_{2}.
+    % \end{align}
+
+    \item \textbf{Chapman-Kolmogoroff equation}: Removing any number of variables to the right of the conditional line can be done by multiplying ty their conditional density given the remaining variables on the right, and then integrating the product. That is,
+    \begin{align}
+        \pdf{\mbf{x}_{1}\middle|~\mbf{x}_{3}} 
+        % &= \int_{-\infty}^{\infty}\pdf{\mbf{x}_{1}, \mbf{x}_{2}\middle|~\mbf{x}_{3}}\dee\mbf{x}_{2}\\
+        &= \int_{-\infty}^{\infty}\pdf{\mbf{x}_{1}\middle|~\mbf{x}_{2},\mbf{x}_{3}}\pdf{\mbf{x}_{2}\middle|~\mbf{x}_{3}}\dee\mbf{x}_{2}.
+    \end{align}
+\end{enumerate}
+
+
+\subsection{Conditional covariance}
+These equations are obtained from \cite[Eq.~(2.53b)]{barfoot_state_2017}.
+
+Given a the random variable 
+\begin{align}
+    \mbfrv{x}=\bbm \mbfrv{x}_{1}\\\mbfrv{x}_{2} \ebm\sim\mc{N}\left( \mbfbar{x},\mbs{\Sigma} \right),
+\end{align}
+where
+\begin{align}
+    \mbfbar{x} &= \bbm \mbfbar{x}_{1}\\\mbfbar{x}_{2} \ebm,\\
+    \mbs{\Sigma} &= 
+    \bbm
+        \mbs{\Sigma}_{11} & \mbs{\Sigma}_{12}\\
+        \mbs{\Sigma}_{12}^{\trans} & \mbs{\Sigma}_{22}
+    \ebm.
+\end{align}
+Then, what is the distribution of $\mbfrv{x}_{1}$ given $\mbfrv{x}_{2}=\mbfhat{x}_{2}$?
+
+The Schur's compliment can be used to compute this value. Specifically, 
+\begin{align}
+    \expect{\mbfrv{x}_{1}\middle|\mbfrv{x}_{2}=\mbfhat{x}_{2}} 
+    &= \mbfbar{x}_{1} + \mbs{\Sigma}_{12}\mbs{\Sigma}_{22}\inv\left( \mbfhat{x}_{2}-\mbfbar{x}_{2} \right), \\
+    \cov{\mbfrv{x}_{1}\middle|\mbfrv{x}_{2}=\mbfhat{x}_{2}} &= \mbs{\Sigma}_{11} - \mbs{\Sigma}_{12}\mbs{\Sigma}_{22}\inv\mbs{\Sigma}_{12}^{\trans}.
+\end{align}
+
+
+
+\section{Conditional expectation and variance}
+\begin{mydefinition}[Conditional mean]
+    Given $n$ random variables $\stringRVs{x}{n}$, the \emph{conditional mean} of the random variable $h(\rv{x}_{1},\ldots,\rv{x}_{k})$ conditioned on $\rv{x}_{k+1},\ldots,\rv{x}_{n}$ is
+    \begin{align}
+        \expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})\middle|~x_{k+1},\ldots,x_{n}}
+        = \\ \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty}&h(x_{1},\ldots,x_{k})\pdf{x_{1},\ldots,x_{k}\middle|~x_{k+1},\ldots,x_{n}}\dee x_{1}\cdots \dee x_{k}.
+    \end{align}
+\end{mydefinition}
+
+\begin{myremark}
+    Some remarks about conditional means.
+    \begin{itemize}
+        \item Special case: 
+        \begin{align}
+            \expect{\rv{x}_{1}\middle|~x_{2},\ldots,x_{n}} &= \int_{-\infty}^{\infty}x_{1}\pdf{x_{1}\middle|~x_{2},\ldots,x_{n}}\dee x_{1}.
+        \end{align}
+        \item If $\rv{x}_{1},\ldots,\rv{x}_{n}$ are independent of $\rv{x}_{k+1},\ldots,\rv{x}_{n}$, then
+        \begin{align}
+            \expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})\middle|~ x_{k+1},\ldots, x_{n}} &= \expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})}.
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\begin{mytheorem}
+   [Nested expectation]    
+    Let $\rv{x}$, $\rv{y}$ be two jointly distributed RVs. Further, let        
+    \begin{align}
+        g(y) &= \expect{\rv{x}\middle|~\rv{y}=y} \\
+        &= \int_{-\infty}^{\infty} x\pdf{x|y}\dee x.
+    \end{align}        
+    Then
+    \begin{align}
+        \expect{g(\rv{y})} &= \expect{\rv{x}}.
+    \end{align}
+    In other words,
+    \begin{align}
+        \mbb{E}_{y}\left[\mbb{E}_{x|y}\left[\rv{x}\middle|~\rv{y}\right]\right] &\to \expect{\expect{\rv{x}\middle|~\rv{y}}}\\
+        &= \expect{\rv{x}}.
+    \end{align}
+\end{mytheorem}
+
+\begin{proof}
+    \begin{align}
+        \expect{g(\rv{y})} &= \int_{-\infty}^{\infty}g(y)\pdf{y}\dee y\\
+        &= \int_{-\infty}^{\infty}\expect{\rv{x}\middle|~y}\pdf{y}\dee y\\
+        &= \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}x\pdf{x|y}\pdf{y}\dee x\dee y\\
+        &= \int_{-\infty}^{\infty}x\int_{-\infty}^{\infty}\pdf{x,y}\dee y \dee x\\
+        &= \int_{-\infty}^{\infty}x\pdf{x}\dee x\\
+        &= \expect{\rv{x}}.
+    \end{align}
+\end{proof}
+
+\begin{mytheorem}
+   [Multivariate nested expectation]    
+    Let $\rv{x}_{1},\ldots,\rv{x}_{n}$ be $n$ random variables. Also, let          
+    \begin{align}
+        g(x_{2},\ldots,x_{n}) &= \expect{\rv{x}_{1}\middle|~ x_{2},\ldots,x_{n}}.
+    \end{align}
+    Then,
+    \begin{align}
+        \expect{g(\rv{x}_{2},\ldots,\rv{x}_{n})} &= \expect{\rv{x}_{1}}.
+    \end{align}
+    Notation: 
+    \begin{align}
+        \mbb{E}_{x_{2},\ldots,x_{n}}\left[\mbb{E}_{x_{1}|x_{2},\ldots,x_{n}}\left[\rv{x}_{1}\middle|~\rv{x}_{2},\ldots,\rv{x}_{n}\right]\right]\to\expect{\expect{\rv{x}_{1}\middle|~\rv{x}_{2},\ldots,\rv{x}_{n}}}.
+    \end{align}
+\end{mytheorem}
+
+\begin{mytheorem}
+   [Multivariate nested expectation: general case]      
+    Let $\stringRVs{x}{n}$ be $n$ random variables and $h:\rnums^{k}\to\rnums$. Also, let       
+    \begin{align}
+        g(x_{k+1},\ldots,x_{n}) &= \expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})\middle|~x_{k+1},\ldots,x_{n}}.
+    \end{align}
+    Then,
+    \begin{align}
+        \expect{g(\rv{x}_{k+1},\ldots,\rv{x}_{n})} &= 
+        \expect{\expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})\middle|~ \rv{x}_{k+1},\ldots,\rv{x}_{n}}}\\
+        &= \expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})}.
+    \end{align}
+\end{mytheorem}
+
+\begin{mydefinition}[Conditional variance]
+    Let $\rv{x}$, $\rv{y}$ be two random variables. Then the \emph{conditional variance of $\rv{x}$ given $\rv{y}=y$} is
+    \begin{align}
+        \var{\rv{x}\middle|~\rv{y}=y} &= \expect{\left(\rv{x}-\expect{\rv{x}\middle|~\rv{y}=y}\right)^{2}\middle|~ \rv{y}=y}.
+    \end{align}
+\end{mydefinition}
+\subsection{Properties of conditional variance}
+\begin{enumerate}
+    \item $\var{\rv{x}\middle|~\rv{y}=y}=\expect{\rv{x}^{2}\middle|~\rv{y}=y}-\expect{\rv{x}\middle|~\rv{y}=y}^{2}.$
+    \item $\var{\rv{x}\middle|~\rv{y}=y}$ is a function of $y$.
+    \item $g(\rv{y})=\var{\rv{x}\middle|~\rv{y}}$ is a random variable.
+\end{enumerate}
+
+\begin{mytheorem}
+   [Nested conditional variance]    
+    Let $\rv{x}$, $\rv{y}$ be two random variables. Then       
+    \begin{align}
+        \var{\rv{x}} &= \expect{\var{\rv{x}\middle|~\rv{y}}}+\var{\expect{\rv{x}\middle|~\rv{y}}}.
+    \end{align}
+\end{mytheorem}
+\begin{proof}
+    \begin{align}
+        \expect{\var{\rv{x}\middle|~\rv{y}}} &= \expect{\expect{\rv{x}^{2}\middle|~\rv{y}}-\expect{\rv{x}\middle|~\rv{y}}^{2}}\\
+        &= \expect{\expect{\rv{x}^{2}\middle|~\rv{y}}}-\expect{\expect{\rv{x}\middle|~\rv{y}}^{2}}\\
+        &= \expect{\rv{x}^{2}}-\expect{\expect{\rv{x}\middle|~\rv{y}}^{2}}.
+    \end{align}
+    Further, 
+    \begin{align}
+        \var{\expect{\rv{x}\middle|~\rv{y}}} &= \expect{\expect{\rv{x}\middle|~\rv{y}}^{2}} - \expect{\expect{\rv{x}\middle|~\rv{y}}^{2}}\\
+        &= \expect{\expect{\rv{x}\middle|~\rv{y}}^{2}} - \expect{\rv{x}}^{2}.
+    \end{align}
+    Adding these two results proves the theorem.
+\end{proof}

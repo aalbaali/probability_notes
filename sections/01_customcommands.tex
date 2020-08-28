@@ -1,0 +1,377 @@
+
+
+% Custom commands
+\newcommand{\ignore}[1]{}
+\newcommand{\etal}[0]{{\em et~al.\@}\xspace}
+\newcommand{\Eg}[0]{{E.g.\@}\xspace}
+\newcommand{\eg}[0]{{e.g.\@}\xspace}
+\newcommand{I.e.,}[0]{{I.e.\@}\xspace}
+\newcommand{\ie}[0]{{i.e.\@}\xspace}
+\newcommand{\colour}[2]{\color{#1}{#2}\color{black}\xspace} % : red, green, blue, cyan, magenta, yellow, black, gray, white, darkgray, lightgray, brown, lime, olive, orange, pink, purple, teal, violet.
+\newcommand{\thline}{\begin{center} \rule{\linewidth}{0.5mm} \\ \end{center}}
+\newcommand{\wrt}{w.r.t.\xspace}
+
+%% Operators
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert} % Norm
+\newcommand{\abs}[1]{\left\vert#1\right\vert} % Absolute value
+\newcommand{\pd}[2]{{\frac{\partial #1}{\partial #2}}} % Partial derivative
+\newcommand{\mc}[1]{\mathcal{#1}}  
+
+
+
+%% Matrix shortcuts
+\newcommand{\bbm}{\begin{bmatrix}}
+\newcommand{\ebm}{\end{bmatrix}}
+\newcommand{\bma}[1]{\left[\begin{array}{#1}}
+\newcommand{\ema}{\end{array}\right]}
+
+% Basic bold for letters and symbols
+\DeclareMathAlphabet{\mbf}{OT1}{ptm}{b}{n}
+\newcommand{\mbs}[1]{{\boldsymbol{#1}}}
+\newcommand{\mbm}[1]{ \textbf{\textit{#1}} } % {\bm #1}
+\newcommand{\mbc}[1]{ \boldsymbol{\mathcal{#1}} } 
+
+% helper bold symbols
+\newcommand{\mbsdot}[1]{{\dot{\boldsymbol{#1}}}}
+\newcommand{\mbsbar}[1]{{\bar{\boldsymbol{#1}}}}
+\newcommand{\mbshat}[1]{{\hat{\boldsymbol{#1}}}}
+\newcommand{\mbsvec}[1]{{\underrightarrow{\boldsymbol{#1}}}}
+\newcommand{\mbsdel}[1]{{\delta {\boldsymbol{#1}}}}
+\newcommand{\mbstilde}[1]{{\tilde{\boldsymbol{#1}}}}
+\newcommand{\mbfdot}[1]{{\dot{\mbf{#1}}}}
+\newcommand{\mbfbar}[1]{{\bar{\mbf{#1}}}}
+\newcommand{\mbfhat}[1]{{\hat{\mbf{#1}}}}
+\newcommand{\mbfvec}[1]{{\underrightarrow{\mbf{#1}}}}
+\newcommand{\mbfdel}[1]{{\delta{\mbf{#1}}}}
+\newcommand{\mbftilde}[1]{{\tilde{\mbf{#1}}}}
+
+% A reference frame definition
+\newcommand{\rframe}[1]{{\ensuremath \underrightarrow{\mathcal{F}}_{#1}}}
+\newcommand{\vectrix}[1]{\ensuremath \underrightarrow{\boldsymbol{\mathcal{F}}}_{#1}}
+\newcommand{\nvectrix}{{\ensuremath{\underrightarrow{\boldsymbol{\mathcal{O}}}}}}
+%\def\dota{{\raisebox{-2pt}{\LARGE $\cdot$}}}
+%\def\dotb{{\raisebox{-0.6ex}{ \kern0.2ex\raisebox{0.8ex}{\tiny $\circ$}}}}
+%\def\ddota{{\raisebox{-0.6ex}{ \raise0.2ex\hbox{ \LARGE $\cdot\hspace*{-0.2ex}\cdot$}}}}
+%\def\ddotb{{\raisebox{-0.6ex}{ \kern0.2ex\raisebox{0.8ex}{\tiny $\circ\circ$}}}}
+\def\fdota{{\raisebox{-2pt}{\LARGE $\cdot$}}}
+% \def\fdotb{{\raisebox{-0.6ex}{ \kern0.2ex\raisebox{0.8ex}{\tiny $\circ$}}}}
+\def\fdotb{{\raisebox{-0.6ex}{ \kern0.2ex\raisebox{0.8ex}{\tiny $\hspace*{-1ex}\circ$}}}}
+% \def\fddota{{\raisebox{-0.6ex}{ \raise0.2ex\hbox{ \LARGE $\cdot\hspace*{-0.2ex}\cdot$}}}}
+\def\fddota{{\raisebox{-2pt}{\LARGE $\cdot\hspace*{-0.2ex}\cdot$}}}
+% \def\fddotb{{\raisebox{-0.6ex}{ \kern0.2ex\raisebox{0.8ex}{\tiny $\circ\circ$}}}}
+\def\fddotb{{\raisebox{-0.6ex}{ \kern0.2ex\raisebox{0.8ex}{\tiny $\hspace*{-1ex}\circ\circ$}}}}
+% \newcommand{\fdot}[1]{{\fdota{#1}}}
+% \newcommand{\dota}[1]{ {#1}^{ \mbox{ \LARGE $\cdot$} } }
+% \newcommand{\fdot}[1]{{^{\fdota{\mbox{\footnotesize${#1}$}}}}}
+\newcommand{\fdot}[1]{{^{\fdota{\mbox{\scriptsize${#1}$}}}}}
+% \newcommand{\fddot}[1]{{^{\fddota{\mbox{\footnotesize${#1}$}}}}}
+\newcommand{\fddot}[1]{{^{\fddota{\mbox{\scriptsize${#1}$}}}}}
+\newcommand{\pspace}{\mathbb{P}} 
+\newcommand{\vecnorm}[1]{||{\underrightarrow{{#1}}}||_2}
+
+
+\newcommand{\p}{\partial}
+\newcommand{\f}{\frac}
+\newcommand{\smallf}[2]{\mbox{$\textstyle{\frac{#1}{#2}}$}}
+% \newcommand{\innerp}[3]{\left<#1,#2\right>_{#3}}
+% \newcommand{\innerp}[3]{\left\langle #1,#2 \right\rangle_{#3}}
+\newcommand{\innerp}[2]{\left\langle #1 , #2 \right\rangle}
+% \newcommand{\norm}[2]{\left| #1 \right|_{#2}}
+\newcommand{\ura}[1]{{\underrightarrow{{#1}}}}
+\newcommand{\dt}{\mathrm{d}t} 
+\newcommand{\dee}{\textrm{d}}
+\newcommand{\mcL}[1]{\mathcal{L}\left\{#1\right\}}
+% \newcommand{\ubar}[1]{\stackunder[1.2pt]{$#1$}{\rule{.8ex}{.075ex}}}
+\newcommand{\ubar}[1]{\underaccent{\bar}{#1}}
+
+
+\newcommand{\trans}{{\ensuremath{\mathsf{T}}}} % transpose
+\newcommand{\herm}{{\ensuremath{\mathsf{H}}}} % 
+% \newcommand{\utimes}{{\ensuremath{\mathsf{v}}}} % 
+\newcommand{\utimes}{ {\raisebox{-0.6ex}{ \kern-1.0ex\raisebox{0.6ex}{ \small $\mathsf{v}$}}} } % 
+\newcommand{\fouriert}[1]{ \texttt{F} \left\{ {#1} \right\} } % ourier transform
+\newcommand{\invfouriert}[1]{ \texttt{F}^{-1} \left\{ {#1} \right\} } % inverse % Fourier transform
+\newcommand{\laplacet}[1]{ \texttt{L} \left\{ {#1} \right\} } % 
+\newcommand{\invlaplacet}[1]{ \texttt{L}^{-1} \left\{ {#1} \right\} } % 
+\newcommand{\trace}{ {\ensuremath{\mathrm{tr}}} } % \trace
+\newcommand{\rk}{{\ensuremath{\mathrm{rk}}}} % rank
+\newcommand{\cone}{{\ensuremath{\mathrm{cone}}}}
+% \newcommand{\exp}[1]{  \ensuremath{\mathrm{exp}} \left( {#1} \right) }
+% \newcommand{\span}{ {\ensuremath{\mathrm{span}}} }
+
+\newcommand{\onehalf}{\mbox{$\textstyle{\frac{1}{2}}$}}
+\newcommand{\onequarter}{\mbox{$\textstyle{\frac{1}{4}}$}}
+\newcommand{\invtwopi}{\mbox{$\textstyle{\frac{1}{2 \pi}}$}} 
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\bdis}{\begin{displaymath}}
+\newcommand{\edis}{\end{displaymath}}
+\newcommand{\beqarray}{\begin{eqnarray}}
+\newcommand{\eeqarray}{\end{eqnarray}}
+\newcommand{\beqarraynn}{\begin{eqnarray*}}
+\newcommand{\eeqarraynn}{\end{eqnarray*}}
+\newcommand{\transpose}{^\textsf{T}}
+
+
+
+\renewcommand{\theenumii}{\arabic{enumii}}
+\renewcommand{\labelenumii}{\theenumi.\theenumii.}
+\makeatletter
+\renewcommand{\p@enumii}{\theenumi.}
+\makeatother
+%\renewcommand{\labelenumi}{\arabic{enumi}.}
+%\renewcommand{\labelenumii}{\labelenumi\arabic{enumii}}
+%\renewcommand{\labelenumiii}{\labelenumii.\arabic{enumiii}}
+
+\newenvironment{packed_enum}{
+\begin{enumerate}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{enumerate}}
+
+\newenvironment{packed_itemize}{
+\begin{itemize}
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}{\end{itemize}}
+
+
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancy}
+\lhead{}
+% \chead{\small Page \thepage\ of \pageref{LastPage}} 
+\rhead{} 
+\chead{} 
+\lfoot{ECSE 509 Notes - \daterange}
+\cfoot{}
+\rfoot{\small Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.0pt} 
+\renewcommand{\footrulewidth}{0.75pt}
+\newcommand{\LMI}[1]{LMI\textsubscript{#1}}
+\newcommand{\DSS}[1]{DSS\textsubscript{#1}}
+
+%\setlength{\parskip}{10pt}
+%% \setlength{\parskip}{\baselineskip}
+%\setlength{\parindent}{25pt}
+%
+%% \titlespacing*{<command>}{<left>}{<before-sep>}{<after-sep>}
+%\titlespacing*{\section}{0pt}{7.5pt}{0pt}
+%\titlespacing*{\subsection}{0pt}{7.5pt}{0pt}
+%\titlespacing*{\subsubsection}{0pt}{7.5pt}{0pt}
+%
+%% \usepackage{sectsty}
+%% \sectionfont{\large}
+%
+%\titleformat*{\section}{\large\bfseries}
+%\titleformat*{\subsection}{\bfseries}
+%\titleformat*{\subsubsection}{\bfseries}
+%
+%% \titleformat*{\paragraph}{\large\bfseries}
+%% \titleformat*{\subparagraph}{\large\bfseries}
+
+
+% Custom Environments such as Theorems, Lemmas, etc.
+\theoremstyle{definition} % This causes the text to be normal text, rather then italic
+\newtheorem{theorem}{Theorem}[section] % [section] % [chapter]
+\newtheorem{lemma}{Lemma}[section] % [section]
+\newtheorem{proposition}{Proposition}[section] % [section]
+\newtheorem{corollary}{Corollary}[section] % [section]
+\newtheorem{example}{Example}[section] % [section]
+\newtheorem{definition}{Definition}[section] % [section]
+\newtheorem{remark}{Remark}[section] % [section]
+\newtheorem{property}{Property}[section] % [section]
+% \newtheorem{algorithm}{Algorithm}[section] % [section]
+\newtheorem{attempt}{Attempt}[section]
+\newtheorem{question}{Question}[section]
+\newcommand{\questionRemark}{\textbf{Question Remark.~}}
+\newcommand{\answer}{\textbf{Answer.~}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% MY COMMANDS
+% \newcommand{\trans}{\ensuremath{^{\mathsf{T}}}}
+
+\newcommand{\Gs}{\ensuremath{G(s)}}
+\newcommand{\Gff}{\ensuremath{G{\sub{ff}}(s)}}
+\newcommand{\Gfb}{\ensuremath{G{\sub{fb}}(s)}}
+\newcommand{\Gfbi}{\ensuremath{G\sub{fb}\inv(s)}}
+\newcommand{\Gcl}{\ensuremath{G{\sub{cl}}(s)}}
+\newcommand{\Gbar}{\ensuremath{\bar{G}(s)}}
+% \newcommand{\Gc}{\ensuremath{G{\sub{c}}(s)}}
+\newcommand{\Gp}{\ensuremath{G{\sub{p}}(s)}}
+
+
+\newcommand{\zff}{\ensuremath{z_{\textrm{ff}}(s)}}
+\newcommand{\zbar}{\ensuremath{\bar{z}(s)}}
+\newcommand{\z}{\ensuremath{z(s)}}
+
+\newcommand{\inv}{\ensuremath{^{-1}}}
+
+\newcommand{\sub}[1]{\ensuremath{_{\mathrm{#1}}}}
+\newcommand{\mbfs}[2]{\ensuremath{\mbf{#1}\sub{#2}}} %subscript
+
+\newcommand{\Ap}{\mbfs{A}{p}}
+\newcommand{\Bp}{\mbfs{B}{p}}
+\newcommand{\Cp}{\mbfs{C}{p}}
+\newcommand{\Dp}{{D}\sub{p}}
+\newcommand{\Ep}{\mbfs{E}{p}}
+
+\newcommand{\A}{\mbf{A}}
+\newcommand{\B}{\mbf{B}}
+\newcommand{\C}{\mbf{C}}
+\newcommand{\D}{\ensuremath{D}}
+\newcommand{\E}{\mbf{E}}
+
+\newcommand{\Ac}{\mbfs{A}{fb}}
+\newcommand{\Bc}{\mbfs{B}{fb}}
+\newcommand{\Cc}{\mbfs{C}{fb}}
+\newcommand{\Dc}{\ensuremath{{D}\sub{fb}}}
+\newcommand{\Ec}{\mbfs{E}{fb}}
+
+\newcommand{\Bcbar}{\ensuremath{\Bar{\mbf{B}}\sub{fb}}}
+\newcommand{\Acbar}{\ensuremath{\Bar{\mbf{A}}\sub{fb}}}
+
+\newcommand{\Acl}{\ensuremath{\mbfs{A}{cl}}}
+\newcommand{\Bcl}{\ensuremath{\mbfs{B}{cl}}}
+\newcommand{\Ccl}{\ensuremath{\mbfs{C}{cl}}}
+\newcommand{\Dcl}{\ensuremath{{D}\sub{cl}}}
+\newcommand{\Ecl}{\ensuremath{\mbfs{E}{cl}}}
+
+
+\newcommand{\Afb}{\ensuremath{\mbfs{A}{fb}}}
+\newcommand{\Bfb}{\ensuremath{\mbfs{B}{fb}}}
+\newcommand{\Cfb}{\ensuremath{\mbfs{C}{fb}}}
+\newcommand{\Dfb}{\ensuremath{{D}\sub{fb}}}
+\newcommand{\Efb}{\ensuremath{\mbfs{E}{fb}}}
+\newcommand{\dxtFB}{\ensuremath{\dot{\mbf{x}}\sub{fb}(t)}}
+\newcommand{\xtFB}{\ensuremath{{\mbf{x}}\sub{fb}(t)}}
+\newcommand{\ytFB}{\ensuremath{{{z}}\sub{fb}(t)}}
+\newcommand{\utFB}{\ensuremath{{{w}}\sub{fb}(t)}}
+
+\renewcommand{\P}{\mbf{P}}
+\newcommand{\tnorm}[1]{\ensuremath{\norm{#1}_2}}
+\newcommand{\blue}[1]{{\color{blue}{#1}}}
+\newcommand{\red}[1]{{\color{red}{#1}}}
+
+
+\renewcommand*{\arraystretch}{1.5}% default is 1
+
+\renewcommand{\Re}[1]{\ensuremath{\mathrm{Re}\{#1\}}}
+\renewcommand{\Im}[1]{\ensuremath{\mathrm{Im}\{#1\}}}
+
+
+\newcommand{\define}{\ensuremath{\overset{\Delta}{=}}}
+\newcommand{\setl}{\ensuremath{:=}}  % set left
+\newcommand{\setr}{\ensuremath{=:}}  % set left
+
+% \newcommand{\R}[1]{\ensuremath{\mathbb{R}^{#1}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+
+\newcommand{\posdef}[1]{\ensuremath{\mbf{#1}=\mbf{#1}\trans > 0}}
+\newcommand{\possemidef}[1]{\ensuremath{\mbf{#1}=\mbf{#1}\trans \geq 0}}
+\newcommand{\negdef}[1]{\ensuremath{\mbf{#1}=\mbf{#1}\trans < 0}}
+\newcommand{\negsemidef}[1]{\ensuremath{\mbf{#1}=\mbf{#1}\trans \leq 0}}
+
+
+\newcommand{\ut}{\ensuremath{w(t)}}
+\newcommand{\yt}{\ensuremath{z(t)}}
+
+\newcommand{\xt}{\ensuremath{x(t)}}
+\newcommand{\xtb}{\ensuremath{\mbf{x}(t)}}
+\newcommand{\xtbx}[1]{\ensuremath{\mbf{x}\sub{#1}(t)}}
+\newcommand{\dxt}{\ensuremath{\dot{x}(t)}}
+\newcommand{\dxtb}{\ensuremath{\dot{\mbf{x}}(t)}}
+\newcommand{\dxtbx}[1]{\ensuremath{\dot{\mbf{x}}\sub{#1}(t)}}
+
+\newcommand{\us}{\ensuremath{w(s)}}
+\newcommand{\ys}{\ensuremath{z(s)}}
+\newcommand{\xs}{\ensuremath{x(s)}}
+
+\newcommand{\utx}[1]{\ensuremath{w\sub{#1}(t)}}
+\newcommand{\ytx}[1]{\ensuremath{z\sub{#1}(t)}}
+
+\newcommand{\bs}{\ensuremath{b(s)}}
+\newcommand{\as}{\ensuremath{a(s)}}
+\newcommand{\qs}{\ensuremath{q(s)}}
+\newcommand{\ps}{\ensuremath{p(s)}}
+
+\newcommand{\Lcal}[1]{\ensuremath{\mathcal{L}\{#1\}}}
+
+\newcommand{\bas}{\ensuremath{\f{\bs}{\as}}}
+\newcommand{\qps}{\ensuremath{\frac{\qs}{\ps}}}
+\newcommand{\pqs}{\ensuremath{\frac{\ps}{\qs}}}
+\newcommand{\charpol}{\ensuremath{\as\ps+\bs\qs}}
+
+\newcommand{\poleplacement}{pole placement}
+\newcommand{\Poleplacement}{Pole placement}
+
+\newcommand{\Cs}{\ensuremath{c(s)}}
+
+\newcommand{\spoly}[2]{\ensuremath{#1_{#2}s^{#2}+#1_{#2-1}s^{#2-1}+\cdots+#1_{0}}}
+
+% \renewcommand{\deg}[1]{\ensuremath{\mathrm{deg}\left(#1\right)}}
+\newcommand{\coeff}[1]{\ensuremath{\mathrm{coeff}\left(#1\right)}}
+
+\newcommand{\toeplitz}[2]{\ensuremath{\mbf{T}\left(#1,#2\right)}}
+
+% adjust matrices to look square
+
+ \renewcommand{\arraystretch}{0.9}
+ 
+ \newcommand{\sylvester}[4]{\ensuremath{\mbf{S}\left(#1,#2,#3,#4\right)}}
+ 
+ \newcommand{\examplePlant}{\ensuremath{\f{s-2}{s^2+10s+100}}}
+ 
+ \newcommand{\zbarznorm}{\ensuremath{\norm{\zbar-\z}}}
+ 
+ \newcommand{\diophantine}{Diophantine~}
+ 
+ \newcommand{\Gffnorm}{\ensuremath{\norm{\Gff}}}
+ 
+ \newcommand{\determinant}[1]{\ensuremath{\mathrm{det}\left(#1\right)}}
+ 
+ % matrix lie groupds/algebra
+ \newcommand{\Adjoint}[2]{\operatorname{Ad}_{#1}#2}
+ \newcommand{\adjoint}[2]{\operatorname{ad}_{#1}#2}
+%  \newcommand{\adjoint}[2]{\mathrm{Ad}_{#1}#2}
+%  \newcommand{\lyapT}[2]{\mbf{#1}\trans\mbf{#2}+\mbf{#1}\trans\mbf{#2}}
+%  \newcommand{\lyap}[2]{\mbf{#1}\trans\mbf{#2}+\mbf{#1}\mbf{#2}}
+% \newcommand{\transpose}{\ensuremath{\mathsf{T}}}
+
+% \renewcommand{\jmath}{\dot{\jmath}}
+
+% \newcommand\bigcircle{\raisebox{-0.5mm}{\scalebox{1.7}{$\bigcircle$}}}
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}}
+
+
+\newcommand{\lbF}{lbF~}
+\newcommand{\kN}{kN~}
+
+\newcommand{\degree}{\textsuperscript{\ensuremath{\circ}}}
+
+\newcommand{\ohm}{\ensuremath{\Omega}}
+
+
+
+
+\renewcommand{\arraystretch}{1.2}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Probability
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\pSet}{\mathcal{P}} % power set
+\newcommand{\pCal}{\mathcal{P}} % power set 
+\newcommand{\rCal}{\mathcal{R}} % power set 
+\newcommand{\fCal}{\mathcal{F}} %F sigma algebra
+\newcommand{\comp}{\mathrm{C}} % set complement
+
+\newcommand{\uline}[1]{\underline{#1}}

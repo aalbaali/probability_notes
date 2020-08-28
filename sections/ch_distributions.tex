@@ -1,0 +1,150 @@
+
+\section{Gaussian random variables}
+\begin{mydefinition}[Gaussian (normal) distribution]
+    A random vector $\mbfrv{x}$ is called a \emph{Gaussian (or normal) random vector} with mean $\mbs{\mu}$ and covariance matrix $\mbf{C}$ if it follows a \emph{Gaussian (or normal) distribution} given by
+    \begin{align}
+        \pdf{\mbf{x}} &= 
+        \f{1}{\sqrt{(2\pi)^{n}}\det\mbf{C}} e^{-\onehalf (\mbf{x}-\mbs{\mu})^{\trans}\mbf{C}\inv(\mbf{x}-\mbs{\mu})}\\
+        &= \mc{N}\left( \mbs{\mu}, \mbf{C} \right).
+    \end{align}
+    The $n$ elements of $\mbf{x}$, $\stringRVs{x}{n}$ are called \emph{jointly normal random variables}.
+\end{mydefinition}
+
+\begin{mydefinition}[Standard Normal Distribution]
+    \label{def:standard normal distribution}
+    A \emph{standard normal distribution} is a normal distribution with a special case of $\mbs{\mu}=\mbf{0}$ and $\mbf{C}=\eye$. That is,
+    \begin{align}
+        \pdf{\mbf{x}} &= \mc{N}\left( \mbf{0}, \eye \right).
+    \end{align}
+\end{mydefinition}
+
+\subsection*{Properties of Gaussian random variables}
+\begin{mytheorem}
+   [Linear combination of normal RVs]    
+   A random vector $\mbfrv{x}$ is called a Gaussian (or normal) random vector if and only if the random variable $\mbf{a}^{\trans}\mbfrv{x}$ is a Gaussian random variable for any vector $\mbf{a}$.           
+\end{mytheorem}
+\begin{myremark}[Properties of Gaussian random variables]
+    Here are some properties of Gaussian random variables. 
+    \begin{enumerate}
+        \item A Gaussian random vector consists of marginally Gaussian random variables.
+        \item However, marginally Gaussian random variables are \emph{not} necessarily jointly Gaussian.\footnote{That is, if you take 3 Gaussian random variables, then they are not necessarily jointly Gaussian. Unless they are independent.}
+    \end{enumerate}
+\end{myremark}
+
+\begin{mydefinition}[Complex Gaussian radnom vector]
+    A complex random vector 
+    \begin{align}
+        \mbfrv{z} =
+        \bbm \rv{x}_{1}+\jmath\rv{y}_{1} \\ \vdots\\\rv{x}_{n}+\jmath\rv{y}_{n} \ebm
+    \end{align}
+    is a \emph{complex Gaussian random vector} if and only if the real random variables $\rv{x}_{1},\rv{y}_{1},\ldots,\rv{x}_{n},\rv{y}_{n}$ are jointly normal.
+\end{mydefinition}
+
+\begin{mytheorem}
+   [Characteristic function of normal random variables]    
+    If the random variables $\stringRVs{x}{n}$ are jointly Normal with mean $0$ and covariance matrix $\mbf{C}$. Then, their characteristic function is     
+    \begin{align}
+        \Phi_{\mbf{x}}(\Omega) &= e^{-\onehalf\Omega^{\trans}\mbf{C}\Omega}.
+    \end{align}
+\end{mytheorem}
+
+
+
+\section{Chi-squared distribution}
+\begin{mydefinition}[Chi-squared distribution]
+    \label{def:chi squared distribution}
+    If $\rv{x}_{1}, \ldots, \rv{x}_{n}$ are \emph{\textbf{independent} standard normal variables} (check Definition~\ref{def:standard normal distribution}), then the sum of their squares 
+    \begin{align}
+        \rv{y} &= \sum_{k=1}^{n}\rv{x}_{k}^{2} \in \rnums
+    \end{align}
+    is distributed according to the Chi-square distribution with $n$ degrees of freedom, denoted by $\chi_{n}^{2}$. That is,
+    \begin{align}
+        \rv{y}\sim\chi^{2}_{n}.
+    \end{align}
+\end{mydefinition}
+%
+\begin{myremark}
+    If we have a random vector $\mbfrv{x}\in\rnums^{n}$ with mean $\mbs{\mu}_{x}=\mbf{0}$ and a unit covariance $\mbf{C}=\eye$, then the sum of squares    
+    \begin{align}
+        \rv{y} &= \mbfrv{x}^{\trans}\mbfrv{x}\\        
+    \end{align}
+    follows a Chi-squared distribution with $n$ degrees of freedom. That is
+    \begin{align}
+        \rv{y} &\sim\chi^{2}_{n}.
+    \end{align}
+\end{myremark}
+%
+\begin{myremark}
+    MATLAB has a built-in inverse CDF function called \texttt{chi2inv(p,nu)} that evaluates the inverse CDF of a Chi-squared distribution at the probability value $p\in[0,1]$ and the degrees of freedom $\nu$ (which we denote as $n$ in Definition~\ref{def:chi squared distribution}). 
+\end{myremark}
+
+\subsection{Relation to the Mahalanobis distance}
+In estimation problems, the Mahalanobis distance is often encountered. Especially when testing for consistency of the estimates.
+\begin{mydefinition}[Mahalanobis distance]
+    The \emph{Mahalanobis distance} $D_{M}\in\rnums$ is defined as 
+    \begin{align}
+        D_{M} &\triangleq \sqrt{\mbf{r}^{\trans}\mbs{\Sigma}^{\inv}\mbf{r}},
+    \end{align}
+    where $\mbf{r}\in\rnums^{n}$ is a sample of 
+    \begin{align}
+        \mbfrv{r} \sim\mc{N}\left( \mbf{0}, \mbs{\Sigma} \right).
+    \end{align}
+    It is a \emph{Euclidean distance} normalized by \emph{uncertainty}.
+\end{mydefinition}
+%%
+\begin{example}
+    Consider a random variable $\mbfrv{x}\in\rnums^{n}$ distributed according to $\mbfrv{x}\sim\mc{N}\left(\mbs{\mu}_{x},\mbs{\Sigma}_{x}\right)$. Say a realization $\mbf{x}\in\rnums^{n}$ is sampled from the distribution. Then the Mahalanobis distance
+    \begin{align}
+        D_{M} = \sqrt{\left(\mbf{x}-\mbs{\mu}_{x}\right)^{\trans}\mbs{\Sigma}\inv\left( \mbs{x}-\mbs{\mu}\right)}
+    \end{align}
+    is a measure of how far off the realization $\mbf{x}$ is from the mean $\mbs{\mu}_{x}$.
+    \triqed
+\end{example}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Relation to the Chi-distribution test
+\begin{mytheorem}   
+    The squared Mahalanobis distance follows a Chi-squared distribution. That is, 
+    \begin{align}
+        \rv{D_{M}}^{2}\sim\chi^{2}_{n}.
+    \end{align}
+\end{mytheorem}
+\begin{proof}
+    Given a random variable $\mbfrv{r}\in\rnums^{n}$ that follows the distribution $\mbfrv{r}\sim\left(\mbf{0},\mbs{\Sigma} \right)$, then the Mahalanobis distance squared is a random variable. Specifically,
+    \begin{align}
+        \label{eq:Mahalanobis distance square eq 1}
+        \rv{D}_{M}^{2} &= \mbfrv{r}^{\trans}\mbs{\Sigma}\inv\mbfrv{r}.
+    \end{align}
+    Since the covariance matrix $\mbs{\Sigma}$ is symmetric positive definite, then its eigenvectors are orthonormal and the eigenvalues are positive. Therefore, \eqref{eq:Mahalanobis distance square eq 1} can be written as
+    \begin{align}
+        \rv{D}_{M}^{2} 
+        &= \mbfrv{r}^{\trans}\mbs{\Sigma}\inv\mbfrv{r}\\
+        &= \mbfrv{r}^{\trans}\left(\mbf{U}\mbs{\Lambda}\mbf{U}^{\trans} \right)\inv\mbfrv{r}\\
+        &= \mbfrv{r}^{\trans}\mbf{U}\mbs{\Lambda}\inv\mbf{U}^{\trans}\mbfrv{r}\\
+        &= \mbfrv{r}^{\trans}\mbf{U}\mbs{\Lambda}^{-\f{1}{2}}\mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\mbfrv{r}\\
+        &= \left(\mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\mbfrv{r}\right)^{\trans}\left(\mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\mbfrv{r}\right)\\
+        &= \mbfrv{y}^{\trans}\mbfrv{y},
+    \end{align}
+    where
+    \begin{align}
+        \mbfrv{y} &= \mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\mbfrv{r}\in\rnums^{n}.
+    \end{align}
+    The next step is to check whether $\mbfrv{y}$ is a standard normal variable. First, let's check the mean.
+    \begin{align}
+        \mbs{\mu}_{y} 
+        &= \expect{\mbfrv{y}} \\
+        &= \mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\underbrace{\expect{\mbfrv{r}}}_{\mbf{0}}\\
+        &= \mbf{0}.
+    \end{align}
+    The second condition to check is whether the covariance of $\mbfrv{y}$ is the identity matrix or not.
+    \begin{align}
+        \cov{\mbfrv{y}} 
+        &= \expect{\mbfrv{y}\mbfrv{y}^{\trans}}\\
+        &= \mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\underbrace{\expect{\mbfrv{r}\mbfrv{r}^{\trans}}}_{\mbs{\Sigma}}\mbf{U}\mbs{\Lambda}^{-\f{1}{2}}\\
+        &= \mbs{\Lambda}^{-\f{1}{2}}\mbf{U}^{\trans}\underbrace{\mbs{\Sigma}}_{\mbf{U}\mbs{\Lambda}\mbf{U}^{\trans}}\mbf{U}\mbs{\Lambda}^{-\f{1}{2}}\\
+        &= \mbs{\Lambda}^{-\f{1}{2}}\cancelto{\eye}{\mbf{U}^{\trans}\mbf{U}}\mbs{\Lambda}\cancelto{\eye}{\mbf{U}^{\trans}\mbf{U}}\mbs{\Lambda}^{-\f{1}{2}}\\
+        &= \mbs{\Lambda}^{-\f{1}{2}}\mbs{\Lambda}\mbs{\Lambda}^{-\f{1}{2}}\\
+        &= \eye.
+    \end{align}
+    Thus, $\mbfrv{y}$ is a standard normal random variable. Therefore, according to Definition~\ref{def:chi squared distribution}, $\rv{D}_{M}^{2}$ follows a Chi-squared distribution with $n$ degrees of freedom.
+\end{proof}

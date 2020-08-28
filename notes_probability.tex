@@ -1,0 +1,65 @@
+\documentclass{amro-notes}
+\usepackage{amro-common}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\title{Notes: Probability}
+\author{{Amro Al Baali}}
+
+\newcommand{\daterange}{Compiled: \today}
+\date{\daterange}
+
+\renewcommand{\prob}[1]{\ifthenelse{\equal{#1}{}}{{P}}{{P}\left(#1\right)}\xspace}
+\newcommand{\stringRVs}[2]{\rv{#1}_{1},\ldots,\rv{#1}_{#2}}
+
+\linespread{1.125}
+% \allowdisplaybreaks
+\setcounter{tocdepth}{2}
+
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagenumbering{Roman} 
+
+
+\chapter*{Preface}
+\input{sections/1.0_Preface.tex}
+
+\clearpage
+\chapter*{Notations}
+\addcontentsline{toc}{chapter}{Notations}
+\input{sections/notations.tex}
+
+\clearpage
+\pagenumbering{arabic} 
+\part{Fundamentals}
+\chapter{Single Variable Probability}
+\input{sections/1.1_Ch1.tex}
+
+\clearpage
+\chapter{Multivariate Probability}
+\input{sections/2_Multivariate.tex}
+
+\clearpage
+\chapter{Distributions}
+\input{sections/ch_distributions.tex}
+
+\clearpage
+\part{Statistical Inference}
+
+% \chapter{Prediction}
+% \input{sections/ch_prediction.tex}
+
+\chapter{Estimation}
+\input{sections/ch_estimation.tex}
+
+
+\begin{appendices}
+    \input{sections/appendices.tex}
+\end{appendices}
+\addcontentsline{toc}{chapter}{References}
+\bibliography{C:/Users/albaa/Documents/Zotero/references}{}
+\bibliographystyle{IEEEtran}
+\end{document}

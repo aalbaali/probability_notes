@@ -1,0 +1,81 @@
+\section{The maximum a-posteriori estimator}
+In this section, the MAP estimator for normally distributed variables will be derived. For each problem, a process model is provided in the form 
+\begin{align}
+\mbf{x}_{k+1} &= \mbf{f}(\mbf{x}_{k}, \mbf{u}_{k}, \mbfuline{w}_{k}),
+\end{align}
+where $\mbfuline{w}_{k}\sim\mc{N}(\mbf{0},\mbs{\Sigma}_{\mbf{w}})$ is the Gaussian process noise.
+Further, a measurement model is given in the form
+\begin{align}
+\mbf{y}_{k} &= \mbf{g}(\mbf{x}_{k}, \mbfuline{v}_{k}),
+\end{align}
+where $\mbfuline{v}_{k}\sim\mc{N}(\mbf{0},\mbs{\Sigma}_{\mbf{v}})$ is the Gaussian measurement noise. 
+
+The goal is to estimate the states $\mbf{x}_{1:K}$ given the measurements and their distributions $\mbf{u}_{0:K-1}$, $\mbf{y}_{1:K}$, and the prior on the initial state $\mbf{x}_{0}\sim\mc{N}(\mbfhat{x}_{0},\mbfhat{P}_{0})$. To derive the maximum a-posteriori (MAP) estimator, the likelihood of $\mbf{x}_{1:K}$ must first be derived. 
+
+The posterior of $\mbf{x}_{1:K}$ is given by
+\begin{align}
+\ell\left(\mbf{x}_{1:K}; \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}\right)
+&= \pdf{\mbf{x}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}}\\
+&= 
+\f{
+    \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}
+}
+{
+    \pdf{\mbf{y}_{1:K}\middle\vert~\mbf{u}_{0:K-1}, \mbfhat{x}_{0}}
+}\\
+&=
+    \label{eq: LS derivation Bayes. Marginalizing x, finding eta}
+    \f{
+        \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}
+    }
+    {
+        \int_{-\infty}^{\infty} \pdf{\mbf{y}_{1:K}\middle\vert~\mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}}\dee\mbf{x}_{1:K}
+    }\\
+&= 
+    \eta \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}\\
+&= 
+    \label{eq: LS derivation Bayes. y independent of u}
+    \eta \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}\\
+&= 
+    \label{eq: LS derivation Bayes. y independent of ys}
+    \eta \prod_{k=1}^{M}\pdf{\mbf{y}_{k} \middle\vert~ \mbf{x}_{k}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}\\
+&= 
+    \label{eq: LS derivation Bayes. Markov prop}
+    \eta \prod_{k=1}^{M}\pdf{\mbf{y}_{k} \middle\vert~ \mbf{x}_{k}}
+    \prod_{k=1}^{K}\pdf{\mbf{x}_{k}\middle\vert~ \mbf{x}_{k-1}, \mbf{u}_{k-1}}\pdf{\mbf{x}_{0}}\\
+&= 
+    \label{eq: LS derivation Bayes. Reorganize}
+    \eta
+    \pdf{\mbf{x}_{0}}
+    \prod_{k=1}^{K}\pdf{\mbf{x}_{k}\middle\vert~ \mbf{x}_{k-1}, \mbf{u}_{k-1}}
+    \prod_{k=1}^{M}\pdf{\mbf{y}_{k} \middle\vert~ \mbf{x}_{k}}\\
+&= 
+    \label{eq: LS derivation Bayes. Expand with exponential}
+    \eta
+    \gaussian{\mbf{x}_{0}}{\mbfhat{x}_{0}}{\mbfhat{P}_{0}}
+    \prod_{k=1}^{K}\gaussian{\mbf{x}_{k}}{\mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}{\mbs{\Sigma}_{\mbf{w}}}
+    \prod_{k=1}^{M}\gaussian{\mbf{y}_{k}}{\mbf{g}\left(\mbf{x}_{k}\right)}{\mbs{\Sigma}_{\mbf{v}}},
+\end{align}
+where $p(\cdot)$ is the probability distribution function (PDF) of a random variable and $\eta$ is the normalizing coefficient given in the denominator of \eqref{eq: LS derivation Bayes. Marginalizing x, finding eta}. Equation~\eqref{eq: LS derivation Bayes. y independent of u} is obtained by taking into account that $\mbf{y}_{k}$ is independent of $\mbf{u}_{k}$ for all $k$, \eqref{eq: LS derivation Bayes. y independent of ys} is obtained because $\mbf{y}_{j}$ is independent of $\mbf{y}_{i}$ for $i\neq j$, \eqref{eq: LS derivation Bayes. Markov prop} exploits the Markov property of the process model, and \eqref{eq: LS derivation Bayes. Expand with exponential} is the Gaussian PDF written out.
+
+Taking the negative log of \eqref{eq: LS derivation Bayes. Expand with exponential} gives
+\begin{align}
+    \label{eq: LS derivation. -Log likelihood}
+    L\left(\mbf{x}_{1:K};  \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}\right) &= 
+    -\log\ell\left(\mbf{x}_{1:K};  \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}\right)\\
+    &=
+    \eta \left(
+    \f{1}{2} \norm{\mbf{x}_{0}-\mbfhat{x}_{0}}_{\mbfhat{P}_{0}\inv}^{2} +
+    \f{1}{2}\sum_{k=1}^{K}\norm{\mbf{x}_{k} - \mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}_{\mbs{\Sigma}_{\mbf{w}}\inv}^{2} \right.\\\nonumber&\qquad\left. + 
+    \f{1}{2}\sum_{k=1}^{M}\norm{\mbf{y}_{k} - \mbf{g}\left(\mbf{x}_{k}\right)}_{\mbs{\Sigma}_{\mbf{v}}\inv}^{2}
+    \right),
+\end{align}
+The \emph{maximum a-posteriori} (MAP) estimate, as the name suggests, finds the $\mbf{x}$ that maximizes the posterior \eqref{eq: LS derivation Bayes. Expand with exponential} which is \emph{equivalent} to minimizing the negative log \eqref{eq: LS derivation. -Log likelihood}. 
+% However, the MLE is not desirable as it requires the computation of $\eta$ which is expensive. However, since
+    Since $\eta$ does not depend on $\mbf{x}$, then it does not affect the optimization problem. Maximizing the negative-log posterior \eqref{eq: LS derivation. -Log likelihood} with respect to $\mbf{x}$ without computing $\eta$ gives the MAP estimator. Specifically,
+\begin{align}
+    \mbfhat{x}_{0:K, \mathrm{MAP}} &= \argmin_{\mbf{x}_{1:K}} \f{1}{2} \norm{\mbf{x}_{0}-\mbfhat{x}_{0}}_{\mbfhat{P}_{0}\inv}^{2} +
+    \f{1}{2}\sum_{k=1}^{K}\norm{\mbf{x}_{k} - \mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}_{\mbs{\Sigma}_{\mbf{w}}\inv}^{2} +
+    \f{1}{2}\sum_{k=1}^{M}\norm{\mbf{y}_{k} - \mbf{g}\left(\mbf{x}_{k}\right)}_{\mbs{\Sigma}_{\mbf{v}}\inv}^{2}
+\end{align}
+which is a least squares problem that can be solved using th methods discussed in Section~\ref{sec: least squares}.
