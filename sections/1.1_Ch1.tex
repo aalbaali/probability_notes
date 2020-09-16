@@ -167,7 +167,7 @@ Given
 
 \begin{mydefinition}
     [Conditional probability]    
-    The conditional probability of $A$ given $B$, $\prob(A|B)$, defined as 
+    The conditional probability of $A$ given $B$, $\prob{A\middle|~B}$, defined as 
     \begin{align}
         \prob{A|B} &= \f{\prob{A\bigcap B}}{\prob{B}}.
     \end{align}    
@@ -202,13 +202,14 @@ Therefore,
     \begin{enumerate}
         \item For $A, B \in\mc{F}$ with $\prob{A},\prob{B}\neq0$:
         \begin{align}
-            \prob{AB} &= \prob{A|B}\prob{B} &= \prob{B|A}\prob{A}.
+            \prob{AB} &= \prob{A|B}\prob{B} \\
+            &= \prob{B|A}\prob{A}.
         \end{align}
 
         
         \item \textbf{Total probability}. Let $B_{1},B_{2},\ldots,B_{n}$ be a partition of $S$, with $\prob{B_{i}}\neq 0,\forall i$:
         \begin{align}
-            P{A} &= \prob{A|B_{1}}\prob{B_{1}} + \prob{A|B_{2}}\prob{B_{2}} + \ldots + \prob{A|B_{n}}\prob{B_{n}}\\
+            \prob{A} &= \prob{A|B_{1}}\prob{B_{1}} + \prob{A|B_{2}}\prob{B_{2}} + \ldots + \prob{A|B_{n}}\prob{B_{n}}\\
             &= \sum_{i=1}^{n}\prob{A|B_{i}}\prob{B_{i}}.
         \end{align}
         
