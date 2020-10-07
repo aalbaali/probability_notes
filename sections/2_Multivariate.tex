@@ -308,6 +308,7 @@ Just as is the case for a single transformed random variable (Section~\ref{sec: 
 \end{mytheorem}
 
 \subsection{Method of transformation}
+Note that the method is derived in \cite[Sec.~2.6.2]{murphy_machine_2012}. 
 \subsubsection{Approach 1}
 \label{sec: MV method of transformation approach 1}
 \begin{myBlackBox}
@@ -467,14 +468,8 @@ Just as is the case for a single transformed random variable (Section~\ref{sec: 
     \end{enumerate}
 \end{myBlackBox}
  
-\subsection{Covariances of propagated random variables}
-Given a random variable $\mbfrv{x}\sim\mc{N}(\mbfbar{x},\mbs{\Sigma}_{x})$ and a deterministic function $\mbf{g}$, then an important parameter is the covariance on the transformed random variable
-\begin{align}
-    \mbfrv{y} &= \mbf{g}(\mbfrv{x}).
-\end{align}
-
 \subsection{Linear transformation}
-If $\mbf{g}(\mbf{x})=\mbf{A}\mbf{x}$ (i.e., $\mbf{g}$ is linear), then the covariance is \emph{exactly} given by
+If $\mbf{g}(\mbf{x})=\mbf{A}\mbf{x}$ (i.e., $\mbf{g}$ is linear), then the mean and the covariance are given by
 \begin{align}
     \expect{\mbfrv{y}} &= \mbf{A}\mbfbar{x},\\
     \cov{\mbfrv{y}} &= \expect{\left(\mbfrv{y}-\mbfbar{y}\right)\left(\mbfrv{y}-\mbfbar{y}\right)^{\trans}}\\
@@ -482,6 +477,7 @@ If $\mbf{g}(\mbf{x})=\mbf{A}\mbf{x}$ (i.e., $\mbf{g}$ is linear), then the covar
     &= \mbf{A}\expect{\left(\mbfrv{x}-\mbfbar{x}\right)\left(\mbfrv{x}-\mbfbar{x}\right)^{\trans}}\mbf{A}^{\trans}\\
     &= \mbf{A}\mbs{\Sigma}_{x}\mbf{A}^{\trans}.
 \end{align}
+Note that the relation is an exact relation, not an approximation.
 
 %% Nonlinear transformation
 \subsection{Nonlinear transformation (covariance propagation)}
@@ -579,7 +575,7 @@ The authors of \cite{gustafsson_nonlinear_2008} discuss the values to set the us
 Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$, then the spherical cubature method\footnote{It's a type of a sigma-point transformation.} approximates the mean and the covariance of the transformed random variable $\mbfrv{y}=\mbf{g}(\mbfrv{x})$. The method is summarized in Algorithm~\ref{alg: spherical cubature}. More details are available in \cite{sarkka_bayesian_2013}
 
 
-\begin{algorithm}
+\begin{algorithm}[H]
     \caption{Nonlinear transformation: The spherical cubature}
     \label{alg: spherical cubature}
     \begin{algorithmic}[1]
@@ -600,7 +596,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
         \State Compute
         \begin{align}
             \mbs{\mu}_{y} &= \f{1}{2n_{x}}\sum_{i=1}^{2n_{x}}\mc{Y}^{(i)},\\
-            \mbs{\Sigma}_{y} &= \f{1}{2n_{x}}\sum_{i=1}^{2n_{x}}\left( \mc{Y}^(i)-\mbs{\mu}_{y} \right)\left( \mc{Y}^(i)-\mbs{\mu}_{y} \right)^{\trans}.
+            \mbs{\Sigma}_{y} &= \f{1}{2n_{x}}\sum_{i=1}^{2n_{x}}\left( \mc{Y}^{(i)}-\mbs{\mu}_{y} \right)\left( \mc{Y}^{(i)}-\mbs{\mu}_{y} \right)^{\trans}.
         \end{align}
     \end{algorithmic}
 \end{algorithm}
