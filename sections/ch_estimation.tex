@@ -207,7 +207,139 @@ the idea of method of moments is to estimate the first $k$ moments, thus getting
     \end{align}
 \end{example}
 
-\section{The maximum a-posteriori estimator}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Maximum likelihood
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Maximum likelihood (ML) estimator}
+\begin{mydefinition}[Likelihood]
+    Given the observations $\mbfrv{x}_{1} = \mbf{x}_{1}', \ldots, \mbfrv{x}_{n}=\mbf{x}_{n}'$, the \emph{likelihood} of $\mbs{\theta}$ is the joint PDF of $\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n}$ evaluated at the observed points
+    \begin{align}
+        \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}} &= \pdf{}_{\mbf{x}}(\mbf{x}_{1}';\mbs{\theta})\cdots\pdf{}_{\mbf{x}}(\mbf{x}_{n}';\mbs{\theta}).
+    \end{align}
+\end{mydefinition}
+\begin{myremark}
+    \begin{itemize}
+        \item The likelihood $\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}$ is treated as a function of $\mbs{\theta}$.
+        \item It is not a PDF. That is,
+        \begin{align}
+            \int_{-\infty}^{\infty}\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\dee\mbs{\theta}\neq 1.
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\begin{mydefinition}[Maximum-likelihood estimator]
+    The maximum-likelihood (ML) estimate of $\mbs{\theta}$, $\hat{\mbs{\theta}}_{\mathrm{ML}}$, is the value of $\mbs{\theta}$ that maximizes $\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}$. That is,
+    \begin{align}
+        \hat{\mbs{\theta}}_{\mathrm{ML}} &= \argmax_{\mbs{\theta}\in\rnums^{k}} \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+    \end{align}
+\end{mydefinition}
+
+\begin{myremark}
+    \begin{itemize}
+        \item Log-likelihood function 
+        \begin{align}
+            L(\mbf{x}_{1}',\ldots,\mbf{x}_{n}';\mbs{\theta}) = \log \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+        \end{align}
+        \item The ML estimate is 
+        \begin{align}
+            \hat{\mbs{\theta}}_{\mathrm{ML}} 
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\\
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} \log \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\\
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} L(\mbf{x}_{1}',\ldots,\mbf{x}_{n}';\mbs{\theta}).
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\subsection{Remarks}
+\begin{enumerate}
+    \item Let $\hat{\mbsrv{\theta}}_{\mathrm{ML}}$ be the ML estimator of $\mbs{\theta}$ and let $g(\mbs{\theta})$ be a function of $\mbs{\theta}$. Then, the ML estimator of $g(\mbs{\theta})$ is $g(\hat{\mbsrv{\theta}}_{\mathrm{ML}})$.
+    
+    \item Limitations of the ML estimation:
+    \begin{enumerate}
+        \item The ML estimate may not exist.
+        \item The ML estimate may not be unique. 
+    \end{enumerate}        
+    
+    \item Maximum likelihood estimate can be finding by minimizing the negative likelihood or negative log-likelihood.
+\end{enumerate}
+
+\section{Bayesian parameter estimation}
+% \subsection*{Introduction and terminology}
+In the previous sections, the approaches used were the \emph{classical} or \emph{frequentist} approaches. The classical approach
+\begin{enumerate}
+    \item treats the unknown parameter as deterministic parameter, and
+    \item assumes no prior information on the unknown parameter was available.
+\end{enumerate}
+
+For Bayesian approach on the other hand
+\begin{enumerate}
+    \item assumes that unknown parameter is random with known pdf $\pdf{\mbs{\theta}}$, called the \emph{prior};
+    \item the JPDF of random sample given $\mbsrv{\theta} = \theta$ (likelihood) is given by
+    \begin{align}
+        \pdf{\mbf{x}_{1},\ldots,\mbf{x}_{n}\middle|~ \mbs{\theta}};
+    \end{align}
+    \item The estimation problem becomes a prediction problem; predict $\mbsrv{\theta}$ from a correlated (with $\mbsrv{\theta}$) sample $\mbfrv{X}$.
+\end{enumerate}
+
+The mean-squared estimate $\hat{\mbs{\theta}}$ of $\mbsrv{\theta}$ given $\mbfrv{X}=\mbf{X}$ is
+\begin{align}
+    \label{eq:bayesian estimator E(theta|X)}
+    \hat{\mbs{\theta}} &= \expect{\mbsrv{\theta}\middle|~\mbf{X}}\\
+    &= \int_{-\infty}^{\infty}\mbs{\theta}\pdf{\mbs{\theta}\middle|~\mbf{X}}\dee\mbs{\theta},
+\end{align}
+where
+\begin{align}
+    \pdf{\mbs{\theta}\middle|~\mbf{X}} &= 
+        \f{
+            \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}
+        }{\pdf{\mbf{X}}}\\
+    &=
+        \f{
+            \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}
+        }{
+            \int_{-\infty}^{\infty}\pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}\dee\mbs{\theta}
+        }.
+\end{align}
+
+\begin{myBlueBox}
+    \textbf{Terminology}
+    \begin{itemize}
+        \item $\pdf{\mbs{\theta}}$: \emph{prior} pdf of $\mbsrv{\theta}$ (before observing the sample).
+        \item $\pdf{\mbs{\theta}\middle|~\mbf{X}}$: \emph{posterior} pdf of $\mbs{\theta}$ (after observing the sample).
+        \item In \cite{barfoot_state_2017}, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ is sometimes referred to as the likelihood of $\mbf{X}$ given $\mbs{\theta}$. This is not to be confused with the likelihood from the ML estimator. In estimation, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ can also be referred to as an \emph{observation model}. 
+    \end{itemize}
+\end{myBlueBox}
+
+\begin{myremark}
+    \begin{itemize}
+        \item $\expect{\mbsrv{\theta}\middle|~\mbf{X}}$ from \eqref{eq:bayesian estimator E(theta|X)} is difficult to solve for two reasons. First, the denominator of the posterior pdf involves evaluating an integral over the entire sample space of $\mbs{\theta}$. Second, evaluating the expectation $\expect{\cdot}$ requires \emph{another} integral to be evaluated over the entire sample space.
+        
+        \item Maximum a-posteriori (MAP) estimate maximizes the \emph{posterior} pdf $\pdf{\mbs{\theta}\middle|~\mbf{X}}$ with respect to $\mbs{\theta}$. Since the denominator of the prior is constant, then it can be omitted. That is,
+        \begin{align}
+            \hat{\mbs{\theta}}_{\mathrm{MAP}} 
+            &= \argmax_{\mbs{\theta}} \pdf{\mbs{\theta}\middle|~\mbf{X}}\\
+            &= \argmax_{\mbs{\theta}} \f{\pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}}{\pdf{\mbf{X}}}\\
+            &= \argmax_{\mbs{\theta}} \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}.
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\section{Maximum a-posteriori (MAP) estimator}
+This estimator is an \emph{approximation} to the Bayes estimator discussed in the previous section. It is easier (less computationally intensive) to compute.
+\begin{mydefinition}[Maximum a-posteriori estimator]
+    Maximum a-posteriori (MAP) estimate maximizes the \emph{posterior} pdf $\pdf{\mbs{\theta}\middle|~\mbf{X}}$ with respect to $\mbs{\theta}$. Since the denominator of the prior is constant, then it can be omitted. That is,
+        \begin{align}
+            \hat{\mbs{\theta}}_{\mathrm{MAP}} 
+            &= \argmax_{\mbs{\theta}} \pdf{\mbs{\theta}\middle|~\mbf{X}}\\
+            &= \argmax_{\mbs{\theta}} \f{\pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}}{\pdf{\mbf{X}}}\\
+            &= \argmax_{\mbs{\theta}} \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}.
+        \end{align}
+\end{mydefinition}
+
+\subsubsection{MAP estimator on Gaussian variables}
+
+% \section{The maximum a-posteriori estimator}
 In this section, the MAP estimator for normally distributed variables will be derived. For each problem, a process model is provided in the form 
 \begin{align}
 \mbf{x}_{k+1} &= \mbf{f}(\mbf{x}_{k}, \mbf{u}_{k}, \mbfuline{w}_{k}),
