@@ -1,3 +1,147 @@
+\section{Bernoulli distribution}
+From \cite{psaromiligkos_slides_2019}.
+\begin{mydefinition}[Bernoulli drandom variable]
+    A random variable $\rv{x}$ is called Bernoulli with parameter $p$ if there exists an event $A$ with probability $p = \prob{A}$ such that
+    \begin{align}
+        x(s) &=
+        \begin{cases}
+            1, & s\in A\\
+            0, & s\notin A,
+        \end{cases}
+    \end{align}
+    where $s\in S$.
+\end{mydefinition}
+\begin{myremark}
+    Some remarks on Bernoulli random variables.
+    \begin{itemize}
+        \item $\rv{x}$ is a \emph{discrete} random variable with range $\mc{R}_{x} = \left\{ 0, 1\right\}$.
+        \item PMF of $\rv{x}$ 
+        \begin{align}
+            \pmf{0} &= \prob{\rv{x} = 0} = \prob{A^{\comp}} = 1 - p = q\\
+            \pmf{1} &= \prob{\rv{x} = 1} = \prob{A} = p\\
+            \pmf{x} &= 0 \qquad \text{if } x\notin \left\{ 0,1\right\}.
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\section{Geometric random variables}
+From \cite{psaromiligkos_slides_2019}.
+\begin{mydefinition}[Geometric random variable]
+    A geometric random variable is a discrete random variable with a countable infinite set of possible values. The set of possible values for the geometric random variable $\rv{x}$ is
+    \begin{align}
+        \mc{R}_{x} &= \left\{ 1, 2, \ldots\right\} = \mbb{N}.
+    \end{align}
+\end{mydefinition}
+\begin{mytheorem}
+    [PMF of geometric random variables]    
+    Let $\rv{x}$ be a geometric random variable with parameter $p$. The PMF of $\rv{x}$ is then
+    \begin{align}
+        \pmf{x} &= 
+        \begin{cases}
+            \left( 1 - p \right)^{x-1}p, &\qquad x = 1, 2, \ldots,\\
+            0, & \text{otherwise}.
+        \end{cases}
+    \end{align}
+\end{mytheorem}
+
+\section{Binomial random variable}
+\begin{mydefinition}[Binomial random variable]
+    Consider a sequence of $n$ identical and independent Bernoulli trials with probability of success $p$. The random variable $\rv{x}$ defined by
+    \begin{align}
+        \rv{x} &= \text{number of successes in the $n$ trials}
+    \end{align}
+    is called binomial with parameters $n$ and $p$, or simply $B(n,p)$.
+\end{mydefinition}
+\begin{myremark}
+    Some remarks on Binomial random variables.
+    \begin{itemize}
+        \item Set of possible values of $\rv{x}$:
+        \begin{align}
+            \mc{R}_{x} &= \left\{ 0, 1, \ldots, n\right\}.
+        \end{align}
+        \item Notation:
+        \begin{align}
+            \rv{x} \sim B(n, p).
+        \end{align}
+        \item Basic examples
+        \begin{itemize}
+            \item Number of heads in a sequence of 10 independent flips of a coin.
+            \item Number of defective IC chips in a production sample of size $n$.
+        \end{itemize}
+    \end{itemize}
+\end{myremark}
+\begin{mytheorem}
+   [PMF of a Binomial random variable]    
+   Let $\rv{x}\sim B(n,p)$. The PMF of $\rv{x}$ is
+   \begin{align}
+       \pmf{x} &= 
+       \begin{cases}
+           {n \choose k} p^{x}(1-p)^{n-x}, &x = 0, 1, \ldots, n\\
+           0, &\text{otherwise}.
+       \end{cases}
+   \end{align}
+\end{mytheorem}
+
+
+\section{Poisson distribution}
+A discrete random variable $\rv{x}$ is called Poisson with parameter $\lambda > 0$ if its PMF has the form
+\begin{align}
+    \pmf{x} &= 
+    \begin{cases}
+        \f{\lambda^{x}}{x!}e^{-\lambda}, &x\in\mbb{N}_{0}\\
+        0, &\text{otherwise},
+    \end{cases}
+\end{align}
+where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
+
+\section{Uniform random variables}
+\begin{mydefinition}[Uniform random variable]
+    A continuous random variable $\rv{x}$ is called uniform over the interval $(a,b)$, written as $\rv{x}\sim U(a,b)$, where $a<b$ are real numbers, if its PDF is
+    \begin{align}
+        \pdf{x} &= 
+        \begin{cases}
+            \f{1}{b-a}, & a < x < b,\\
+            0, &\text{otherwise}.
+        \end{cases}
+    \end{align}
+\end{mydefinition}
+
+\begin{mytheorem}
+   [Unoform random variable CDF]    
+     The CDF is given by
+     \begin{align}
+         \cdf{x} &=
+         \begin{cases}
+             0, & x \leq a,\\
+             \f{x-a}{b-a}, & a\leq x\leq b,\\
+             1& x \geq b.
+         \end{cases}
+     \end{align}
+\end{mytheorem}
+
+\section{Exponential random variable}
+\begin{mydefinition}[Exponential random variable]
+    A continuous random variable $\rv{x}$ is called exponential with parameter $\lambda > 0$ if its PDF is given by
+    \begin{align}
+        \pdf{x} &= 
+        \begin{cases}
+            \lambda e^{-\lambda x}, &x\geq 0,\\
+            0, &x<0.
+        \end{cases}
+    \end{align}
+\end{mydefinition}
+\begin{mytheorem}
+   [Exponential random variable CDF]    
+   The CDF is given by
+   \begin{align}
+       \cdf{x} &= 
+       \begin{cases}
+           1 - e^{-\lambda x}, & x > 0,\\
+           0, x \leq 0.
+       \end{cases}
+   \end{align}  
+\end{mytheorem}
+
 
 \section{Gaussian random variables}
 \begin{mydefinition}[Gaussian (normal) distribution]
@@ -18,7 +162,7 @@
     \end{align}
 \end{mydefinition}
 
-\subsection*{Properties of Gaussian random variables}
+\subsection{Properties of Gaussian random variables}
 \begin{mytheorem}
    [Linear combination of normal RVs]    
    A random vector $\mbfrv{x}$ is called a Gaussian (or normal) random vector if and only if the random variable $\mbf{a}^{\trans}\mbfrv{x}$ is a Gaussian random variable for any vector $\mbf{a}$.           
@@ -48,7 +192,10 @@
     \end{align}
 \end{mytheorem}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To add:
+%   Lemma A.1 and A.2 from Farrel.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Chi-squared distribution}
 \begin{mydefinition}[Chi-squared distribution]
