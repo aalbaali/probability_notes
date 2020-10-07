@@ -6,6 +6,207 @@
     Double check the terminology in this chapter!
     }
 \end{center}
+
+
+\section{Motivation}
+Let $\rv{x}$ be a random variable whose CDF, $\cdf{x}$, \emph{is unknown}. The goal is estimate $\cdf{x}$ from $n$ observations of $\rv{x}$, $x_{1}, \ldots, x_{n}$.
+
+\begin{mydefinition}[Empirical CDF]
+    The empirical CDF of $\rv{x}$ from the observations $x_{1}, \ldots, x_{n}$ is
+    \begin{align}
+        \hat{\cdf{}}(x) &= \f{1}{n} \times \left( \# \text{ of observations } x_{i} \leq x \right).
+    \end{align}
+\end{mydefinition}
+The empirical CDF $\hat{\cdf{}}(x)$ is the CDF of a discrete random variable with PMF
+\begin{align}
+    \hat{\pmf{}}_{n}(x) &= 
+    \begin{cases}
+        \f{1}{n}, & x = x_{i}, \quad i = 1,\ldots, n,\\
+        0 & \text{Otherwise}.
+    \end{cases}
+\end{align}
+The PDF is then given by
+\begin{align}
+    \label{eq:empirical pdf constant weight}
+    \hat{\pdf{}}_{n}(x) &= \sum_{i=1}^{n}\f{1}{n}\delta(x-x_{i}).
+\end{align}
+
+The empirical PDF $\hat{\pdf{}}(x)$ in \eqref{eq:empirical pdf constant weight} assigns constant weights to every observation. The empirical PDF can be generalized by giving different weights to different observations. Specifically,
+\begin{align}
+    \hat{\pdf{}}_{n}(x) &= \sum_{i=1}^{n}\f{1}{n}k(x-x_{i}),
+\end{align}
+where $k(\cdot)$ is the kernel function such that it is
+\begin{enumerate}
+    \item symmetric around 0, and
+    \item $\int_{-\infty}^{\infty}k(x)\dee x = 1$.
+\end{enumerate}
+A common choice is the Gaussian kernel. That is, a PDF of $\mc{N}(0,1)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Parameter estimation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem statement}
+Let $\mbfrv{x}$ be a random variable. Furthermore, let $\pdf{\mbf{x}; \mbs{\theta}}$ be the PDF of $\mbfrv{x}$ of \emph{known form} (e.g., Gaussian distribution) but depending on \emph{unknown} parameters $\mbs{\theta}$ (e.g., mean and covariance of a Gaussian distribution).
+\begin{example}
+    A Gaussian random variable has a PDF parameterized w.r.t. to the mean ${\mu}$ and the variance $\sigma^{2}$. Thus, the parameters could be $\mbs{\theta} = \bbm \mu, \sigma^{2} \ebm$.
+\end{example}
+
+The goal is to estimate $\mbs{\theta}$ from $n$ observations of $\mbfrv{x}$: $\mbf{x}_{1}, \ldots, \mbf{x}_{n}$. 
+
+Define the data vector 
+\begin{align}
+    \mbf{X} &= \bbm \mbf{x}_{1}\\\vdots\\\mbf{x}_{n} \ebm.
+\end{align}
+The data vector $\mbf{X}$ is a realization of the random vector 
+\begin{align}
+    \mbfrv{X} &= \bbm \mbfrv{x}_{1} \\ \vdots \\ \mbfrv{x}_{n} \ebm,
+\end{align}
+where $\mbfrv{x}_{i}$, $i=1,\ldots, n$ are i.i.d.
+
+\subsection*{Approaches}
+There are two approaches to parameter estimation.
+\begin{enumerate}
+    \item \emph{Point estimation}: identify a function $g(\cdot)$ of the sample such that $g(\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n})$ is a good (in some sense) approximation of $\mbs{\theta}$.
+    \item \emph{Interval estimation}: identify two functions $g_{1}(\cdot)$ and $g_{2}(\cdot)$ of the sample, such that
+    \begin{align}
+        \prob{g_{1}(\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n})<\mbs{\theta}<g_{2}(\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n})} = \gamma,
+    \end{align}
+    where $\gamma$ is the confidence interval.
+\end{enumerate}
+
+\section{Definitions and terminology}
+\begin{mydefinition}[Estimator]
+    The estimator of $\mbs{\theta}$ is given in the form
+    \begin{align}
+        \hat{\mbsrv{\theta}} &= g(\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{n}).
+    \end{align}
+
+    The estimator models the behaviour of the estimation method over all possible samples.
+\end{mydefinition}
+\begin{mydefinition}[Estimate of $\mbs{\theta}$]
+    The \emph{deterministic} quantity $g(\mbf{x}_{1},\ldots,\mbf{x}_{n})$. That is, the the output of $\hat{\mbsrv{\theta}}$ for the realizations $\mbf{x}_{1}, \ldots, \mbf{x}_{n}$.
+\end{mydefinition}
+\begin{mydefinition}[Statistic]
+    Any function of $\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{n}$.
+\end{mydefinition}
+\begin{mydefinition}[Bias]
+    The estimator $g(\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{n})$ is called
+    \begin{itemize}
+        \item \emph{unbiased} if 
+        \begin{align}
+            \expect{g(\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n})} &= \mbs{\theta}.
+        \end{align}
+        \item Otherwise, it's called \emph{biased} with bias
+        \begin{align}
+            \expect{g(\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n})} - \mbs{\theta}.
+        \end{align}
+    \end{itemize}
+\end{mydefinition}
+
+\begin{mydefinition}[Asymptic unbias]
+    A biased estimator for which
+    \begin{align}
+        \expect{g(\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n})} \overset{N\to\infty}{\to} \mbs{\theta}
+    \end{align}
+    is called \emph{asymptotically unbiased}.
+\end{mydefinition}
+
+\begin{mydefinition}[Mean-squared best estimator]
+   For a fixed $n$, the estimator that minimizes the mean-squared (MS) error 
+   \begin{align}
+       \mbf{e}_{n} &= \expect{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})^{\trans}g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}}
+   \end{align}
+   is called the \emph{best} estimator (in the mean-squared sense).
+\end{mydefinition}
+
+\begin{mydefinition}[Consistency]
+    The estimator $g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})$ is called \emph{consistent} if 
+    \begin{align}
+        \lim_{n\to\infty} \prob{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}>\mbs{\epsilon}} &= 0, \forall \mbs{\epsilon}>\mbf{0},
+    \end{align}
+    or
+    \begin{align}
+        \lim_{n\to\infty} \prob{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}<\mbs{\epsilon}} &= 1, \forall \mbs{\epsilon}>\mbf{0}.
+    \end{align}
+\end{mydefinition}
+
+\begin{mytheorem}
+    [Sufficient condition for consistency]    
+    Let $g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})$ be an estimator of $\mbs{\theta}$. Then, if
+    \begin{align}
+        \lim_{n\to\infty} \expect{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})^{\trans}g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}} &= \mbf{0},
+    \end{align}
+    then $g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})$ is a \emph{consistent estimator} of $\mbs{\theta}$.
+
+    The converse is not true in general. That is, this is a sufficient but not necessary condition.
+\end{mytheorem}
+
+
+\begin{mytheorem}
+   [Sample mean estimator]    
+     Let $\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n}$ be a random sample of size $n$ and let $\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n}$ be \emph{uncorrelated}. The \emph{sample mean estimator}
+     \begin{align}
+         \hat{\mbsrv{\mu}}_{n} &= \f{1}{n}\sum_{i=1}^{n}\mbfrv{x}_{i}
+     \end{align}
+     is
+     \begin{itemize}
+         \item an \emph{unbiased estimator} of $\mbs{\mu}$;
+         \item a \emph{consistent estimator} of $\mbs{\mu}$.
+     \end{itemize}
+\end{mytheorem}
+
+\begin{mytheorem}
+   [Variance estimaton]    
+   Consider the sample average estimators of the mean and variance of Gaussian random variable $\rv{x}$ from a random sample $\rv{x}_{1},\ldots, \rv{x}_{n}$ of size $n$:
+   \begin{align}
+       \hat{\rv{\mu}}_{n} &= \f{1}{n}\sum_{i=1}^{n}\rv{x}_{i},\\
+       \hat{\rv{\sigma}}_{n}^{2} &= \f{1}{n} \sum_{i=1}^{n}\left( \rv{x}_{i}-\hat{\rv{\mu}}_{n} \right)^{2}.
+   \end{align}
+   The random variables $\hat{\rv{\mu}}_{n}$ and $\hat{\rv{sigma}}_{n}^{2}$ are independent.
+\end{mytheorem}
+
+\section{Method of moments}
+Recall that moments are defined in Def.~\ref{def:moments single rv} and Def.~\ref{def:moments multiple rv}. 
+The $m$-th moment estimator is given by
+\begin{align}
+    \hat{m}_{m}(\mbf{X}) &= 
+    \f{1}{n}\sum_{i}^{n}x_{i}^{m}.
+\end{align}
+Let $\mbs{\theta}\in\rnums^{k}$ be of size $k$ and let 
+\begin{align}
+    \mbf{X} &= \bbm x_{1} \\\vdots\\x_{n} \ebm 
+\end{align}
+be the samples of the random variable $\rv{x}$. Then, 
+the idea of method of moments is to estimate the first $k$ moments, thus getting $k$ equations, and then solving the $k$ equations for $\mbs{\theta}$.
+
+\begin{example}
+    Estimate the mean $\mu$ and variance $\sigma^{2}$ of a random variable $\rv{x}$ from a random sample $\mbfrv{X} = \bbm \rv{x}_{1}&\ldots&\rv{x}_{n} \ebm^{\trans}$.
+
+    The moments are given by
+    \begin{alignat}{2}
+        m_{1}(\mu, \sigma^{2}) &= \expect{\rv{x}} &&= \mu, \\
+        m_{2}(\mu, \sigma^{2}) &= \expect{\rv{x}^{2}} &&= \mu^{2} + \sigma^{2}.
+    \end{alignat}
+    The sample average estimates of the moments are given by
+    \begin{align}
+        \hat{m}_{1}(\mbf{X}) &= \f{1}{n}\sum_{i=1}^{n}x_{i},\\
+        \hat{x}_{2}(\mbf{X}) &= \f{1}{n}\sum_{i=1}^{n}x_{i}^{2}.
+    \end{align}
+    Thus, the parameter estimates can be computed by solving the system of equations
+    \begin{align}
+        \mu &= \hat{m}_{1}(\mbf{X})\\
+        \mu^{2} + \sigma^{2} &= \hat{m}_{2}(\mbf{X}).
+    \end{align}
+    The solution is given by
+    \begin{align}
+        \hat{\mu} &= \hat{m}_{1}(\mbf{X}) \\
+            &= \f{1}{n}\sum_{i=1}^{n}x_{i},\\
+        \hat{\sigma}^{2} &= \hat{m}_{2}(\mbf{X}) - \hat{m}_{1}^{2}(\mbf{X})\\
+        &= \f{1}{n}\sum_{i=1}^{n}x_{i}^{2}  - \left(\f{1}{n}\sum_{i=1}^{n}x_{i}\right)^{2}.
+    \end{align}
+\end{example}
+
 \section{The maximum a-posteriori estimator}
 In this section, the MAP estimator for normally distributed variables will be derived. For each problem, a process model is provided in the form 
 \begin{align}
