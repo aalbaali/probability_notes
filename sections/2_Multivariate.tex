@@ -572,7 +572,7 @@ The authors of \cite{gustafsson_nonlinear_2008} discuss the values to set the us
 \end{itemize}
 
 \subsubsection{Spherical cubature method}
-Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$, then the spherical cubature method\footnote{It's a type of a sigma-point transformation.} approximates the mean and the covariance of the transformed random variable $\mbfrv{y}=\mbf{g}(\mbfrv{x})$. The method is summarized in Algorithm~\ref{alg: spherical cubature}. More details are available in \cite{sarkka_bayesian_2013}
+Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$, then the spherical cubature method\footnote{It's a type of a sigma-point transformation.} approximates the mean and the covariance of the transformed random variable $\mbfrv{y}=\mbf{g}(\mbfrv{x})$. The method is summarized in Algorithm~\ref{alg: spherical cubature}. More details are available in \cite[Algorithm~6.8]{sarkka_bayesian_2013}
 
 
 \begin{algorithm}[H]
@@ -588,7 +588,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
         \begin{align}
             \mc{X}^{(i)} &= \mbs{\mu}_{x} + \sqrt{\mbs{\Sigma}_{x}}\mbs{\xi}^{(i)}, \quad, i=1,\ldots, 2n_{x},
         \end{align}
-        where $\mbs{\xi}^{(i)}\in\rnums^{n_{x}}$ is the $i$-th column of $\mbs{\xi}$.
+        where $\mbs{\xi}^{(i)}\in\rnums^{n_{x}}$ is the $i$-th column of $\mbs{\xi}$, and $\mbs{\Sigma}_{x} = \sqrt{\mbs{\Sigma}_{x}}\sqrt{\mbs{\Sigma}_{x}}^{\trans}$ is obtained using Cholesky decomposition.
         \State Pass the sigma-points through the nonlinearity
         \begin{align}
             \mc{Y}^{(i)} &= \mbf{g}(\mc{X}^{(i)}), \quad i=1, \ldots, 2n_{x}.
@@ -600,9 +600,6 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
         \end{align}
     \end{algorithmic}
 \end{algorithm}
-
-
-
 
 \section{Statistics of random variables}
 \subsection{Order statistics}
