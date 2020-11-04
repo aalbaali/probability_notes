@@ -253,19 +253,21 @@ the idea of method of moments is to estimate the first $k$ moments, thus getting
     \end{itemize}
 \end{myremark}
 
-\subsection{Remarks}
-\begin{enumerate}
-    \item Let $\hat{\mbsrv{\theta}}_{\mathrm{ML}}$ be the ML estimator of $\mbs{\theta}$ and let $g(\mbs{\theta})$ be a function of $\mbs{\theta}$. Then, the ML estimator of $g(\mbs{\theta})$ is $g(\hat{\mbsrv{\theta}}_{\mathrm{ML}})$.
-    
-    \item Limitations of the ML estimation:
+\begin{myremark}
+    Some remarks on ML estimation.
     \begin{enumerate}
-        \item The ML estimate may not exist.
-        \item The ML estimate may not be unique. 
-    \end{enumerate}        
+        \item Let $\hat{\mbsrv{\theta}}_{\mathrm{ML}}$ be the ML estimator of $\mbs{\theta}$ and let $g(\mbs{\theta})$ be a function of $\mbs{\theta}$. Then, the ML estimator of $g(\mbs{\theta})$ is $g(\hat{\mbsrv{\theta}}_{\mathrm{ML}})$.
+        
+        \item Limitations of the ML estimation:
+        \begin{enumerate}
+            \item The ML estimate may not exist.
+            \item The ML estimate may not be unique. 
+        \end{enumerate}        
+        
+        \item Maximum likelihood estimate can be finding by minimizing the negative likelihood or negative log-likelihood.
+    \end{enumerate}
+\end{myremark}
     
-    \item Maximum likelihood estimate can be finding by minimizing the negative likelihood or negative log-likelihood.
-\end{enumerate}
-
 \begin{example}
     Let $\rv{x}\sim U[0,\theta]$ be a uniformly distributed random variable in the form
     \begin{align}
@@ -291,7 +293,7 @@ the idea of method of moments is to estimate the first $k$ moments, thus getting
 
         \item The likelihood of $\theta$ is then given as a function of the samples of $\rv{x}_{i}=x_{i}'$. Specifically, the likelihood is
         \begin{align}
-            L_{N}(\theta; x_{1}', \ldots, x_{N}') &=
+            L(\theta; x_{1}', \ldots, x_{N}') &=
             \pdf{\rv{x}_{1} = x_{1}', \ldots, \rv{x}_{N} = x_{N}'; \theta}\\
             &=
             \begin{cases}
@@ -391,207 +393,153 @@ This estimator is an \emph{approximation} to the Bayes estimator discussed in th
         \end{align}
 \end{mydefinition}
 
-\subsubsection{MAP estimator on Gaussian variables}
+\subsection{MAP estimator of a Markov normally distributed random variable}
 
-\section{The maximum a-posteriori estimator}
-\begin{center}
-    \Huge
-    \textbf{TO BE UPDATED}
-    
-    \textcolor{red}{
-    Double check the terminology in this chapter!
-    }
-\end{center}
-
-In this section, the MAP estimator for normally distributed variables will be derived. For each problem, a process model is provided in the form 
+In this section, the MAP estimator for normally distributed variables that follow a Markov chain will be derived. For each problem, a process model is provided in the form 
 \begin{align}
-\mbf{x}_{k+1} &= \mbf{f}(\mbf{x}_{k}, \mbf{u}_{k}, \mbfuline{w}_{k}),
+    \label{eq:MAP state estimation process model}
+    \mbfrv{x}_{k+1} &= \mbfrv{f}(\mbf{x}_{k}, \mbfrv{u}_{k}, \mbfuline{w}_{k}),
 \end{align}
-where $\mbfuline{w}_{k}\sim\mc{N}(\mbf{0},\mbs{\Sigma}_{\mbf{w}})$ is the Gaussian process noise.
-Further, a measurement model is given in the form
+where $\mbfuline{w}_{k}\sim\mc{N}(\mbf{0},\mbf{Q}_{k})$ is the process noise and the covariance matrix $\mbf{Q}_{K}$ is known. A prior is distributed according to $\mbfhat{x}_{0}\sim\mc{N}\left( \mbfhat{x}_{1}, \mbfcheck{P}_{0} \right)$.
+
+Furthermore, a measurement model is given in the form
 \begin{align}
-\mbf{y}_{k} &= \mbf{g}(\mbf{x}_{k}, \mbfuline{v}_{k}),
+    \label{eq:MAP state estimation measurement model}
+    \mbfrv{y}_{k} &= \mbf{g}(\mbfrv{x}_{k}, \mbfuline{v}_{k}),
 \end{align}
-where $\mbfuline{v}_{k}\sim\mc{N}(\mbf{0},\mbs{\Sigma}_{\mbf{v}})$ is the Gaussian measurement noise. 
+where $\mbfuline{v}_{k}\sim\mc{N}(\mbf{0},\mbf{R}_{k})$ is the Gaussian measurement noise, where the covariance matrix $\mbf{R}_{k}$ is known. 
 
-The goal is to estimate the states $\mbf{x}_{1:K}$ given the measurements and their distributions $\mbf{u}_{0:K-1}$, $\mbf{y}_{1:K}$, and the prior on the initial state $\mbf{x}_{0}\sim\mc{N}(\mbfhat{x}_{0},\mbfhat{P}_{0})$. To derive the maximum a-posteriori (MAP) estimator, the likelihood of $\mbf{x}_{1:K}$ must first be derived. 
+The goal is to estimate states' $\mbfrv{x}_{1:K}$ parameters using the realizations of the prior $\mbf{x}_{0}$, the realizations of the interoceptive measurements $\mbf{u}_{k}$ and realizations of the exteroceptive measurements $\mbf{y}_{k}$. If the RVs are Gaussian, then they can be parametrized by a mean and a covariance (i.e., $\mbfrv{x}_{k}\sim\mc{N}(\mbs{\mu}_{k}, \mbs{\Sigma}_{k})$). 
 
-The posterior of $\mbf{x}_{1:K}$ is given by
-\begin{align}
-\ell\left(\mbf{x}_{1:K}; \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}\right)
-&= \pdf{\mbf{x}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}}\\
-&= 
-\f{
-    \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}
-}
-{
-    \pdf{\mbf{y}_{1:K}\middle\vert~\mbf{u}_{0:K-1}, \mbfhat{x}_{0}}
-}\\
-&=
-    \label{eq: LS derivation Bayes. Marginalizing x, finding eta}
-    \f{
-        \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}
-    }
-    {
-        \int_{-\infty}^{\infty} \pdf{\mbf{y}_{1:K}\middle\vert~\mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}}\dee\mbf{x}_{1:K}
-    }\\
-&= 
-    \eta \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}, \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}\\
-&= 
-    \label{eq: LS derivation Bayes. y independent of u}
-    \eta \pdf{\mbf{y}_{1:K} \middle\vert~ \mbf{x}_{1:K}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}\\
-&= 
-    \label{eq: LS derivation Bayes. y independent of ys}
-    \eta \prod_{k=1}^{M}\pdf{\mbf{y}_{k} \middle\vert~ \mbf{x}_{k}}\pdf{\mbf{x}_{1:K}\middle\vert~ \mbf{u}_{0:K-1}, \mbfhat{x}_{0}}\\
-&= 
-    \label{eq: LS derivation Bayes. Markov prop}
-    \eta \prod_{k=1}^{M}\pdf{\mbf{y}_{k} \middle\vert~ \mbf{x}_{k}}
-    \prod_{k=1}^{K}\pdf{\mbf{x}_{k}\middle\vert~ \mbf{x}_{k-1}, \mbf{u}_{k-1}}\pdf{\mbf{x}_{0}}\\
-&= 
-    \label{eq: LS derivation Bayes. Reorganize}
-    \eta
-    \pdf{\mbf{x}_{0}}
-    \prod_{k=1}^{K}\pdf{\mbf{x}_{k}\middle\vert~ \mbf{x}_{k-1}, \mbf{u}_{k-1}}
-    \prod_{k=1}^{M}\pdf{\mbf{y}_{k} \middle\vert~ \mbf{x}_{k}}\\
-&= 
-    \label{eq: LS derivation Bayes. Expand with exponential}
-    \eta
-    \gaussian{\mbf{x}_{0}}{\mbfhat{x}_{0}}{\mbfhat{P}_{0}}
-    \prod_{k=1}^{K}\gaussian{\mbf{x}_{k}}{\mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}{\mbs{\Sigma}_{\mbf{w}}}
-    \prod_{k=1}^{M}\gaussian{\mbf{y}_{k}}{\mbf{g}\left(\mbf{x}_{k}\right)}{\mbs{\Sigma}_{\mbf{v}}},
-\end{align}
-where $p(\cdot)$ is the probability distribution function (PDF) of a random variable and $\eta$ is the normalizing coefficient given in the denominator of \eqref{eq: LS derivation Bayes. Marginalizing x, finding eta}. Equation~\eqref{eq: LS derivation Bayes. y independent of u} is obtained by taking into account that $\mbf{y}_{k}$ is independent of $\mbf{u}_{k}$ for all $k$, \eqref{eq: LS derivation Bayes. y independent of ys} is obtained because $\mbf{y}_{j}$ is independent of $\mbf{y}_{i}$ for $i\neq j$, \eqref{eq: LS derivation Bayes. Markov prop} exploits the Markov property of the process model, and \eqref{eq: LS derivation Bayes. Expand with exponential} is the Gaussian PDF written out.
-
-Taking the negative log of \eqref{eq: LS derivation Bayes. Expand with exponential} gives
-\begin{align}
-    \label{eq: LS derivation. -Log likelihood}
-    L\left(\mbf{x}_{1:K};  \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}\right) &= 
-    -\log\ell\left(\mbf{x}_{1:K};  \mbf{u}_{0:K-1}, \mbf{y}_{1:K}, \mbfhat{x}_{0}\right)\\
-    &=
-    \eta \left(
-    \f{1}{2} \norm{\mbf{x}_{0}-\mbfhat{x}_{0}}_{\mbfhat{P}_{0}\inv}^{2} +
-    \f{1}{2}\sum_{k=1}^{K}\norm{\mbf{x}_{k} - \mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}_{\mbs{\Sigma}_{\mbf{w}}\inv}^{2} \right.\\\nonumber&\qquad\left. + 
-    \f{1}{2}\sum_{k=1}^{M}\norm{\mbf{y}_{k} - \mbf{g}\left(\mbf{x}_{k}\right)}_{\mbs{\Sigma}_{\mbf{v}}\inv}^{2}
-    \right),
-\end{align}
-The \emph{maximum a-posteriori} (MAP) estimate, as the name suggests, finds the $\mbf{x}$ that maximizes the posterior \eqref{eq: LS derivation Bayes. Expand with exponential} which is \emph{equivalent} to minimizing the negative log \eqref{eq: LS derivation. -Log likelihood}. 
-% However, the MLE is not desirable as it requires the computation of $\eta$ which is expensive. However, since
-    Since $\eta$ does not depend on $\mbf{x}$, then it does not affect the optimization problem. Maximizing the negative-log posterior \eqref{eq: LS derivation. -Log likelihood} with respect to $\mbf{x}$ without computing $\eta$ gives the MAP estimator. Specifically,
-\begin{align}
-    \mbfhat{x}_{0:K, \mathrm{MAP}} &= \argmin_{\mbf{x}_{1:K}} \f{1}{2} \norm{\mbf{x}_{0}-\mbfhat{x}_{0}}_{\mbfhat{P}_{0}\inv}^{2} +
-    \f{1}{2}\sum_{k=1}^{K}\norm{\mbf{x}_{k} - \mbf{f}\left(\mbf{x}_{k-1}, \mbf{u}_{k-1}\right)}_{\mbs{\Sigma}_{\mbf{w}}\inv}^{2} +
-    \f{1}{2}\sum_{k=1}^{M}\norm{\mbf{y}_{k} - \mbf{g}\left(\mbf{x}_{k}\right)}_{\mbs{\Sigma}_{\mbf{v}}\inv}^{2}
-\end{align}
-which is a least squares problem.
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Conditional probability
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Passing measurements through a function}
-\begin{mytheorem}
-   [Passing measurements through a function]    
-   Let $\mbfrv{y}\in\rnums^{m}$ be a (vector) random variable that depends on $\mbfrv{x}\in\rnums^{n}$ through
-   \begin{align}
-       \mbfrv{y} &= \mbf{g}\left( \mbfrv{x} \right).
-   \end{align}
-   Furthermore, let $\mbfrv{z}\in\rnums^{p}$ be a transformed random variable given by
-   \begin{align}
-       \mbfrv{z} &= \mbf{f}\left( \mbfrv{y} \right).
-   \end{align}
-   Then 
-   \begin{align}
-       \pdf{\mbfrv{x}\middle|~\mbf{y}, \mbf{z}} 
-       &=
-       \pdf{\mbfrv{x}\middle|~\mbf{y}}.
-    \end{align}
-    Furthermore, if $\mbf{g}$ is invertible and $\mbf{f}$ is invertible, then 
+\begin{myremark}
+    The interoceptive measurement $\mbfrv{u}_{k}$ is a random variable that can be assumed to be distributed according to
     \begin{align}
-        \label{eq:conditional prob xyz eq xz}
-        \pdf{\mbfrv{x}\middle|~\mbf{y}, \mbf{z}} 
-        &=
-        \pdf{\mbfrv{x}\middle|~\mbf{z}}.
+        \mbfrv{u}_{k}\sim\mc{N}\left( \mbf{u}_{k}, \mbf{Q}_{k}^{\mbf{u}} \right).
     \end{align}
-    Note that if $\mbf{g}$ is invertible but $\mbf{f}$ is non-invertible, then \eqref{eq:conditional prob xyz eq xz} does not hold in general!
-\end{mytheorem}
-\begin{proof}
-    \begin{enumerate}
-        \item The first part.
-        \begin{align}
-            \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}} 
-            &=
-            \f{
-                \pdf{\mbf{y}, \mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
-            }{
-                \pdf{\mbf{y}, \mbf{z}}
-            }\\
-            &= 
-            \f{
-                \pdf{\mbf{z}\middle|~\mbf{y},\mbf{x}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
-            }{
-                \pdf{\mbf{z}\middle|~\mbf{y}}\pdf{\mbf{y}}
-            }\\
-            &= 
-            \f{
-                \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
-            }{
-                \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}}
-            }\\
-            &= 
-                \f{
-                    \pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
-                }{
-                    \pdf{\mbf{y}}
-                }\\
-            &= \pdf{\mbf{x}\middle|~\mbf{y}}.
-        \end{align}
+    The measurement is assumed to be random due to measurement noise. However, the measurement noise can be embedded into the process noise $\mbf{Q}$. Therefore, it is possible to assume that the interoceptive measurements are not random, but the interoceptive measurement process noise is indeed random and will be embedded with the process noise $\mbfrv{w}_{k}$.
+\end{myremark}
+\begin{myremark}
+    The states will be assumed to be normally distributed. That is, $\mbfrv{x}_{k}\sim\mc{N}\left( \mbf{x}_{k}, \mbf{P}_{k} \right)$. Therefore, the parameters to be estimated should
+    \begin{align}
+        \tilde{\mbs{\theta}} &= \left\{ \mbf{x}_{0}, \ldots, \mbf{x}_{N}, \mbf{P}_{0}, \ldots, \mbf{P}_{N}\right\}.
+    \end{align}
+    However, to make things easier, the covariances $\mbf{P}_{0:N}$ will not be estimated (they will be computed after the MAP estimate is computed). Thus, the parameters that'll be estimated is given by
+    \begin{align}
+        \mbs{\theta} &= \left\{ \mbf{x}_{0}, \ldots, \mbf{x}_{N}\right\}.
+    \end{align}
+    The realizations are then
+    \begin{align}
+        \mbf{X} &= \left\{ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}, \mbf{y}_{1:N}\right\}.
+    \end{align}
+\end{myremark}
+For the MAP estimator, the PDF of interest is
+\begin{align}
+    \pdf{\mbs{\theta}\middle|~ \mbf{X}} 
+    \label{eq:MAP state estimation f(theta|X)}
+    &= \pdf{\mbf{x}_{0}, \ldots, \mbf{x}_{N} \middle|~ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}, \mbf{y}_{1:N}} \\
+    &= \f{\pdf{\mbf{y}_{1:N}\middle|~ \mbf{x}_{0:N}, \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}}\pdf{\mbf{x}_{0:N}\middle|~\mbfcheck{x}_{0}, \mbf{u}_{0:N-1}}}{\pdf{\mbf{y}_{1:N}\middle|~ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}}}\\
+    &= \eta \pdf{\mbf{y}_{1}\middle|~ \mbf{x}_{1}}\cdots\pdf{\mbf{y}_{N}\middle|~\mbf{x}_{N}}
+        \pdf{\mbf{x}_{N}\middle|~\mbf{x}_{N-1}, \mbf{u}_{N-1}}\cdots\pdf{\mbf{x}_{1}\middle|~\mbf{x}_{0}, \mbf{u}_{0}}\pdf{\mbf{x}_{0} \middle|~ \mbfcheck{x}_{0}}\\
+    \label{eq:MAP state estimation f(y|x)f(x|xm1)}
+    &= \eta \prod_{k=1}^{N}\pdf{\mbf{y}_{k}\middle|~\mbf{x}_{k}}\prod_{k=1}^{N}\pdf{\mbf{x}_{k}\middle|~\mbf{x}_{k-1}, \mbf{u}_{k-1}} \pdf{\mbf{x}_{0}, \middle|~ \mbfcheck{x}_{0}},
+\end{align}
+where $\eta$ is a normalizing parameter that is independent of the design variables ($\mbf{x}_{0:N}$) and the following assumptions were used
+\begin{enumerate}
+    \item The measurements $\mbf{y}_{k}$ depends only on $\mbf{x}_{k}$ (and measurement noise $\mbfrv{n}_{k}$ )as shown in the measurement model \eqref{eq:MAP state estimation measurement model}. Thus, the random variable $\mbfrv{y}_{k}$ is independent of all other random variables. 
+    
+    \item The state $\mbfrv{x}_{k}$ depends only on $\mbfrv{x}_{k-1}$ and $\mbf{u}_{k-1}$ (and process noise $\mbfrv{w}_{k-1}$) as shown in \eqref{eq:MAP state estimation process model}. Therefore, the random variables $\mbf{x}_{0:N}$ follow the \textbf{Markov sequence}: the future states $\mbfrv{x}_{k+1:N}$ are independent of the past states $\mbfrv{x}_{0:k-1}$ given the present state $\mbfrv{x}_{k}$. The Markov sequence is dictated by the process model \eqref{eq:MAP state estimation process model}.
+        
+\end{enumerate}
 
-        \item The second part. Let's expand $\pdf{\mbf{x}\middle|~\mbf{y},\mbf{z}}$.
-        \begin{align}
-            \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}}
-            &=
-            \f{
-                \pdf{\mbf{y},\mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
-            }{
-                \pdf{\mbf{y}, \mbf{z}}
-            }\\
-            &=
-            \f{
-                \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}}\pdf{\mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
-            }{
-                \pdf{\mbf{y}\middle|~\mbf{z}}\pdf{\mbf{z}}
-            }\\
-            &=
-            \f{
-                \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}}
-            }{
-                \pdf{\mbf{y}\middle|\mbf{z}}
-            }
-            \pdf{\mbf{x}\middle|~\mbf{z}}.
-        \end{align}
-        Thus, \eqref{eq:conditional prob xyz eq xz} satisfied if and only if
-        \begin{align}
-            \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}} &= \pdf{\mbf{y}\middle|\mbf{z}}.
-        \end{align}
-        That is, if $\mbf{y}$ is independent of $\mbf{x}$ \emph{given} $\mbf{z}$. More rigorously, if there exists $\mbf{y}_{1}\neq\mbf{y}_{2}$ such that
-        \begin{align}
-            \begin{aligned}
-                \mbf{g}(\mbf{x}_{1}) &= \mbf{y}_{1}\\
-                \mbf{g}(\mbf{x}_{2}) &= \mbf{y}_{2}\\
-            \end{aligned}
-            &\implies \mbf{x}_{1}\neq\mbf{x}_{2},
-        \end{align}
-        and
-        \begin{align}
-            \label{eq:conditional probl proof z=fy1=fy2}
-            \mbf{z} = \mbf{f}\left( \mbf{y}_{1} \right) 
-            = \mbf{f}\left( \mbf{y}_{2} \right).
-        \end{align}
-        Then knowing $\mbf{z}$ without knowing $\mbf{x}$ will result in a non-singleton sample space $S$ for the random variable $\mbfrv{y}$. That is, a set with more than one element which implies that $\mbfrv{y}$ cannot be determined uniquely. In such case, the sample space is the set of $\mbf{y}$ that satisfy \eqref{eq:conditional probl proof z=fy1=fy2}.
+If $\mbfrv{x}_{0:N}$ are assumed to be [marginally] Gaussian, then it is easier to minimize the negative-log of \eqref{eq:MAP state estimation f(theta|X)} than maximize \eqref{eq:MAP state estimation f(theta|X)} directly. 
 
-        On the other hand, if in addition to knowing $\mbf{z}$, $\mbf{x}$ is also known, then the sample space of $\mbf{y}$ is a singleton. That is, $\mbfrv{y}$ can be determined uniquely.
+Taking the negative-log of \eqref{eq:MAP state estimation f(y|x)f(x|xm1)} gives
+\begin{align}    
+    -\log \pdf{\mbf{x}_{0:N}\middle|~ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}, \mbf{y}_{1:N}}
+    \label{eq:negative log likelihood}
+    &=
+    \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} +\\
+    &\qquad  
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})} + 
+    \mbs{\gamma},
+\end{align}
+where 
+\begin{align}
+    \norm{\mbf{z}}^{2}_{\mbs{\Sigma}} &\triangleq \mbf{z}^{\trans}\mbs{\Sigma}\inv\mbf{z},
+\end{align}
+and
+$\mbs{\gamma}$ are constant terms that are independent of the design variables thus they will not affect the optimization.
 
-        The condition \eqref{eq:conditional probl proof z=fy1=fy2} occurs only if the function $\mbf{f}$ is non-invertible.
-    \end{enumerate}
-\end{proof}
+Therefore, the MAP estimate of $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$ is the solution to 
+\begin{align}
+    \mbfhat{x}_{0:N}^{\mathrm{MAP}} &= \argmin_{\mbf{x}_{0:N}\in\rnums^{n}} \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})},
+    &= \argmin_{\mbf{x}_{0:N}\in\rnums^{n}} J
+\end{align}
+which is a (nonlinear) weighted least squares problem. 
+
+\begin{myremark}
+    In \eqref{eq:negative log likelihood}, it was assumed that $\mbf{w}_{k} = \mbf{n}_{k} = \mbf{0}$. I'm not not sure why this assumption is done. The way I think of it is that the noise $\mbf{w}_{k}$ is embedded into the interoceptive measurement $\mbf{u}_{k}$. Similarly, the noise in $\mbf{n}_{k}$ is embedded in the exteroceptive measurement $\mbf{y}_{k}$.
+\end{myremark}
+
+\subsection{Expressing the nonlinear least squares problem in matrix form}
+The objective function can be expressed as
+\begin{align}
+    J(\mbf{x}_{0:N}) 
+    &= 
+    \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})} +
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} \\ 
+    &=
+    \f{1}{2}\mbf{e}(\mbf{x}_{0:N})^{\trans}\mbf{W}\mbf{e}(\mbf{x}_{0:N}),
+\end{align}
+where
+\begin{align}
+    \mbf{e}(\mbf{x}_{0:N}) &=
+    \bbm
+        \mbf{x}_{0} - \mbfcheck{x}_{0} \\ 
+        \hline
+        \mbf{x}_{1} - \mbf{f}\left( \mbf{x}_{0}, \mbf{u}_{0}, \mbf{0} \right) \\
+        \vdots\\
+        \mbf{x}_{N} - \mbf{f}\left( \mbf{x}_{N-1}, \mbf{u}_{N-1}, \mbf{0} \right) \\
+        \hline
+        \mbf{y}_{1} - \mbf{g}(\mbf{x}_{1}, \mbf{0})\\
+        \vdots\\
+        \mbf{y}_{N} - \mbf{g}(\mbf{x}_{N}, \mbf{0})\\
+    \ebm
+    \label{eq:MAP estimate Markov LS error function}
+\end{align}
+is the \emph{error function}, and
+\begin{align}
+    \mbf{W}\inv &= 
+    \bbm
+        \mbfcheck{P}_{0}    &   &   &   &   &   &   \\
+            &  \mbf{Q}_{0} &   &   &   &   &   \\
+            &   & \ddots  &   &   &   &   \\
+            &   &   & \mbf{Q}_{N}  &   &   &   \\
+            &   &   &   & \mbf{R}_{1}  &   &   \\
+            &   &   &   &   & \ddots  &   \\
+            &   &   &   &   &   & \mbf{R}_{N}  
+    \ebm
+    \label{eq:MAP estimate Markov LS weight matrix}
+\end{align}
+is the \emph{weight matrix}. 
+
+\subsection{Covariance on MAP estimate}
+In the optimization problem above, the covariance was not estimated. However, it can be estimated by using the MAP state estimates $\mbfhat{x}^{\mathrm{MAP}}_{0:N}$. The \emph{joint} covariance can be approximated by
+\begin{align}
+    \cov{\mbfhat{x}_{0:N}^{\mathrm{MAP}}} &=
+    \left( \mbf{J}(\mbfhat{x}_{0:N}^{\mathrm{MAP}})^{\trans}\mbf{W}\mbf{J}\left( \mbfhat{x}_{0:N}^{\mathrm{MAP}} \right) \right)\inv,
+\end{align}
+where 
+\begin{align}
+    \mbfhat{x}_{0:N}^{\mathrm{MAP}}
+\end{align}
+is the Jacobian of the error function \eqref{eq:MAP estimate Markov LS error function} w.r.t. the design variables, evaluated at the MAP estimate $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$. Specifically,
+\begin{align}
+    \mbf{J}(\mbfhat{x}_{0:N}^{\mathrm{MAP}}) &= 
+    \left. \td{\mbf{e}\left( \mbf{x}_{0:N} \right)}{\mbf{x}_{0:N}}\right|_{\mbf{x}_{0:N}=\mbfhat{x}_{0:N}^{\mathrm{MAP}}}.
+\end{align}
+

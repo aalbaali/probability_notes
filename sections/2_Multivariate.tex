@@ -1103,3 +1103,114 @@ The Schur's compliment can be used to compute this value. Specifically,
     \end{align}
     Adding these two results proves the theorem.
 \end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Conditional probability
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Passing measurements through a function}
+\begin{mytheorem}
+   [Passing measurements through a function]    
+   Let $\mbfrv{y}\in\rnums^{m}$ be a (vector) random variable that depends on $\mbfrv{x}\in\rnums^{n}$ through
+   \begin{align}
+       \mbfrv{y} &= \mbf{g}\left( \mbfrv{x} \right).
+   \end{align}
+   Furthermore, let $\mbfrv{z}\in\rnums^{p}$ be a transformed random variable given by
+   \begin{align}
+       \mbfrv{z} &= \mbf{f}\left( \mbfrv{y} \right).
+   \end{align}
+   Then 
+   \begin{align}
+       \pdf{\mbfrv{x}\middle|~\mbf{y}, \mbf{z}} 
+       &=
+       \pdf{\mbfrv{x}\middle|~\mbf{y}}.
+    \end{align}
+    Furthermore, if $\mbf{g}$ is invertible and $\mbf{f}$ is invertible, then 
+    \begin{align}
+        \label{eq:conditional prob xyz eq xz}
+        \pdf{\mbfrv{x}\middle|~\mbf{y}, \mbf{z}} 
+        &=
+        \pdf{\mbfrv{x}\middle|~\mbf{z}}.
+    \end{align}
+    Note that if $\mbf{g}$ is invertible but $\mbf{f}$ is non-invertible, then \eqref{eq:conditional prob xyz eq xz} does not hold in general!
+\end{mytheorem}
+\begin{proof}
+    \begin{enumerate}
+        \item The first part.
+        \begin{align}
+            \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}} 
+            &=
+            \f{
+                \pdf{\mbf{y}, \mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{y}, \mbf{z}}
+            }\\
+            &= 
+            \f{
+                \pdf{\mbf{z}\middle|~\mbf{y},\mbf{x}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{z}\middle|~\mbf{y}}\pdf{\mbf{y}}
+            }\\
+            &= 
+            \f{
+                \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \cancel{\pdf{\mbf{z}\middle|~\mbf{y}}}\pdf{\mbf{y}}
+            }\\
+            &= 
+                \f{
+                    \pdf{\mbf{y}\middle|~\mbf{x}}\pdf{\mbf{x}}
+                }{
+                    \pdf{\mbf{y}}
+                }\\
+            &= \pdf{\mbf{x}\middle|~\mbf{y}}.
+        \end{align}
+
+        \item The second part. Let's expand $\pdf{\mbf{x}\middle|~\mbf{y},\mbf{z}}$.
+        \begin{align}
+            \pdf{\mbf{x}\middle|~\mbf{y}, \mbf{z}}
+            &=
+            \f{
+                \pdf{\mbf{y},\mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{y}, \mbf{z}}
+            }\\
+            &=
+            \f{
+                \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}}\pdf{\mbf{z}\middle|~\mbf{x}}\pdf{\mbf{x}}
+            }{
+                \pdf{\mbf{y}\middle|~\mbf{z}}\pdf{\mbf{z}}
+            }\\
+            &=
+            \f{
+                \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}}
+            }{
+                \pdf{\mbf{y}\middle|\mbf{z}}
+            }
+            \pdf{\mbf{x}\middle|~\mbf{z}}.
+        \end{align}
+        Thus, \eqref{eq:conditional prob xyz eq xz} satisfied if and only if
+        \begin{align}
+            \pdf{\mbf{y}\middle|~\mbf{z},\mbf{x}} &= \pdf{\mbf{y}\middle|\mbf{z}}.
+        \end{align}
+        That is, if $\mbf{y}$ is independent of $\mbf{x}$ \emph{given} $\mbf{z}$. More rigorously, if there exists $\mbf{y}_{1}\neq\mbf{y}_{2}$ such that
+        \begin{align}
+            \begin{aligned}
+                \mbf{g}(\mbf{x}_{1}) &= \mbf{y}_{1}\\
+                \mbf{g}(\mbf{x}_{2}) &= \mbf{y}_{2}\\
+            \end{aligned}
+            &\implies \mbf{x}_{1}\neq\mbf{x}_{2},
+        \end{align}
+        and
+        \begin{align}
+            \label{eq:conditional probl proof z=fy1=fy2}
+            \mbf{z} = \mbf{f}\left( \mbf{y}_{1} \right) 
+            = \mbf{f}\left( \mbf{y}_{2} \right).
+        \end{align}
+        Then knowing $\mbf{z}$ without knowing $\mbf{x}$ will result in a non-singleton sample space $S$ for the random variable $\mbfrv{y}$. That is, a set with more than one element which implies that $\mbfrv{y}$ cannot be determined uniquely. In such case, the sample space is the set of $\mbf{y}$ that satisfy \eqref{eq:conditional probl proof z=fy1=fy2}.
+
+        On the other hand, if in addition to knowing $\mbf{z}$, $\mbf{x}$ is also known, then the sample space of $\mbf{y}$ is a singleton. That is, $\mbfrv{y}$ can be determined uniquely.
+
+        The condition \eqref{eq:conditional probl proof z=fy1=fy2} occurs only if the function $\mbf{f}$ is non-invertible.
+    \end{enumerate}
+\end{proof}
