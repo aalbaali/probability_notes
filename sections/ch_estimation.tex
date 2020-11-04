@@ -205,7 +205,9 @@ the idea of method of moments is to estimate the first $k$ moments, thus getting
 \begin{mydefinition}[Likelihood]
     Given the observations $\mbfrv{x}_{1} = \mbf{x}_{1}', \ldots, \mbfrv{x}_{n}=\mbf{x}_{n}'$, the \emph{likelihood} of $\mbs{\theta}$ is the joint PDF of $\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n}$ evaluated at the observed points
     \begin{align}
-        \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}} &= \pdf{}_{\mbf{x}}(\mbf{x}_{1}';\mbs{\theta})\cdots\pdf{}_{\mbf{x}}(\mbf{x}_{n}';\mbs{\theta}).
+        L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}') &=
+        \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\\
+         &= \pdf{}_{\mbf{x}}(\mbf{x}_{1}';\mbs{\theta})\cdots\pdf{}_{\mbf{x}}(\mbf{x}_{n}';\mbs{\theta}).
     \end{align}
 \end{mydefinition}
 \begin{myremark}
@@ -221,15 +223,25 @@ the idea of method of moments is to estimate the first $k$ moments, thus getting
 \begin{mydefinition}[Maximum-likelihood estimator]
     The maximum-likelihood (ML) estimate of $\mbs{\theta}$, $\hat{\mbs{\theta}}_{\mathrm{ML}}$, is the value of $\mbs{\theta}$ that maximizes $\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}$. That is,
     \begin{align}
-        \hat{\mbs{\theta}}_{\mathrm{ML}} &= \argmax_{\mbs{\theta}\in\rnums^{k}} \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+        \hat{\mbs{\theta}}_{\mathrm{ML}} 
+        &= \argmax_{\mbs{\theta}\in\rnums^{k}} L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}')\\
+        &= \argmax_{\mbs{\theta}\in\rnums^{k}} \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
     \end{align}
 \end{mydefinition}
 
 \begin{myremark}
+    Some remarks regarding the ML estimator.
     \begin{itemize}
         \item Log-likelihood function 
         \begin{align}
-            L(\mbf{x}_{1}',\ldots,\mbf{x}_{n}';\mbs{\theta}) = \log \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+            \ell(\mbf{x}_{1}',\ldots,\mbf{x}_{n}';\mbs{\theta}) 
+            &= \log L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}')\\
+            &= \log \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+        \end{align}
+        \item The maximizer of the log-likelihood function is the same maximizer of the likelihood function. That is,
+        \begin{align}
+            \argmax_{\mbs{\theta}\in\rnums^{k}} L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}')
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} \ell(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}').
         \end{align}
         \item The ML estimate is 
         \begin{align}
@@ -254,6 +266,56 @@ the idea of method of moments is to estimate the first $k$ moments, thus getting
     \item Maximum likelihood estimate can be finding by minimizing the negative likelihood or negative log-likelihood.
 \end{enumerate}
 
+\begin{example}
+    Let $\rv{x}\sim U[0,\theta]$ be a uniformly distributed random variable in the form
+    \begin{align}
+        \pdf{x; \theta} &= 
+        \begin{cases}
+            \f{1}{\theta}, &x\in[0,\theta],\\
+            0,&\text{otherwise},
+        \end{cases}
+    \end{align}
+    where $\theta$ is some unknown parameter. Find the ML estimator of $\theta$ from a random sample of size $N$.
+
+    \begin{enumerate}
+        \item First, get the joint PDF of all the random samples
+        \begin{align}
+            \pdf{x_{1}, \ldots, x_{N}; \theta} &= \pdf{x_{1};\theta}\cdots\pdf{x_{N}; \theta}\\
+            &= 
+            \begin{cases}
+                \f{1}{\theta^{N}}, &x_{i}\in[0, \theta], i=1,\ldots,N,\\
+                0, &\text{otherwise},
+            \end{cases}
+        \end{align}
+        where the fact that the random samples $\rv{x}_{i}$ for $i=1,\ldots,N$ are i.i.d. 
+
+        \item The likelihood of $\theta$ is then given as a function of the samples of $\rv{x}_{i}=x_{i}'$. Specifically, the likelihood is
+        \begin{align}
+            L_{N}(\theta; x_{1}', \ldots, x_{N}') &=
+            \pdf{\rv{x}_{1} = x_{1}', \ldots, \rv{x}_{N} = x_{N}'; \theta}\\
+            &=
+            \begin{cases}
+                \f{1}{\theta^{N}}, &x_{i}'\in[0,\theta], i=1,\ldots, N, \\
+                0, &\text{otherwise}
+            \end{cases}\\
+            &=
+            \begin{cases}
+                \label{eq:example ML uniform distribution}
+                \f{1}{\theta^{N}}, &\max_{i}(x_{i})\leq\theta, \\
+                0, &\text{otherwise}.
+            \end{cases}
+        \end{align}
+        Note that it was not necessary to specify the lower bound $\min_{i}(x_{i})\geq 0$ since the samples are drawn from a uniform distribution $U[0, \theta]$ which is bounded from below by $0$. Thus, $\prob{\rv{x}<0} = 0$. Therefore, it is impossible to have a sample $x_{i}'<0$.
+
+        \item Maximize the likelihood function. Maximizing \eqref{eq:example ML uniform distribution} is a \emph{constrained} optimization problem that entails maximizing $\f{1}{\theta^{N}}$. 
+        
+        Maximizing $\f{1}{\theta^{N}}$ is the same as minimizing $\theta$. However, since $\theta$ is bounded from below by the constraint in \eqref{eq:example ML uniform distribution}, then the minimum value of $\theta$ is $\max_{i}(x_{i})$. Thus,
+        \begin{align}
+            \hat{\theta}_{\mathrm{ML}} &= \max_{i}(x_{i}).
+        \end{align}
+    \end{enumerate}
+    \triqed
+\end{example}
 \section{Bayesian parameter estimation}
 % \subsection*{Introduction and terminology}
 In the previous sections, the approaches used were the \emph{classical} or \emph{frequentist} approaches. The classical approach
@@ -272,7 +334,7 @@ For Bayesian approach on the other hand
     \item The estimation problem becomes a prediction problem; predict $\mbsrv{\theta}$ from a correlated (with $\mbsrv{\theta}$) sample $\mbfrv{X}$.
 \end{enumerate}
 
-The mean-squared estimate $\hat{\mbs{\theta}}$ of $\mbsrv{\theta}$ given $\mbfrv{X}=\mbf{X}$ is
+The mean-squared (or Bayes) estimate $\hat{\mbs{\theta}}$ of $\mbsrv{\theta}$ given $\mbfrv{X}=\mbf{X}$ is
 \begin{align}
     \label{eq:bayesian estimator E(theta|X)}
     \hat{\mbs{\theta}} &= \expect{\mbsrv{\theta}\middle|~\mbf{X}}\\
@@ -295,6 +357,7 @@ where
 \begin{myBlueBox}
     \textbf{Terminology}
     \begin{itemize}
+        \item The mean-squared estimator is also referred to as the Bayes estimator.
         \item $\pdf{\mbs{\theta}}$: \emph{prior} pdf of $\mbsrv{\theta}$ (before observing the sample).
         \item $\pdf{\mbs{\theta}\middle|~\mbf{X}}$: \emph{posterior} pdf of $\mbs{\theta}$ (after observing the sample).
         \item In \cite{barfoot_state_2017}, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ is sometimes referred to as the likelihood of $\mbf{X}$ given $\mbs{\theta}$. This is not to be confused with the likelihood from the ML estimator. In estimation, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ can also be referred to as an \emph{observation model}. 
@@ -302,6 +365,7 @@ where
 \end{myBlueBox}
 
 \begin{myremark}
+    Some remarks about Bayesian estimation.    
     \begin{itemize}
         \item $\expect{\mbsrv{\theta}\middle|~\mbf{X}}$ from \eqref{eq:bayesian estimator E(theta|X)} is difficult to solve for two reasons. First, the denominator of the posterior pdf involves evaluating an integral over the entire sample space of $\mbs{\theta}$. Second, evaluating the expectation $\expect{\cdot}$ requires \emph{another} integral to be evaluated over the entire sample space.
         
