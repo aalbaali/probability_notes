@@ -460,7 +460,7 @@ Taking the negative-log of \eqref{eq:MAP state estimation f(y|x)f(x|xm1)} gives
     &=
     \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
     \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} +\\
-    &\qquad  
+    &\qquad\nonumber
     \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})} + 
     \mbs{\gamma},
 \end{align}
@@ -531,15 +531,12 @@ is the \emph{weight matrix}.
 In the optimization problem above, the covariance was not estimated. However, it can be estimated by using the MAP state estimates $\mbfhat{x}^{\mathrm{MAP}}_{0:N}$. The \emph{joint} covariance can be approximated by
 \begin{align}
     \cov{\mbfhat{x}_{0:N}^{\mathrm{MAP}}} &=
-    \left( \mbf{J}(\mbfhat{x}_{0:N}^{\mathrm{MAP}})^{\trans}\mbf{W}\mbf{J}\left( \mbfhat{x}_{0:N}^{\mathrm{MAP}} \right) \right)\inv,
+    \left( \mbf{J}\left(\mbfhat{x}_{0:N}^{\mathrm{MAP}}\right)^{\trans}\mbf{W}\mbf{J}\left(\mbfhat{x}_{0:N}^{\mathrm{MAP}}\right) \right)\inv,
 \end{align}
 where 
 \begin{align}
-    \mbfhat{x}_{0:N}^{\mathrm{MAP}}
-\end{align}
-is the Jacobian of the error function \eqref{eq:MAP estimate Markov LS error function} w.r.t. the design variables, evaluated at the MAP estimate $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$. Specifically,
-\begin{align}
-    \mbf{J}(\mbfhat{x}_{0:N}^{\mathrm{MAP}}) &= 
+    \mbf{J}\left(\mbfhat{x}_{0:N}^{\mathrm{MAP}}\right) &= 
     \left. \td{\mbf{e}\left( \mbf{x}_{0:N} \right)}{\mbf{x}_{0:N}}\right|_{\mbf{x}_{0:N}=\mbfhat{x}_{0:N}^{\mathrm{MAP}}}.
 \end{align}
+is the Jacobian of the error function \eqref{eq:MAP estimate Markov LS error function} w.r.t. the design variables, evaluated at the MAP estimate $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$.
 
