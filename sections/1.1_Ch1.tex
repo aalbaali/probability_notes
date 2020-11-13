@@ -418,12 +418,12 @@ If $\rv{x}$ is continuous with PDF $\pdf{x}$
     \begin{enumerate}
         \item \emph{Conditional CDF} of $\rv{x}$ given event $M$ is 
         \begin{align}
-            \cdf{}_{x}(x|M) &= \prob{\rv{x}\leq x|M}\\
+            \cdf[x]{x|M} &= \prob{\rv{x}\leq x|M}\\
             &= \f{\prob{\rv{x}\leq x,M}}{\prob{M}}.
         \end{align}
         \item \emph{Conditional PDF} of $\rv{x}$ given event $M$ is
         \begin{align}
-            \pdf{}_{x}(x|M) &= \td{\cdf{}_{x}(x|M)}{x}.
+            \pdf[x]{x|M} &= \td{\cdf{}_{x}(x|M)}{x}.
         \end{align}
         \item \emph{Conditional PMF} of $\rv{x}$ ($\rv{x}$ discrete given $M$) is
         \begin{align}

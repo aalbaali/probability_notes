@@ -1,0 +1,97 @@
+\section{Problem statement}
+Predict (guess) the value of $\mbfrv{y}$ given an \emph{observation}\footnote{Or multiple observations.} of another (related) random variable $\mbfrv{x} = \mbf{x}$. It is assumed that the JPDF $\pdf{\mbf{x},\mbf{y}}$ is known.
+
+A prediction can be ``good'' or ``bad'' with respect to some \emph{criterion} or \emph{cost}. The objective ``\emph{best prediction}'' will refer to the \emph{minimum mean squared error} prediction.
+
+\begin{myBlueBox}
+    Note that in an estimation problem, the JPDF $\pdf{x,y}$ is not known, but observations on $\rv{x}=x$ and $\rv{y}=y$ are available.
+
+    Furthermore, note that in the above problem statement.
+\end{myBlueBox}
+
+There are two approaches to the prediction problem:
+\begin{enumerate}
+    \item \textbf{Point prediction}: The objective is to identify a function $\mbf{r}(\cdot)$ so that $\mbf{r}(\mbfrv{x})$ provides a ``good'' (in some defined sense) estimate of $\rv{y}$.
+    \item \textbf{Interval prediction}: Identify two function $\mbf{r}_{1}(\cdot)$ and $\mbf{r}_{2}(\cdot)$ such that 
+    \begin{align}
+        \prob{\mbf{r}_{1}(\mbfrv{x})<\mbfrv{y} < \mbf{r}_{2}(\mbfrv{x})} &= \gamma,
+    \end{align}
+    where $\gamma\in[0,1]$ is a \emph{confidence coefficient}.
+\end{enumerate}
+In this document, we will be concerned with point prediction. 
+
+\begin{myBlackBox}
+    Note that the function $r(\cdot)$ is determined before any observation is made! The goal is to \emph{guess} $r(\cdot)$ to be good over \emph{all} possible observations of $\rv{x}$ and the associated true value of $\rv{y}$.
+\end{myBlackBox}
+
+\section*{Terminology}
+\begin{itemize}
+    \item \emph{Estimate of $\mbfrv{y}$}: the deterministic value of $\mbf{r}(\mbf{x})$ obtained by applying $\mbf{r}(\cdot)$ on the observed value of $\mbfrv{x}$, $\mbf{x}$.
+    \item \emph{Predictor} or \emph{estimator} of $\mbfrv{y}$: the random random variable $\mbf{r}(\mbfrv{x})$ obtained by applying $\mbf{r}(\cdot)$ on the random variable $\mbfrv{x}$.
+    \item Notation to be used: 
+    \begin{align}
+        \mbf{r}(\mbfrv{x}) \to \hat{\mbfrv{y}}.
+    \end{align}
+\end{itemize}
+
+\section{MMSE Prediction}
+\begin{mydefinition}[Mean-Squared Predictor]
+    The \emph{mean-squared predictor} of $\mbfrv{y}$ from $\mbfrv{x}$, is the function $r(\cdot)$ that minimizes the mean-square error (MSE):
+    \begin{align}
+        \expect{\norm{\mbfrv{y} - \mbf{r}(\mbfrv{x})}^{2}}
+        \expect{\left( \mbfrv{y} - \mbf{r}(\mbfrv{x}) \right)^{\trans} \left( \mbfrv{y} - \mbf{r}(\mbfrv{x}) \right)}
+    \end{align}
+\end{mydefinition}
+
+\begin{mytheorem}
+   [Constant-value predictor]    
+     The mean square predictor of $\mbf{y}$ \emph{by a constant} $\mbf{r}(\mbfrv{x}) = \mbf{c}$ is given by
+     \begin{align}
+         \mbf{c} &= \expect{\mbfrv{y}}.
+     \end{align}
+\end{mytheorem}
+\begin{proof}
+    Let $\mbf{e}(\mbf{c}) := \expect{\norm{\mbfrv{y} - \mbf{r}(\mbfrv{x})}^{2}}$. Then, the derivative of $\mbf{e}$ w.r.t. $\mbf{c}$ (the design variable) is 
+    \begin{align}
+        \td{\mbf{e}(\mbf{c})}{\mbf{c}} &= \td{}{\mbf{c}}  \expect{\left( \mbfrv{y} - \mbf{c} \right)^{2})}\\
+        &= 
+        -2
+        \mbf{c}^{\trans}
+        \expect{
+          \left( \mbfrv{y} - \mbf{c} \right))  
+        }.
+    \end{align}
+    Setting $\td{\mbf{e}(\mbf{c})}{\mbf{c}} = \mbf{0}$, gives the relation 
+    \begin{align}
+        \mbf{c}^{\trans}\expect{\mbfrv{y}} &= \mbf{c}^{\trans}\mbf{c}.
+    \end{align}
+    A nontrivial solution is
+    \begin{align}
+        \mbf{c} &= \expect{\mbfrv{y}}.
+    \end{align}
+\end{proof}
+
+\begin{mytheorem}
+   [Mean-squared predictor]    
+   The mean-squared predictor of $\mbfrv{y}$ given $\mbfrv{x}$ is     
+   \begin{align}
+       \mbf{r}(\mbfrv{x}) &= \expect[\mbf{y}|\mbf{x}]{\mbfrv{y}\middle|~\mbfrv{x}}.
+   \end{align}
+\end{mytheorem}
+\begin{proof}
+    MSE of $\mbf{r}(\mbf{x})$.
+\end{proof}
+
+\begin{myremark}
+    Some remarks on MMSE prediction.
+    \begin{enumerate}
+        \item If $\mbfrv{y}=\mbf{h}(\mbfrv{x})$ then 
+        $\expect[\mbf{y}]{\mbfrv{y}\middle|~\mbfrv{x}} = \mbf{h}\left( \mbfrv{x} \right))$, and the resulting MSE is $\mbf{0}$.
+        
+        \item If $\mbfrv{y}$ and $\mbfrv{x}$ are independent then $\expect[\mbf{y}]{\mbfrv{y}\middle|~\mbfrv{x}}=\expect{\mbfrv{y}} = \text{constant}$.
+    \end{enumerate}
+\end{myremark}
+
+\begin{mytheorem}
+   If $\mbfrv{y}$, $\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{N}$ are jointly normal with zero mean, the linear and non-linear predictors of $\mbfrv{y}$ from $\mbfrv{x}_{1},\ldots, \mbfrv{x}_{N}$.     
+\end{mytheorem}

@@ -1,5 +1,5 @@
-\documentclass{Templates/amro-notes}
-\usepackage{Templates/amro-common}
+\documentclass{amro-notes}
+\usepackage{amro-common}
 
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
@@ -10,7 +10,8 @@
 \newcommand{\daterange}{Compiled: \today}
 \date{\daterange}
 
-\renewcommand{\prob}[1]{\ifthenelse{\equal{#1}{}}{{P}}{{P}\left(#1\right)}\xspace}
+% \renewcommand{\prob}[1]{\ifthenelse{\equal{#1}{}}{{P}}{{P}\left(#1\right)}\xspace}
+% \renewcommand{\symProb}{P}
 \newcommand{\stringRVs}[2]{\rv{#1}_{1},\ldots,\rv{#1}_{#2}}
 
 \linespread{1.125}
@@ -55,8 +56,8 @@
 \clearpage
 \part{Statistical Inference}
 
-% \chapter{Prediction}
-% \input{sections/ch_prediction.tex}
+\chapter{Prediction}
+\input{sections/ch_prediction.tex}
 
 \chapter{Parameter Estimation}
 \input{sections/ch_estimation.tex}
