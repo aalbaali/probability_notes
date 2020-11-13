@@ -37,7 +37,7 @@ A common choice is the Gaussian kernel. That is, a PDF of $\mc{N}(0,1)$.
 % Parameter estimation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Problem statement}
-Let $\mbfrv{x}$ be a random variable. Furthermore, let $\pdf{\mbf{x}; \mbs{\theta}}$ be the PDF of $\mbfrv{x}$ of \emph{known form} (e.g., Gaussian distribution) but depending on \emph{unknown} parameters $\mbs{\theta}$ (e.g., mean and covariance of a Gaussian distribution).
+Let $\mbfrv{x}$ be a random variable. Furthermore, let $\pdf{\mbf{x}; \mbs{\theta}}$ be the PDF of $\mbfrv{x}$ of \emph{known form} (\eg, Gaussian distribution) but depending on \emph{unknown} parameters $\mbs{\theta}$ (\eg, mean and covariance of a Gaussian distribution).
 \begin{example}
     A Gaussian random variable has a PDF parameterized w.r.t. to the mean ${\mu}$ and the variance $\sigma^{2}$. Thus, the parameters could be $\mbs{\theta} = \bbm \mu, \sigma^{2} \ebm$.
 \end{example}
@@ -409,7 +409,7 @@ Furthermore, a measurement model is given in the form
 \end{align}
 where $\mbfuline{v}_{k}\sim\mc{N}(\mbf{0},\mbf{R}_{k})$ is the Gaussian measurement noise, where the covariance matrix $\mbf{R}_{k}$ is known. 
 
-The goal is to estimate states' $\mbfrv{x}_{1:K}$ parameters using the realizations of the prior $\mbf{x}_{0}$, the realizations of the interoceptive measurements $\mbf{u}_{k}$ and realizations of the exteroceptive measurements $\mbf{y}_{k}$. If the RVs are Gaussian, then they can be parametrized by a mean and a covariance (i.e., $\mbfrv{x}_{k}\sim\mc{N}(\mbs{\mu}_{k}, \mbs{\Sigma}_{k})$). 
+The goal is to estimate states' $\mbfrv{x}_{1:K}$ parameters using the realizations of the prior $\mbf{x}_{0}$, the realizations of the interoceptive measurements $\mbf{u}_{k}$ and realizations of the exteroceptive measurements $\mbf{y}_{k}$. If the RVs are Gaussian, then they can be parametrized by a mean and a covariance (\ie, $\mbfrv{x}_{k}\sim\mc{N}(\mbs{\mu}_{k}, \mbs{\Sigma}_{k})$). 
 
 \begin{myremark}
     The interoceptive measurement $\mbfrv{u}_{k}$ is a random variable that can be assumed to be distributed according to

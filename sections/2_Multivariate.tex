@@ -19,7 +19,7 @@ In this chapter, we are dealing with multiple random variables.
 \begin{mydefinition}[Joint cumalitive distribution function (JCDF)]
     Let $\rv{x}_{1}, \rv{x}_{2}, \ldots, \rv{x}_n$ be $n$ random variables defined on the same probability space $(S,\mc{F},\prob{})$. Then, the \emph{joint cumulative distribution function (JCDF)} of these random variables are 
     \begin{align}
-        \cdf{}_{x_{1},x_{2},\ldots,x_n}(x_{1},x_{2},\ldots,x_n) 
+        \cdf[x_{1},x_{2},\ldots,x_n]{x_{1},x_{2},\ldots,x_n} 
         &= \prob{\rv{x}_{1}\leq x_{1}, \rv{x}_{2}\leq x_{2}, \ldots, \rv{x}_n\leq x_n}\\
         &= \cdf{}_{\mbf{x}}(\mbf{x})\\
         &= \cdf{\mbf{x}}\\
@@ -63,12 +63,12 @@ In this chapter, we are dealing with multiple random variables.
 \begin{mydefinition}[Joint probability mass function (JPMF)]
         This is the analog to joint CDF for discrete random variables. The \emph{joint probability mass function (JPMF)} of the discrete random variables $\rv{x}_{1},\ldots,\rv{x}_{n}$ is
         \begin{align}
-            \pmf{}_{x_{1},\ldots,x_{n}}(x_{1},\ldots,x_{n})
+            \pmf[x_{1},\ldots,x_{n}]{x_{1},\ldots,x_{n}}
             &= \prob{\rv{x}_{1}=x_{1},\ldots,\rv{x}_{n}=x_{n}}\\
-            &= \pmf{}_{\mbf{x}}(\mbf{x})\\
+            &= \pmf[\mbf{x}]{\mbf{x}}\\
             &= \prob{\mbfrv{x}=\mbf{x}}.
         \end{align}
-        Note that the subscripts may be omitted. That is, $\pmf{}_{\mbf{x}}(\mbf{x}) = \pmf{\mbf{x}}$.
+        Note that the subscripts may be omitted. That is, $\pmf[\mbf{x}]{\mbf{x}} = \pmf{\mbf{x}}$.
 \end{mydefinition}
 
 \subsubsection*{Properties of JPMFs}
@@ -81,7 +81,7 @@ In this chapter, we are dealing with multiple random variables.
          \pmf{x_{1},\ldots,x_{n}}\\
          &= 1.
     \end{align}
-    \item Probability that $\mbfrv{x}$ is in a region $\mc{D}$ (i.e., $\mbfrv{x}\in\mc{D}$) is given by
+    \item Probability that $\mbfrv{x}$ is in a region $\mc{D}$ (\ie, $\mbfrv{x}\in\mc{D}$) is given by
     \begin{align}
         \prob{\mbfrv{x}\in\mc{D}} &= \sum_{\mbfrv{x}\in\mc{D}}\pmf{\mbf{x}}.
     \end{align}
@@ -99,7 +99,7 @@ In this chapter, we are dealing with multiple random variables.
         &= \pdf{x_{1},\ldots,x_{n}}\\
         &= \f{\partial^{n} \cdf{x_{1},\ldots,x_{n}}}{\partial x_{1}\cdots\partial x_{n}}.
     \end{align} 
-    Often, subscripts will be dropped (i.e., $\pdf{}_{\mbf{x}}(\mbf{x}) =\pdf{\mbf{x}}$).
+    Often, subscripts will be dropped (\ie, $\pdf[\mbf{x}]{\mbf{x}} =\pdf{\mbf{x}}$).
 \end{mydefinition}
 
 \subsubsection*{Properties of JPDFs}
@@ -153,10 +153,10 @@ In this chapter, we are dealing with multiple random variables.
     The random variables $\rv{x}_{1}, \ldots, \rv{x}_{n}$ are called \emph{independent and identically distributed (i.i.d.)} if 
     \begin{enumerate}
         \item they are independent, and
-        \item $\cdf{}_{x_{1}}(x) = \cdf{}_{x_{2}}(x) = \cdots = \cdf{}_{x_{n}}(x)$, or equivalently
+        \item $\cdf[x_{1}]{x} = \cdf[x_{2}]{x} = \cdots = \cdf[x_{n}]{x}$, or equivalently
         \begin{align}
-            \pdf{}_{x_{1}}(x) &= \cdots = \pdf{}_{x_{n}}(x), \quad \text{ or}\\
-            \pmf{}_{x_{1}}(x) &= \cdots = \pmf{}_{x_{n}}(x).           
+            \pdf[x_{1}]{x} &= \cdots = \pdf[x_{n}]{x}, \quad \text{ or}\\
+            \pmf[x_{1}]{x} &= \cdots = \pmf[x_{n}]{x}.           
         \end{align}
     \end{enumerate}
 \end{mydefinition}
@@ -226,7 +226,7 @@ Given the distribution of $\mbfrv{x}$ (CDF, PDF, or PMF) and the function $g:\rn
 Assumption: $k\leq n$. That is, the mapping $g$ is surjective.
 
 
-Just as is the case for a single transformed random variable (Section~\ref{sec: SRV: Transformed random variables}), there are different methods to find the distribution of a transformed random variable (i.e., $\rv{y}=g(\rv{x})$) depending on the types of variables.
+Just as is the case for a single transformed random variable (Section~\ref{sec: SRV: Transformed random variables}), there are different methods to find the distribution of a transformed random variable (\ie, $\rv{y}=g(\rv{x})$) depending on the types of variables.
 \begin{enumerate}
     \item \textbf{Method of distributions} works for \emph{any} type of random variables (continuous or discrete). However, it is the most exhaustive method.
     \item \textbf{Method of transformations} works for \emph{continuous} random variables. Specifically, both $\mbfrv{x}$ and $\mbfrv{y}$ are continuous.
@@ -469,7 +469,7 @@ Note that the method is derived in \cite[Sec.~2.6.2]{murphy_machine_2012}.
 \end{myBlackBox}
  
 \subsection{Linear transformation}
-If $\mbf{g}(\mbf{x})=\mbf{A}\mbf{x}$ (i.e., $\mbf{g}$ is linear), then the mean and the covariance are given by
+If $\mbf{g}(\mbf{x})=\mbf{A}\mbf{x}$ (\ie, $\mbf{g}$ is linear), then the mean and the covariance are given by
 \begin{align}
     \expect{\mbfrv{y}} &= \mbf{A}\mbfbar{x},\\
     \cov{\mbfrv{y}} &= \expect{\left(\mbfrv{y}-\mbfbar{y}\right)\left(\mbfrv{y}-\mbfbar{y}\right)^{\trans}}\\
@@ -531,7 +531,7 @@ Monte-Carlo simulation consists of simply sampling a \emph{large} number (say in
 where the $\f{1}{N-1}$ term is to ensure that the estimator is \emph{unbiased}.
 
 \subsubsection{Unscented transform}
-Let $n_{x}$ be the length of the domain random variable (i.e., $\mbfrv{x}\in\rnums^{n_{x}}$). Further, let $\mbf{u}_{i}\in\rnums^{n_{x}}$ be the left singular vector of the singular value $\sigma_{i}$ of the domain covariance matrix $\mbs{\Sigma}_{x}$. That is, 
+Let $n_{x}$ be the length of the domain random variable (\ie, $\mbfrv{x}\in\rnums^{n_{x}}$). Further, let $\mbf{u}_{i}\in\rnums^{n_{x}}$ be the left singular vector of the singular value $\sigma_{i}$ of the domain covariance matrix $\mbs{\Sigma}_{x}$. That is, 
 \begin{align}
     \mbs{\Sigma}_{x} &= \mbf{U}\mbs{\Sigma}\mbf{U}^{\trans}\\
     &= \sum_{i=1}^{n_{x}} \sigma_{i}^{2}\mbf{u}_{i}\mbf{u}_{i}^{\trans},
@@ -609,7 +609,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
         \rv{x}_{(1)}&= \text{ smallest value of } (\rv{x}_{1},\ldots,\rv{x}_{n})\\
         \rv{x}_{(2)}&= \text{ 2nd smallest value of } (\rv{x}_{1},\ldots,\rv{x}_{n})\\
         &\quad\vdots\\
-        \rv{x}_{(n)}&= \text{ $n$th smallest (i.e., largest) value of} (\rv{x}_{1},\ldots,\rv{x}_{n}),
+        \rv{x}_{(n)}&= \text{ $n$th smallest (\ie, largest) value of} (\rv{x}_{1},\ldots,\rv{x}_{n}),
     \end{align}
     then $\rv{x}_{(1)},\ldots,\rv{x}_{(n)}$ are the \emph{order statistics} of $\rv{x}_{1},\ldots,\rv{x}_{n}$. Furthermore, $\rv{x}_{(k)}$ is the \emph{$k$th order statistic} of $\rv{x}_{1},\ldots,\rv{x}_{n}$.
 \end{mydefinition}

@@ -44,7 +44,7 @@ Probability is a measure of:
 
 \begin{example}[Number of occurences]
     Relative frequency interpretation of probability (which is very intuitive).
-    Say a random experiment gives an outcome $a$ in an event $A$ (i.e., $a\in A\subseteq S$) from the sample space. Repeat the experiment $N$ times. Then, define the number of occurrences of event $A$ after repeating the experiment $N$ times by
+    Say a random experiment gives an outcome $a$ in an event $A$ (\ie, $a\in A\subseteq S$) from the sample space. Repeat the experiment $N$ times. Then, define the number of occurrences of event $A$ after repeating the experiment $N$ times by
     \begin{align}
         n(A,N) &= \text{\# of times that $A$ happens}.
     \end{align}
@@ -68,7 +68,7 @@ Probability is a measure of:
     \begin{enumerate}
         \item $\prob{A}\geq0$,
         \item $\prob{S}=1$, and
-        \item For any sequence of mutually exclusive events $A_{1}, A_{2}, \ldots$ (i.e., for which $A_{i}\bigcap A_{j}=\emptyset$ for $i\neq j$), we have
+        \item For any sequence of mutually exclusive events $A_{1}, A_{2}, \ldots$ (\ie, for which $A_{i}\bigcap A_{j}=\emptyset$ for $i\neq j$), we have
         \begin{align}
             \prob{\bigcup_{i=1}^{\infty} A_{i}}=\sum_{i=1}^{\infty} \prob{A_{i}}.
         \end{align}
@@ -85,7 +85,7 @@ Probability is a measure of:
                 \item The probability function $\prob{}:\pSet_{S}\mapsto[0,1]$ maps  the power set $\pSet_{S}$ (or $\sigma$-algebra) to $[0,1]$. That is, the argument of $P$ should be an \emph{element} of $\pSet_{S}$. And since $\pSet_{S}$ is a \emph{set of sets} of $S$, then the argument is the event which is denoted by $\{a_{1},a_{2},\ldots,a_{n}\}=A\in\pSet_{S}$, where $a_{1}, \ldots, a_{n} \in S$.  Thus the proper way to write ``the probability of event $A$'' is $\prob{\{A\}}$ but the notation $\prob{A}$ will often be used for ease of reading and writing.
 
                 \item Note that $\prob{A} = 0$ implies that event $A$ is \emph{improbable}; not necessarily impossible! It's still possible to get $A$. This might be a little unintuitive, but it can be thought of that the chance of $A$ happening is so small that it seems that event $A$ is highly unlikely to occur.
-                \item Similarly, $\prob{A}= 1$ does NOT imply that $A$ will certainly occur! It just implies that it is very probably.
+                \item Similarly, $\prob{A}= 1$ does \textbf{not} imply that $A$ will certainly occur! It just implies that it is very probably.
             \end{itemize}
         \end{myBlueBox}
 \end{remark}
@@ -313,7 +313,7 @@ In many random experiments, it is convenient to assign numerical labels to outco
   \end{align}
   is called the \emph{cumulative distribution function (CDF)} of $\rv{x}$. Note that \eqref{eq:def CDF shorthand} is a shorthand for \eqref{eq:def CDF full}.
 
-  \textbf{Note:} sometimes the CDF will be denoted with a subscript of the RV (e.g., $F_{x}(x)$). This is for clarity as to make sure that the CDF is over the RV $\rv{x}$. This come more in handy when there are multiple variables in hands (such as in integration).
+  \textbf{Note:} sometimes the CDF will be denoted with a subscript of the RV (\eg, $F_{x}(x)$). This is for clarity as to make sure that the CDF is over the RV $\rv{x}$. This come more in handy when there are multiple variables in hands (such as in integration).
 \end{mydefinition}
 
 \subsection{Properties of random variables}
@@ -357,7 +357,7 @@ Here are some properties of random variables.
       \pmf{x} &= \prob{\rv{x}=x} &= 
       \begin{cases}
           0 & \text{if } x\notin \mc{R}_{x},\\
-          \prob{\rv{x}=x_{i}} & \text{if } x\in\mc{R}_{x}, \text{ i.e., } x=x_{i}, i=1,2,\ldots.
+          \prob{\rv{x}=x_{i}} & \text{if } x\in\mc{R}_{x}, \text{ \ie, } x=x_{i}, i=1,2,\ldots.
       \end{cases}
   \end{align}
   Also,
@@ -423,7 +423,7 @@ If $\rv{x}$ is continuous with PDF $\pdf{x}$
         \end{align}
         \item \emph{Conditional PDF} of $\rv{x}$ given event $M$ is
         \begin{align}
-            \pdf[x]{x|M} &= \td{\cdf{}_{x}(x|M)}{x}.
+            \pdf[x]{x|M} &= \td{\cdf[x]{x|M}}{x}.
         \end{align}
         \item \emph{Conditional PMF} of $\rv{x}$ ($\rv{x}$ discrete given $M$) is
         \begin{align}
@@ -442,16 +442,16 @@ Let $B_{1}, B_{2}, \ldots, B_{n}$ be a partition of $S$, $\prob{B_{i}}\neq 0$. L
 \begin{itemize}
     \item \textbf{Total probability}:
     \begin{align}
-        \cdf{}_{x}(x) &= \sum_{i=1}^{n} \cdf{}_{x}(x|B_{i})\prob{B_{i}},\\
-        \pdf{}_{x}(x) &= \sum_{i=1}^{n} \pdf{}_{x}(x|B_{i})\prob{B_{i}},\\
-        \pmf{}_{x}(x) &= \sum_{i=1}^{n} \pmf{}_{x}(x|B_{i})\prob{B_{i}}.
+        \cdf[x]{x} &= \sum_{i=1}^{n} \cdf[x]{x|B_{i}}\prob{B_{i}},\\
+        \pdf[x]{x} &= \sum_{i=1}^{n} \pdf[x]{x|B_{i}}\prob{B_{i}},\\
+        \pmf[x]{x} &= \sum_{i=1}^{n} \pmf[x]{x|B_{i}}\prob{B_{i}}.
     \end{align}
     \item \textbf{Bayes rule}: 
     \begin{align}
         \prob{A|\rv{x}\leq x} 
         &= \f{\prob{\rv{x}\leq x, A}}{\prob{\rv{x}\leq x}}\\
         &= \f{\prob{\rv{x}\leq x|A}\prob{A}}{\prob{\rv{x}\leq x}}\\
-        &= \f{\cdf{}_{x}(\rv{x}\leq x|A)\prob{A}}{\cdf{}_{x}({\rv{x}\leq x})}.
+        &= \f{\cdf[x]{\rv{x}\leq x|A}\prob{A}}{\cdf[x]{\rv{x}\leq x}}.
     \end{align}
 \end{itemize}
 When $\rv{x}$ is discrete with $\mc{R}_{x}=\left\{ x_{1},x_{2},\ldots\right\}$, $\pmf{x_{i}}\neq0$:
@@ -478,17 +478,17 @@ When $\rv{x}$ is continuous, it is not possible to divide by $\prob{\rv{x}=x}=0$
   [Conditional PDF]    
   The \emph{conditional PDF} of $A\in\mc{F}$ given $\rv{x}=x$ (assuming $\pdf{}_{x}(x)\neq0$) is
   \begin{align}
-      \prob{A| \rv{x}=x} &= \f{\pdf{}_{x}(x|A)\prob{A}}{\pdf{}_{x}(x)}.
+      \prob{A| \rv{x}=x} &= \f{\pdf[x]{x|A}\prob{A}}{\pdf[x]{x}}.
   \end{align}
 \end{mydefinition}
 The properties of such conditional PDF are
 \begin{itemize}
-    \item \textbf{Total probability}: $\prob{A}=\int_{-\infty}^{\infty} \prob{A|\rv{x}=x}\pdf{}_{x}(x)\dee x$/
+    \item \textbf{Total probability}: $\prob{A}=\int_{-\infty}^{\infty} \prob{A|\rv{x}=x}\pdf[x]{x}\dee x$/
     \item \textbf{Bayes rule}:
     \begin{align}
-        \pdf{}_{x}(x|A) 
-        &= \f{\prob{A|\rv{x}=x}\pdf{}_{x}(x)}{\prob{A}}\\
-        &= \f{\prob{A|\rv{x}=x}\pdf{}_{x}(x)}{\int_{-\infty}^{\infty}\prob{A|\rv{x}=x}\pdf{}_{x}(x)\dee x}.
+        \pdf[x]{x|A} 
+        &= \f{\prob{A|\rv{x}=x}\pdf[x]{x}}{\prob{A}}\\
+        &= \f{\prob{A|\rv{x}=x}\pdf[x]{x}}{\int_{-\infty}^{\infty}\prob{A|\rv{x}=x}\pdf[x]{x}\dee x}.
     \end{align}
 \end{itemize}
 
@@ -500,7 +500,7 @@ Say there exists a random variable $\rv{x}: S\to\rnums$ that is applied on the p
 \begin{align}
     \rv{y}(s) &= g(\rv{x}(s)) \quad\forall s\in S.
 \end{align}
-Furthermore, say the distribution (i.e., CDF and PDF (or PMF)) of $\rv{x}$ is known. THen what is the distribution of $\rv{y}=g(\rv{x})$?
+Furthermore, say the distribution (\ie, CDF and PDF (or PMF)) of $\rv{x}$ is known. THen what is the distribution of $\rv{y}=g(\rv{x})$?
 
 The foundation is the following
 \begin{align}
@@ -509,10 +509,10 @@ The foundation is the following
     &= \prob{\left\{ s\in S : g(\rv{x}(s))\in A\right\}}.
 \end{align}
 
-There are different methods to find the distribution of a transformed random variable (i.e., $\rv{y}=g(\rv{x})$) depending on the types of variables.
+There are different methods to find the distribution of a transformed random variable (\ie, $\rv{y}=g(\rv{x})$) depending on the types of variables.
 \begin{enumerate}
     \item \textbf{Method of distributions} works when for \emph{any} types of random variables (continuous or discrete). However, it is the most exhaustive method.
-    \item \textbf{Method of transformations} works for \emph{continuous} random variables; i.e., both $\rv{x}$ and $\rv{y}$ are continuous.
+    \item \textbf{Method of transformations} works for \emph{continuous} random variables; \ie, both $\rv{x}$ and $\rv{y}$ are continuous.
     \item \textbf{Discrete transformation} for \emph{discrete} transformed variable $\rv{y}$ and \emph{continuous} or \emph{discrete} domain random variable $\rv{x}$.
 \end{enumerate}
 
@@ -527,7 +527,7 @@ The method will be motivated by an example.
     \end{align}
     Evaluate the CDF as follows
     \begin{align}
-        \cdf{}_{y}(y) &= \prob{\rv{y}\leq y} = \prob{g(\rv{x})\leq y} = \prob{\rv{x}^2\leq y}\\
+        \cdf[y]{y} &= \prob{\rv{y}\leq y} = \prob{g(\rv{x})\leq y} = \prob{\rv{x}^2\leq y}\\
         &= \prob{\left\{ s\in S : \rv{x}(s)^{2}\leq y\right\}}.
     \end{align}
     There are three cases
@@ -536,7 +536,7 @@ The method will be motivated by an example.
         \item $y=0$: $\prob{\rv{x}^{2}\leq 0} = \prob{\rv{x}^{2}=0} = \prob{\rv{x}=0} \implies \cdf{}_{y}(0)=\prob{\rv{x}=0}$.
         \item $y>0$: $\prob{\rv{x}^{2}\leq y} = \prob{\abs{\rv{x}}\leq \sqrt{y}} = \prob{-\sqrt{y}\leq \rv{x} \leq\sqrt{y}}\implies$
         \begin{align}
-            \cdf{}_{y}(y) &= \int_{-\sqrt{y}}^{\sqrt{y}} \pdf{}_{x}(x)\dee x.            
+            \cdf[y]{y} &= \int_{-\sqrt{y}}^{\sqrt{y}} \pdf[x]{x}\dee x.            
     \end{align}
     \end{enumerate}
 \end{example}
@@ -551,11 +551,11 @@ The process is outlined by the following steps.
         \item Calculate $g'(x) = \td{g(x)}{x}$.
         \item Evaluate 
         \begin{align}
-            \pdf{}_{y}(y) 
+            \pdf[y]{y}
             &= 
             \begin{cases}
                 0, &\text{no solutions to }g(x)=y,\\
-                \sum_{i=1}^{n} \f{\pdf{}_{x}(x_{i})}{\abs{g'(x_{i})}}, &\text{otherwise}.
+                \sum_{i=1}^{n} \f{\pdf[x]{x_{i}}}{\abs{g'(x_{i})}}, &\text{otherwise}.
             \end{cases}
         \end{align}
     \end{enumerate}
@@ -587,8 +587,8 @@ The method is derived in \cite[Sec.~2.6.2]{murphy_machine_2012}.
             \item $y=0$: $\pdf{}_{y}(0)=0$.            
             \item $y>0$: 
             \begin{align}
-                \pdf{}_{y}(y) &= \f{\pdf{}_{x}(-\sqrt{y})}{\abs{-2\sqrt{y}}} + \f{\pdf{}_{x}(\sqrt{y})}{\abs{2\sqrt{y}}}\\
-                &= \f{1}{2\sqrt{y}}\left[ \pdf{}_{x}(-\sqrt{y}) + \pdf{}_{x}(\sqrt{y}) \right].
+                \pdf[y]{y} &= \f{\pdf[x]{-\sqrt{y}}}{\abs{-2\sqrt{y}}} + \f{\pdf[x]{\sqrt{y}}}{\abs{2\sqrt{y}}}\\
+                &= \f{1}{2\sqrt{y}}\left[ \pdf[x]{-\sqrt{y}} + \pdf[x]{\sqrt{y}} \right].
             \end{align}
         \end{enumerate}
     \end{enumerate}
@@ -608,11 +608,11 @@ The method will be motivated by two examples:
         \rv{y} &= g(\rv{x})\\
         &= \floor{\rv{x}} \quad \text{(floor of $\rv{x}$)}.
     \end{align}
-    Then the transformed variable $\rv{y}$ is discrete. I.e., $\mc{R}_{y}=\left\{ 0,1,2,\ldots\right\}$.
+    Then the transformed variable $\rv{y}$ is discrete. \ie, $\mc{R}_{y}=\left\{ 0,1,2,\ldots\right\}$.
     
     The PMF of $\rv{y}$ is then given by 
     \begin{align}
-        \pmf{}_{y}(y) 
+        \pmf[y]{y}
         &= \prob{\rv{y}=y}\\
         &= \prob{\floor{\rv{x}}=y}\\
         &= \prob{y\leq \rv{x}<y+1}\\
@@ -631,13 +631,13 @@ The method will be motivated by two examples:
 
     The PMF of $\rv{y}$ can then be given by
     \begin{align}
-        \pmf{}_{y}(y) &= \prob{\rv{y}=y}\\
+        \pmf[y]{y} &= \prob{\rv{y}=y}\\
         &= \prob{\abs{\rv{x}}=y}\\
         &= \prob{\rv{x}=\pm y}\\
         &= 
         \begin{cases}
-            \pmf{}_{x}(0), & y=0,\\
-            \pmf{}_{x}(-y)+\pmf{}_{x}(y), & y=1,2,\ldots.
+            \pmf[x]{0}, & y=0,\\
+            \pmf[x]{-y}+\pmf[x]{y}, & y=1,2,\ldots.
         \end{cases}
     \end{align}
     \triqed
@@ -937,7 +937,7 @@ Sometimes, information about the random variables such as the mean is sought aft
 % \subsection{Definition}
 % A random variable $\underline{x}$ is basically a mapping from events to numbers (assigning numerical labels to outcomes). In mathematical terms, $\underline{x} : S \mapsto \mathbb{R}$ such that
 % \begin{enumerate}
-%     \item $A(x) = \{s\in S : \underline{x}(s) \neq x\} \in \fCal,~\forall x\in\mathbb{R}$. I.e., all possible outcomes $s\in S$ such that $\underline{x}(s)\leq x \implies A(x)$ is an event.
+%     \item $A(x) = \{s\in S : \underline{x}(s) \neq x\} \in \fCal,~\forall x\in\mathbb{R}$. \ie, all possible outcomes $s\in S$ such that $\underline{x}(s)\leq x \implies A(x)$ is an event.
 %     \item 
 %     \begin{enumerate}
 %         \item $P(\{s\in S : \underline{x}(s) = +\infty\}) = 0$, and
@@ -962,13 +962,13 @@ Sometimes, information about the random variables such as the mean is sought aft
 %     \end{aligned}
 % \end{equation}
 
-% The CDF is associated with the distribution of a random variable, so it is good practice to include a subscript of the random variable to the CDF. I.e., $F_x(\cdot)$ is the CDF of the random variable $\underline{x}$.
+% The CDF is associated with the distribution of a random variable, so it is good practice to include a subscript of the random variable to the CDF. \ie, $F_x(\cdot)$ is the CDF of the random variable $\underline{x}$.
 
 % \subsubsection{CDF properties}
 % \begin{enumerate}
 %     \item $\lim_{x\xrightarrow{}\infty}F_x(x) = 1$ and $\lim_{x\xrightarrow{}-\infty}F_x(x) = 0$.
 %     \item $F_x$ is non-decreasing.
-%     \item $F_x$ is continuous from the right. I.e., $F_x(x_0^+) = F_x(x_0)$.
+%     \item $F_x$ is continuous from the right. \ie, $F_x(x_0^+) = F_x(x_0)$.
 %     \item $P(\{x_1<\underline{x}\leq x_2\}) = F_x(x_2)-F_x(x_1)$.
 %     \item $P(\underline{x}=x_1) = F_x(x_1)-F_x(x_1^-)$.
 %     \item $P(\{x_1\leq\underline{x}\leq x_2\}) = F_x(x_2)-F_x(x_1^-)$.
