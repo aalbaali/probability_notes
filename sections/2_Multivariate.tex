@@ -619,7 +619,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
    [CDF of order statistics]    
     The CDF of the $k$th order statistic of $\rv{x}_{1},\ldots,\rv{x}_{n}$ is
     \begin{align}
-        \cdf{}_{(k)}(x) &= \sum_{i=k}^{n} {n\choose i} \cdf{x}^{i}(1-\cdf{x})^{n-i}.
+        \cdf[(k)]{x} &= \sum_{i=k}^{n} \binom{n}{k} \cdf{x}^{i}(1-\cdf{x})^{n-i}.
     \end{align}
 \end{mytheorem}
 \subsection{Mean}
