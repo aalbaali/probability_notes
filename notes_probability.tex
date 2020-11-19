@@ -1,6 +1,10 @@
 \documentclass{amro-notes}
 \usepackage{amro-common}
 
+% Generates the index
+\usepackage{makeidx}
+\makeindex
+
 \setcounter{secnumdepth}{5}
 \setcounter{tocdepth}{5}
 
@@ -61,11 +65,22 @@
 \chapter{Parameter Estimation}
 \input{sections/ch_estimation.tex}
 
+\chapter{Hypothesis testing}
+\input{sections/ch_hypothesisTesting.tex}
+
 
 \begin{appendices}
     \input{sections/appendices.tex}
 \end{appendices}
-\addcontentsline{toc}{chapter}{References}
+
+
 \bibliography{References/references}
 \bibliographystyle{IEEEtran}
+\addcontentsline{toc}{chapter}{References}
+
+
+% Add indices
+\addcontentsline{toc}{chapter}{Indices}
+\printindex
+
 \end{document}
