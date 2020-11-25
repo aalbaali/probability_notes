@@ -19,4 +19,218 @@ The focus in this chapter will be on random sequences but the concepts generaliz
     \end{align}
     or simply $x_{n}$.
 \end{myBlueBox}
+
 \section{Definitions}
+\begin{definitionBox}[Surely convergence]
+    A random sequence $\rv{x}_{n}$ is said to converge \emph{surely} if \emph{all} of its realizations converge. That is, for all $s\in S$, there exist a value $\chi(s)$ such that
+    \begin{align}
+        \lim_{n\to\infty} x_{n}(s) &= \chi(s).
+    \end{align}
+    This convergence is also known as \emph{convergence everywhere}.
+    \index{Convergence!surely}\index{Convergence!everywhere}
+\end{definitionBox}
+\begin{remarkBox}[On surely convergant random sequences]
+    The mapping $s\in S\to\chi(s)\in\rnums$ defines a new random variable $\rv{\chi}$ which is called the \emph{limit of $\rv{x}_{n}$}.
+
+    \textbf{Notation}
+    \begin{itemize}
+        \item $\rv{x}_{n}\to\chi(s)$ (e) or (s) or simply $\rv{x}_{n}\to\rv{\chi}$.
+        \item If $\prob{\rv{\chi} = c}=1$, then the limit is written as
+        \begin{align}
+            \rv{x}_{n}\to c.
+        \end{align}
+    \end{itemize}
+\end{remarkBox}
+
+\begin{example}[Surely convergent sequence]
+    \label{example:surely convergent sequences}
+    Let $\rv{z}\sim U[0,1]$ and 
+    \begin{enumerate}
+        \item let $\rv{x}_{n} = \rv{z}/n$. Then, the random sequence $\rv{x}_{n}\to 0$ everywhere (converges surely).
+        \item Let $\rv{x}_{n} = \rv{z}(1-1/n)$, then any realization $x_{n}(s)=z(s)(1-1/n)$ converges to $z(s)$. Hence, $\rv{x}_{n}$ converges \emph{everywhere} (converges surely).
+        \item Let $\rv{x}_{n} = \rv{z}e^{n}$. Since there is only one realization that converges (for $\rv{z}=0$), then $\rv{x}_{n}$ does \emph{not} converge everywhere.
+    \end{enumerate}
+\end{example}
+
+\begin{definitionBox}[Almost surely convergence]
+  A random sequence $\rv{x}_{n}$ is said to converge \emph{almost surely} or \emph{almost everywhere} if the set of outcomes mapped to realizations that converge has probability 1. That is,
+  \begin{align}
+      \prob{S^{\prime}} &= 1,
+  \end{align}
+  where
+  \begin{align}
+      S^{\prime} &= \left\{ s\in S : \exists \chi^{\prime}(s) \text{s.~t.~}x_{n}(s)\to\chi^{\prime}(s) \right\}.
+  \end{align}
+  \index{Convergence!almost surely}\index{Convergence!almost everywhere}
+\end{definitionBox}
+
+\begin{remarkBox}[On almost surely convergent sequences]
+    The mapping $s\in S\to\chi(s)\in\rnums$ defined by
+    \begin{align}
+        \chi(s) &= 
+        \begin{cases}
+            \chi^{\prime}(s), & s\in S^{\prime},\\
+            \text{arbitrary point}, & s\not\in S^{\prime}
+        \end{cases}
+    \end{align}
+    defines a new random variable $\rv{chi}$, which is called the \emph{limit of $\rv{x}_{n}$}.
+
+    \textbf{Notation}
+    \begin{itemize}
+        \item $\rv{x}_{n}\to\chi$ (a.s.) or (a.e.) or (w.p.1)\footnote{With probability 1.} or $\prob{\rv{x}_{n}\to\rv{chi}}=1$.
+        \item If $\prob{\chi=c}=1$, then the limit is written as $\rv{x}_{n}\to c$ (a.s.)/(a.e.)/(w.p.1)/$\prob{\rv{x}_{n}\to c}$.
+    \end{itemize}
+\end{remarkBox}
+\begin{example}
+    Let $\rv{z}\sim U[0,1]$ and define the sequence
+    \begin{align}
+        \rv{x}_{n} &= e^{-n(n\rv{z}-1)}\\
+        &= e^{-n\rv{z}^{2}+n}\\
+        &= 
+        \begin{cases}
+            e^{n}, & \rv{z}=0,\\
+            e^{-n^{2}+n}, &\rv{z}\neq 0.
+        \end{cases}
+    \end{align}
+    \begin{itemize}
+        \item There is one realization of $\rv{x}_{n}$ that diverges (the one for $\rv{z}=0$).
+        \item All other realizations (for which $\rv{z}\neq 0$) converge to $0$.
+        \item Since $\prob{\rv{z}\neq 0} = 1$, then the random sequence $\rv{x}_{n}$ converges to $0$ almost surely.
+    \end{itemize}
+\end{example}
+
+
+\begin{definitionBox}[Mean square convergence]
+  The random sequence $\rv{x}_{n}$ converges to \emph{in the mean square sense} to $\rv{\chi}$ if
+  \begin{align}
+      \lim_{n\to\infty}\expect{\abs{\rv{x}_{n}-\rv{\chi}}^{2}} &= 0.
+  \end{align}
+  \index{Convergence!in the mean square sense}
+\end{definitionBox}
+
+\begin{remarkBox}
+    The notation is given by
+    \begin{itemize}
+        \item l.i.m (limit in the mean sense) $\rv{x}_{n}=\rv{\chi}$.
+        \item $\rv{x}_{n}\to\rv{\chi}$ (m.s.).
+    \end{itemize}
+\end{remarkBox}
+
+
+\begin{example}
+    Let $\rv{z}\sim U[0,1]$ and define the random sequence $\rv{x}_{n} = \rv{z}(1-1/n)$. From Example~\ref{example:surely convergent sequences}, the sequence $\rv{x}_{n}\to\rv{z}$ (a.s.). Now we want to check whether the sequence converges to the same limit in the mean squared sense. Thus,
+    \begin{align}
+        \expect{\abs{\rv{x}_{n} - \rv{z}}^{2}} &= \expect{\abs{\rv{z}(1-1/n) - \rv{z}}^{2}}\\
+        &=\expect{\abs{-\rv{z}/n}^{2}}\\
+        &= \expect{(\rv{z}/n)^{2}}\\
+        &= \int_{0}^{1}(z/n)^{2}\dee z\\
+        &= \f{1}{n^{2}}\int_{0}^{1}z^{2}\dee z\\
+        &= \f{1}{3n^{2}}.
+    \end{align}
+    Thus,
+    \begin{align}
+        \lim_{n\to\infty} \expect{\abs{\rv{x}_{n} - \rv{z}}^{2}} &= \lim_{n\to\infty} \f{1}{3n^{2}}\\
+        &= 0.
+    \end{align}
+    Therefore, $\rv{x}_{n}$ converges to $\rv{z}$ in the mean square sense.
+\end{example}
+
+
+\begin{definitionBox}[Convergence in probability]
+    The random sequence $\rv{x}_{n}$ \emph{converges in probability} to $\rv{\chi}$ if
+    \begin{align}
+        \prob{\abs{\rv{x}_{n} - \rv{\chi}}\geq \epsilon}\to 0, \quad \forall \epsilon>0.
+    \end{align}
+    Or equivalently,
+    \begin{align}
+        \prob{\abs{\rv{x}_{n} - \rv{\chi}}< \epsilon}\to 1, \quad \forall \epsilon>0.
+    \end{align}
+    \textbf{Notation}: $\rv{x}_{n}\overset{p}{\to}\rv{\chi}$ or $\rv{x}_{n}\to\rv{\chi}$ (p).
+    \index{Convergence!in probability}
+\end{definitionBox}
+
+\begin{example}
+    Let $\rv{u}_{1},\ldots, \rv{u}_{n}, \ldots$, be i.i.d. random variables that are uniformly distributed over $[0, 1)$. Define the sequence
+    \begin{align}
+        \rv{x}_{n} &= \max (\rv{u}_{1},\ldots, \rv{u}_{n}).
+    \end{align}
+    Then the sequence $\rv{x}_{n}$ converges to $1$ in the probability sense.
+    \begin{proof}
+        The CDF of $\rv{x}_{n}$ is
+        \begin{align}
+            \cdf[n](x) &= 
+            \begin{cases}
+                0, & x<0,\\
+                x^{n}, & 0\leq x\leq 1,\\
+                1, & x>1.
+            \end{cases}
+        \end{align}
+        Let $0<\epsilon<1$ (justified by the fact that $\prob{\abs{\rv{x}_{n} - 1}>1}=0$). Then,
+        \begin{align}
+            % \prob{\abs{\underbrace{\rv{x}_{n} - 1}_{\leq 0}} \geq \epsilon} &= 
+            \prob{\abs{\rv{x}_{n} - 1} \geq \epsilon} &= 
+            \prob{\rv{x}_{n} - 1 \leq \epsilon}\\
+            &= \prob{\rv{x}_{n} < 1 - \epsilon}\\
+            &= \cdf[n]{1-\epsilon}\\
+            &= (1-\epsilon)^{n} \to 0.
+        \end{align}
+        Note that the first equality holds since $\rv{x}_{n} - 1 \leq 0$.
+    \end{proof}
+\end{example}
+
+\begin{definitionBox}[Convergence in distribution]
+  A random sequence $\rv{x}_{n}$ is said to \emph{converge in distribution} to a random variable $\rv{\chi}$ if the CDF $\cdf[x_{n}]{\lambda}$ of $\rv{x}_{n}$ converges to $\cdf[\chi]{\lambda}$ at all points of continuity of $\cdf[\chi]{\lambda}$.
+  \index{Convergence!in distribution}
+\end{definitionBox}
+
+\begin{example}
+        Let $\rv{z}\sim \mc{N}(0, 1)$ and define $\rv{x}_{n} = (-1)^{n}\rv{z}$. Then, only \emph{one} realization converges (the one for $\rv{z}=0$). But, $\rv{x}_{n}\sim\mc{N}(0,1)$.
+
+        Note that $\expect{\rv{x}_{n}} = 0$ and $\var{\rv{x}_{n}} = 1$.
+\end{example}
+\begin{remarkBox}
+    Convergence in distribution is \emph{weaker} than other convergence.
+\end{remarkBox}
+
+
+%%%%%%%%%%%%%%%%%%
+% Add a section
+\section{Theorems}
+\begin{theoremBox}
+   [Strong law of large numbers]    
+   Let $\rv{x}_{1},\ldots,\rv{x}_{n}, \ldots$ be sequence of i.i.d. random variables with $\expect{\abs{\rv{x}_{i}}}<\infty$. Then
+   \begin{align}
+       \f{1}{n}\sum_{i=1}^{n} \rv{x}_{i} \to \mu \quad \text{ (a.s.)},
+   \end{align}
+   where $\mu = \expect{\rv{x}_{i}}$.    
+   \index{Law of large numbers!Strong law of large numbers} 
+\end{theoremBox}
+
+\begin{theoremBox}
+   [Weak law of large numbers]    
+     Let $\rv{x}_{1}, \ldots, \rv{x}_{n}, \ldots$ be a sequence of i.i.d. random variables such that $\expect{\abs{\rv{x}_{i}}}<\infty$. Then
+     \begin{align}
+         \f{1}{n}\sum_{i=1}^{n}\rv{x}_{i} \overset{p}{\to}\mu,
+     \end{align}
+     where $\mu = \expect{\rv{x}_{i}}$.
+     \index{Law of large numbers!Weak law of large numbers} 
+\end{theoremBox}
+
+\begin{theoremBox}
+   [Central limit theorem]    
+   Given $n$ i.i.d. random variables $\rv{x}_{i}$ with mean $\mu$ and variance $\sigma^{2}$. Define the sum
+   \begin{align}
+       \rv{y}_{n} &= \sum_{i=1}^{n}\rv{x}_{i}.
+   \end{align}
+   Then, the random variable $\rv{y}_{n}$ has mean $n\mu$ and variance $n\sigma^{2}$. Furthermore, let
+   \begin{align}
+       \rv{z}_{n} &= \f{\rv{y}_{n} - n\mu}{\sqrt{n\sigma^{2}}}.
+   \end{align}
+   Then, $\expect{\rv{z}_{n}} = 0$ and $\var{\rv{z}_{n}} = 1$. The central limit theorem (CLT) says that the random sequence $\rv{z}_{1},\ldots, \rv{z}_{n}, \ldots$ converges \emph{in distribution} to the distribution $\mc{N}\left( 0,1 \right)$. 
+   \index{Central limit theorem}
+\end{theoremBox}
+\begin{remarkBox}[On the central limit theorem]
+    Note that there was \emph{no assumption} on the distribution of the random variable $\rv{x}_{i}$, yet the random sequence $\rv{z}_{1},\ldots, \rv{z}_{n},\ldots$ converges (in distribution) to a standard normal distribution.
+
+    This theorem is often used to justify the assumption that noise of a signal is normally distributed (even though it may not really be normally distributed) \cite{li_evaluation_2012}. But the caveat in the theorem is that the sequence converges \emph{as $n\to\infty$}. So what should one do when there are few realizations (say less than 20)? Well, I'm not quite sure about this yet, but I think that the sequence $\rv{z}_{1}, \ldots, \rv{z}_{n}, \ldots$ would then converge to a Student $t$ distribution. This distribution converges to normal distribution when the number of samples (also known as degrees of freedom) are large (say larger than 20 samples).
+\end{remarkBox}
