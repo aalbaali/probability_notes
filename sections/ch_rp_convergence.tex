@@ -192,6 +192,24 @@ The focus in this chapter will be on random sequences but the concepts generaliz
     Convergence in distribution is \emph{weaker} than other convergence.
 \end{remarkBox}
 
+\subsection*{Notes}
+\begin{itemize}
+    \item 
+    Convergence \emph{surely} and \emph{almost surely} are
+    \begin{itemize}
+        \item concerned with the behavior of the sequence as a whole, and
+        \item deal with the probability of the limit.
+    \end{itemize}
+
+    \item Convergence in the \emph{mean square} and \emph{in probability} 
+    \begin{itemize}
+        \item focus on the behaviour of a single element of the sequence, and
+        \item deal with the limit of probability (or mean square distance).
+    \end{itemize}
+
+    \item Convergence in distribution is very different and less strict than the other four types of convergence. It only deals with the limit of the PDF, not the limit itself (which may note exist!).
+\end{itemize}
+
 
 %%%%%%%%%%%%%%%%%%
 % Add a section
@@ -234,3 +252,27 @@ The focus in this chapter will be on random sequences but the concepts generaliz
 
     This theorem is often used to justify the assumption that noise of a signal is normally distributed (even though it may not really be normally distributed) \cite{li_evaluation_2012}. But the caveat in the theorem is that the sequence converges \emph{as $n\to\infty$}. So what should one do when there are few realizations (say less than 20)? Well, I'm not quite sure about this yet, but I think that the sequence $\rv{z}_{1}, \ldots, \rv{z}_{n}, \ldots$ would then converge to a Student $t$ distribution. This distribution converges to normal distribution when the number of samples (also known as degrees of freedom) are large (say larger than 20 samples).
 \end{remarkBox}
+
+
+\begin{theoremBox}
+     Convergence surely implies convergence almost surely.
+     \index{Convergence!almost surely}
+     \index{Convergence!surely}
+\end{theoremBox}
+
+\begin{theoremBox}
+     Convergence almost surely implies convergence in probability.
+     \index{Convergence!almost surely}
+     \index{Convergence!in probability}
+\end{theoremBox}
+
+\begin{theoremBox}
+     Convergence in the mean square sense implies convergence in probability.
+     \index{Convergence!in the mean square sense}
+     \index{Convergence!in probability}
+\end{theoremBox}
+\begin{theoremBox}
+     Convergence in probability implies convergence in distribution.
+     \index{Convergence!in probability}
+     \index{Convergence!in distribution}
+\end{theoremBox}
