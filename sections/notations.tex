@@ -4,63 +4,75 @@
         %\hline
         \textbf{Notation} & \textbf{Definition}\\[5pt]
         %\hline
-        $S$ & Sample space.\\
+        $S$ & Sample space\\
         %\hline
         $\pSet$ & Power set. \\
         %\hline
-        $\mc{F}$ & Events algebra.\\
+        $\mc{F}$ & Events algebra\\
         %\hline
-        $\prob{}:\pSet\to[0,1]$ & Probability function.\\
+        $\prob{}:\pSet\to[0,1]$ & Probability function\\
         %\hline
-        $\pdf{}:\rnums^{n}\to\rnums$ & Probability density function (PDF).\\
+        $\pdf{}:\rnums^{n}\to\rnums$ & Probability density function (PDF)\\
         %\hline
-        $\cdf{}:\rnums^{n}\to\rnums$ & Cumulative distribution function (CDF).\\
+        $\cdf{}:\rnums^{n}\to\rnums$ & Cumulative distribution function (CDF)\\
         %\hline
-        $\pmf{}:S\subset\rnums^{n}\to\rnums$ & Cumulative distribution function (CDF). Usually used for discrete random variables.\\
+        $\pmf{}:S\subset\rnums^{n}\to\rnums$ & Cumulative distribution function (CDF). Usually used for discrete random variables\\
         %\hline
         $\rv{(\cdot)}: S\to\rnums^{n}$& A random variable (RV). $S$ is referred to as the \emph{domain}. \\
         %\hline
         $\mc{R}_{x}$& Set of possible points that random variable $\rv{x}$ can take. \\
         %\hline
-        $\rv{x}$ & Single random variable.\\
+        $\rv{x}$ & Single random variable\\
         $\mbfrv{x}$ & Multivariate random variable.   \\
-        $\expect{\cdot}$ & Expectation operator.\\
+        $\expect{\cdot}$ & Expectation operator\\
         $\var{\cdot}$ & Variance.      \\
         $\cov{\cdot}$ & Covariance.      \\
-        $\jmath$ & $\sqrt{-1}$.              
+        $\jmath$ & $\sqrt{-1}$             
     \end{tabular}
     % \caption{Notations.}
     % \label{tab: notations}
 \end{table}
 
-\begin{table}[h]
+{\centering
+\textbf{State Estimation}
+}
+\begin{table}[H]
     \centering
     % \caption{Statistical Inference}
     \begin{tabular}{p{0.4\textwidth}p{0.4\textwidth}}
         %\hline
         % \textbf{Notation} & \textbf{Definition}\\[5pt]
         %\hline
-        $\hat{\rv{x}}$ & Estimator of the random variable (estimand) $\rv{x}$.\\        
-        $\hat{x}$ & Estimate of the random variable (estimand) $\rv{x}$.
+        $\hat{\rv{x}}$ & Estimator of the random variable (estimand) $\rv{x}$\\        
+        $\hat{x}$ & Estimate of the random variable (estimand) $\rv{x}$
     \end{tabular}
     % \caption{Notations.}
     % \label{tab: notations}
 \end{table}
 
-\begin{table}[h]
+{\centering
+\textbf{Hypothesis Testing}
+}
+\begin{table}[H]
     \centering
     % \caption{Hypothesis Testing}
     \begin{tabular}{p{0.4\textwidth}p{0.4\textwidth}}
         %\hline
         % \textbf{Notation} & \textbf{Definition}\\[5pt]
         %\hline
-        $\Lambda$ & Likelihood ratio.\\
-        $\eta$ & Threshold.
+        $H_{m}$  & Hypothesis $m$\\
+        $H_{0}$ & Null hypothesis\\
+        $H_{1}$ & Alternate hypothesis\\
+        $\prob{H_{1}\mid H_{0}} = \alpha$ & Significance of test (valid only for binary testing)\\
+        $\prob{H_{0}\mid H_{0}} = 1 - \alpha$ & Confidence of test (valid only for binary testing)\\
+        $\pi_{m}$ & Prior probability of hypothesis $H_{m}$\\
+        $\Lambda$ & Likelihood ratio\\
+        $\eta$ & Likelihood test threshold
     \end{tabular}
     % \caption{Notations.}
     % \label{tab: notations}
 \end{table}
-
+%
 \begin{table}[h]
     \centering
     % \caption{Random Processes}
@@ -68,10 +80,10 @@
         %\hline
         % \textbf{Notation} & \textbf{Definition}\\[5pt]
         %\hline
-        $\rv{x}(t)$ & Random process.\\
-        $\rpmean[x](t)$   & Mean function of the random process $\rv{x}(t)$.\\
-        $\acor[x]{t_{1}}[t_{2}]$ & Autocorrelation of the random process $\rv{x}(t)$.\\
-        $\acov[x]{t_{1}}[t_{2}]$ & Autocovariance of the random process $\rv{x}(t)$.
+        $\rv{x}(t)$ & Random process\\
+        $\rpmean[x](t)$   & Mean function of the random process $\rv{x}(t)$\\
+        $\acor[x]{t_{1}}[t_{2}]$ & Autocorrelation of the random process $\rv{x}(t)$\\
+        $\acov[x]{t_{1}}[t_{2}]$ & Autocovariance of the random process $\rv{x}(t)$
     \end{tabular}
     % \caption{Notations.}
     % \label{tab: notations}

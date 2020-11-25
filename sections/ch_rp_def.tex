@@ -1,4 +1,4 @@
-\section{Definitions, notations, and terminology}
+\section{Introduction}
 Recall: 
 \begin{itemize}
     \item A random variable (\defref{def:random variable}) $\rv{x}$ maps outcomes to number.
@@ -22,7 +22,7 @@ Recall:
     \end{itemize}
 \end{myremark}
 
-
+\section{Types of random processes}
 \begin{table}[H]
     \begin{tabular}{l|ll}
         & \multicolumn{1}{c}{\textbf{$T$ discrete}}                                                                                    & \multicolumn{1}{c}{\textbf{$T$ continuous}}                                                                            \\ \cline{2-3} 
@@ -104,6 +104,7 @@ Recall:
     \end{enumerate}
 \end{mydefinition}
 
+\section{Mean, autocorrelation, and autocovariance}
 \begin{mydefinition}[Mean of a random process]
     \index{Mean of a RP}  
     The \emph{mean} $\rpmean(t)$ of a RP $\rv{x}(t)$ is 
@@ -135,6 +136,7 @@ Recall:
     \end{align}
 \end{mydefinition}
 
+\section{Properties of random processes}
 \begin{mydefinition}[Independent increments]
     \index{Independent increments of a RP}
     A RP $\rv{x}(t)$ is said to have \emph{independent increments} if for any $k$ and any choice of $t_{1} < t_{2} < \ldots < t_{k}$, the RVs 
@@ -188,6 +190,3 @@ Recall:
 \begin{myremark}[Gaussian RPs]
     The statistics of a Normal RP are completely determined by its mean $\eta(t)$ and autocovariance $\acov{t_{1}}[t_{2}]$.
 \end{myremark}
-
-
-\section{Stochastic convergence}

@@ -50,8 +50,8 @@ Table~\ref{tab:terminology hypothesis testing} lists the terms used for hypothes
     \centering
     \begin{tabular}{lll}
                                                  & \textbf{$H_{0}$ true}                                                               & \textbf{$H_{1}$ true}                                                                      \\ \hline
-    \multicolumn{1}{l|}{\textbf{Decide $H_{0}$}} &                                                                                     & \begin{tabular}[c]{@{}l@{}}Type II error\index{Type II error}\\ Missed Detection\index{Missed detection} \\ False Negative\index{False negative}\end{tabular} \\
-    \multicolumn{1}{l|}{\textbf{Decide $H_{1}$}} & \begin{tabular}[c]{@{}l@{}}Type I error\index{Type I error}\\ False Alarm\index{False alarm}\\ False Positive\index{False positive}\end{tabular} &                                                                                           
+    \multicolumn{1}{l|}{\textbf{Decide $H_{0}$}} &                                                                   Miss                  & \begin{tabular}[c]{@{}l@{}}Type II error\index{Type II error}\\ Missed Detection\index{Missed detection} \\ False Negative\index{False negative}\end{tabular} \\
+    \multicolumn{1}{l|}{\textbf{Decide $H_{1}$}} & \begin{tabular}[c]{@{}l@{}}Type I error\index{Type I error}\\ False Alarm\index{False alarm}\\ False Positive\index{False positive}\end{tabular} &    Detection                                                                                 
     \end{tabular}
     \caption{Terminology in hypothesis testing.}
     \label{tab:terminology hypothesis testing}
@@ -103,7 +103,7 @@ The decision rule is therefore
     \underbrace{\frac{\pi_{0}\left(C_{10}-C_{00}\right)}{\pi_{1}\left(C_{01}-C_{11}\right)}}_{\eta}\qquad
     \genfrac{}{}{0pt}{1}{\overset{H_{0}}{\geq}}{\underset{H_{1}}{\leq}}
     \qquad
-    \underbrace{\f{p(x|H_{1})}{p(x|H_{0})}}_{\Lambda(x)}.
+    \underbrace{\f{\pdf{x\mid H_{1}}}{\pdf{x\mid H_{0}}}}_{\Lambda(x)}.
 \end{align}
 
 If the goal is to minimize the error, then the problem is known as \emph{minimum probability of error decision rule}\index{Minimum probability of error decision rule}, where the costs are set to
@@ -122,14 +122,16 @@ In practice, the prior probabilities $\pi_{0}$ and $\pi_{1}$ may not be known. T
     \end{align}
     \item Probability of False Alarm\index{False alarm}: 
     \begin{align}
-        \symProb_{fa} &:= \prob{\text{decide } H_{1} \mid H_{0} \text{ is true}}.
+        \symProb_{\mathrm{fa}} &:= \prob{\text{decide } H_{1} \mid H_{0} \text{ is true}}\\
+        &= \alpha.
     \end{align}
 \end{itemize}
 Neyman-Pearson criterion\index{Neyman-Pearson} is given by
 \begin{align}
     \max &\symProb_{d}\\
-    \mathrm{s.t.}~ &\symProb_{fa}\leq\alpha.
+    \mathrm{s.t.}~ &\symProb_{\mathrm{fa}}\leq\alpha.
 \end{align}
+The term $\alpha$ is referred to as \emph{significance} \cite{li_common_2008}.
 The solution is to use the Likelihood ratio\index{Likelihood ratio} test with threshold $\eta$ such that
 \begin{align}
     \prob{\Lambda(\rv{x}) < \eta \mid H_{0}} &= \alpha.
