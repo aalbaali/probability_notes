@@ -1,6 +1,6 @@
 \section{Bernoulli distribution}
 From \cite{psaromiligkos_slides_2019}.
-\begin{mydefinition}[Bernoulli drandom variable]
+\begin{definitionBox}[Bernoulli drandom variable]
     A random variable $\rv{x}$ is called Bernoulli with parameter $p$ if there exists an event $A$ with probability $p = \prob{A}$ such that
     \begin{align}
         x(s) &=
@@ -10,7 +10,7 @@ From \cite{psaromiligkos_slides_2019}.
         \end{cases}
     \end{align}
     where $s\in S$.
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     Some remarks on Bernoulli random variables.
     \begin{itemize}
@@ -26,12 +26,12 @@ From \cite{psaromiligkos_slides_2019}.
 
 \section{Geometric random variables}
 From \cite{psaromiligkos_slides_2019}.
-\begin{mydefinition}[Geometric random variable]
+\begin{definitionBox}[Geometric random variable]
     A geometric random variable is a discrete random variable with a countable infinite set of possible values. The set of possible values for the geometric random variable $\rv{x}$ is
     \begin{align}
         \mc{R}_{x} &= \left\{ 1, 2, \ldots\right\} = \mbb{N}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \begin{mytheorem}
     [PMF of geometric random variables]    
     Let $\rv{x}$ be a geometric random variable with parameter $p$. The PMF of $\rv{x}$ is then
@@ -45,13 +45,13 @@ From \cite{psaromiligkos_slides_2019}.
 \end{mytheorem}
 
 \section{Binomial random variable}
-\begin{mydefinition}[Binomial random variable]
+\begin{definitionBox}[Binomial random variable]
     Consider a sequence of $n$ identical and independent Bernoulli trials with probability of success $p$. The random variable $\rv{x}$ defined by
     \begin{align}
         \rv{x} &= \text{number of successes in the $n$ trials}
     \end{align}
     is called binomial with parameters $n$ and $p$, or simply $B(n,p)$.
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     Some remarks on Binomial random variables.
     \begin{itemize}
@@ -95,7 +95,7 @@ A discrete random variable $\rv{x}$ is called Poisson with parameter $\lambda > 
 where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
 
 \section{Uniform random variables}
-\begin{mydefinition}[Uniform random variable]
+\begin{definitionBox}[Uniform random variable]
     A continuous random variable $\rv{x}$ is called uniform over the interval $(a,b)$, written as $\rv{x}\sim U(a,b)$, where $a<b$ are real numbers, if its PDF is
     \begin{align}
         \pdf{x} &= 
@@ -104,7 +104,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
             0, &\text{otherwise}.
         \end{cases}
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}
    [Unoform random variable CDF]    
@@ -120,7 +120,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
 \end{mytheorem}
 
 \section{Exponential random variable}
-\begin{mydefinition}[Exponential random variable]
+\begin{definitionBox}[Exponential random variable]
     A continuous random variable $\rv{x}$ is called exponential with parameter $\lambda > 0$ if its PDF is given by
     \begin{align}
         \pdf{x} &= 
@@ -129,7 +129,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
             0, &x<0.
         \end{cases}
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \begin{mytheorem}
    [Exponential random variable CDF]    
    The CDF is given by
@@ -144,7 +144,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
 
 
 \section{Gaussian random variables}
-\begin{mydefinition}[Gaussian (normal) distribution]
+\begin{definitionBox}[Gaussian (normal) distribution]
     A random vector $\mbfrv{x}$ is called a \emph{Gaussian (or normal) random vector} with mean $\mbs{\mu}$ and covariance matrix $\mbf{C}$ if it follows a \emph{Gaussian (or normal) distribution} given by
     \begin{align}
         \pdf{\mbf{x}} &= 
@@ -152,15 +152,15 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
         &= \mc{N}\left( \mbs{\mu}, \mbf{C} \right).
     \end{align}
     The $n$ elements of $\mbf{x}$, $\stringRVs{x}{n}$ are called \emph{jointly normal random variables}.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Standard Normal Distribution]
+\begin{definitionBox}[Standard Normal Distribution]
     \label{def:standard normal distribution}
     A \emph{standard normal distribution} is a normal distribution with a special case of $\mbs{\mu}=\mbf{0}$ and $\mbf{C}=\eye$. That is,
     \begin{align}
         \pdf{\mbf{x}} &= \mc{N}\left( \mbf{0}, \eye \right).
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection{Properties of Gaussian random variables}
 \begin{mytheorem}
@@ -175,14 +175,14 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
     \end{enumerate}
 \end{myremark}
 
-\begin{mydefinition}[Complex Gaussian radnom vector]
+\begin{definitionBox}[Complex Gaussian radnom vector]
     A complex random vector 
     \begin{align}
         \mbfrv{z} =
         \bbm \rv{x}_{1}+\jmath\rv{y}_{1} \\ \vdots\\\rv{x}_{n}+\jmath\rv{y}_{n} \ebm
     \end{align}
     is a \emph{complex Gaussian random vector} if and only if the real random variables $\rv{x}_{1},\rv{y}_{1},\ldots,\rv{x}_{n},\rv{y}_{n}$ are jointly normal.
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}
    [Characteristic function of normal random variables]    
@@ -198,7 +198,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Chi-squared distribution}
-\begin{mydefinition}[Chi-squared distribution]
+\begin{definitionBox}[Chi-squared distribution]
     \label{def:chi squared distribution}
     If $\rv{x}_{1}, \ldots, \rv{x}_{n}$ are \emph{\textbf{independent} standard normal variables} (check Definition~\ref{def:standard normal distribution}), then the sum of their squares 
     \begin{align}
@@ -208,7 +208,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
     \begin{align}
         \rv{y}\sim\chi^{2}_{n}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 %
 \begin{myremark}
     If we have a random vector $\mbfrv{x}\in\rnums^{n}$ with mean $\mbs{\mu}_{x}=\mbf{0}$ and a unit covariance $\mbf{C}=\eye$, then the sum of squares    
@@ -227,7 +227,7 @@ where $\mbb{N}_{0} = \left\{ 0, 1, \ldots\right\}$.
 
 \subsection{Relation to the Mahalanobis distance}
 In estimation problems, the Mahalanobis distance is often encountered. Especially when testing for consistency of the estimates.
-\begin{mydefinition}[Mahalanobis distance]
+\begin{definitionBox}[Mahalanobis distance]
     The \emph{Mahalanobis distance} $D_{M}\in\rnums$ is defined as 
     \begin{align}
         D_{M} &\triangleq \sqrt{\mbf{r}^{\trans}\mbs{\Sigma}^{\inv}\mbf{r}},
@@ -237,7 +237,7 @@ In estimation problems, the Mahalanobis distance is often encountered. Especiall
         \mbfrv{r} \sim\mc{N}\left( \mbf{0}, \mbs{\Sigma} \right).
     \end{align}
     It is a \emph{Euclidean distance} normalized by \emph{uncertainty}.
-\end{mydefinition}
+\end{definitionBox}
 %%
 \begin{example}
     Consider a random variable $\mbfrv{x}\in\rnums^{n}$ distributed according to $\mbfrv{x}\sim\mc{N}\left(\mbs{\mu}_{x},\mbs{\Sigma}_{x}\right)$. Say a realization $\mbf{x}\in\rnums^{n}$ is sampled from the distribution. Then the Mahalanobis distance

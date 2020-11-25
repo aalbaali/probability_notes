@@ -1,7 +1,7 @@
 \section{Multivariate random variables and distributions}
 In this chapter, we are dealing with multiple random variables. 
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Multiple random variable]    
   \label{def:multiple random variable}
   Let $\rv{x}_{1}, \rv{x}_{2},\ldots,\rv{x}_n$ be $n$ random variables defined on the \emph{same} probability space ($S, \mc{F}, \prob{})$. Then, the mapping
@@ -14,10 +14,10 @@ In this chapter, we are dealing with multiple random variables.
       \bbm \rv{x}_{1} & \rv{x}_{2} & \ldots &\rv{x}_n \ebm^{\trans},
   \end{align}
   where $\rv{x}_{i}, i=1,\ldots, n$ are random variables. 
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection{Joint cumulative distribution function (JCDF)}
-\begin{mydefinition}[Joint cumalitive distribution function (JCDF)]
+\begin{definitionBox}[Joint cumalitive distribution function (JCDF)]
     Let $\rv{x}_{1}, \rv{x}_{2}, \ldots, \rv{x}_n$ be $n$ random variables defined on the same probability space $(S,\mc{F},\prob{})$. Then, the \emph{joint cumulative distribution function (JCDF)} of these random variables are 
     \begin{align}
         \cdf[x_{1},x_{2},\ldots,x_n]{x_{1},x_{2},\ldots,x_n} 
@@ -26,7 +26,7 @@ In this chapter, we are dealing with multiple random variables.
         &= \cdf{\mbf{x}}\\
         &= \prob{\mbfrv{x}\leq\mbf{x}}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \subsubsection*{Properties of JCDFs}
 \begin{enumerate}
     \item $\cdf{\mbf{x}}$ is non-decreasing in each of its arguments.
@@ -35,7 +35,7 @@ In this chapter, we are dealing with multiple random variables.
     \item When $\rv{x}_{i}\to\infty$ for \emph{all} $i$, then $\cdf{\mbf{x}}\to 1$.
 \end{enumerate}
 
-\begin{mydefinition}[Marginal CDF]
+\begin{definitionBox}[Marginal CDF]
     % \emph{Marginalization} of a joint CDF is the process of ``eliminating'' a subset of the random variables to be \emph{marginalized}. This is done by taking the limit of the JCDF $\cdf{\mbf{x}}$ for the marginalized variables to $+\infty$. 
     %
     Let $\mbfrv{x}=\bbm \mbfrv{x}_{1}^{\trans} &\mbfrv{x}_{2}^{\trans}\ebm^{\trans}\in\rnums^{n}$ with joint CDF $\cdf{\mbf{x}}$. Say we want to know the joint CDF of a subset of these random variables ${\mbfrv{x}}_{1}$. That is, we want to \emph{marginalize out} the random variables ${\mbfrv{x}}_{2}$. The joint CDF of $\mbfrv{x}_{1}$ is computed by taking the limit
@@ -51,7 +51,7 @@ In this chapter, we are dealing with multiple random variables.
         \item The discarded random variables $\mbfrv{x}_{2}$ is said to be \emph{marginalized out}.
     \end{itemize}
     
-\end{mydefinition}
+\end{definitionBox}
 \begin{example}[Marginalizing a CDF]
     Given the joint CDF $\cdf{{x}_{1},{x}_{2},{x}_{3}}$, then the joint CDF $\cdf{x_{1},x_{3}}$ is given by
     \begin{align}
@@ -61,7 +61,7 @@ In this chapter, we are dealing with multiple random variables.
 \end{example}
 
 \subsection{Joint probability mass function (JPMF)}
-\begin{mydefinition}[Joint probability mass function (JPMF)]
+\begin{definitionBox}[Joint probability mass function (JPMF)]
         This is the analog to joint CDF for discrete random variables. The \emph{joint probability mass function (JPMF)} of the discrete random variables $\rv{x}_{1},\ldots,\rv{x}_{n}$ is
         \begin{align}
             \pmf[x_{1},\ldots,x_{n}]{x_{1},\ldots,x_{n}}
@@ -70,7 +70,7 @@ In this chapter, we are dealing with multiple random variables.
             &= \prob{\mbfrv{x}=\mbf{x}}.
         \end{align}
         Note that the subscripts may be omitted. That is, $\pmf[\mbf{x}]{\mbf{x}} = \pmf{\mbf{x}}$.
-\end{mydefinition}
+\end{definitionBox}
 
 \subsubsection*{Properties of JPMFs}
 \begin{enumerate}
@@ -93,7 +93,7 @@ In this chapter, we are dealing with multiple random variables.
 \end{enumerate}
 
 \subsection{Joint probability density function (JPDF)}
-\begin{mydefinition}[Joint probability density function (JPDF)]
+\begin{definitionBox}[Joint probability density function (JPDF)]
     The \emph{joint PDF} of random variables $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$, $\pdf{\mbf{x}}$, is given by
     \begin{align}
         \pdf{\mbf{x}} 
@@ -101,7 +101,7 @@ In this chapter, we are dealing with multiple random variables.
         &= \f{\partial^{n} \cdf{x_{1},\ldots,x_{n}}}{\partial x_{1}\cdots\partial x_{n}}.
     \end{align} 
     Often, subscripts will be dropped (\ie, $\pdf[\mbf{x}]{\mbf{x}} =\pdf{\mbf{x}}$).
-\end{mydefinition}
+\end{definitionBox}
 
 \subsubsection*{Properties of JPDFs}
 \begin{enumerate}
@@ -122,7 +122,7 @@ In this chapter, we are dealing with multiple random variables.
 \end{enumerate}
 
 \subsection{Independence}
-\begin{mydefinition}[Mutual independence]
+\begin{definitionBox}[Mutual independence]
     The random variables $\rv{x}_{1},\ldots,\rv{x}_{n}$ are called \emph{mutually independent} if the events $\left\{ \rv{x}_{1}\leq x_{1}\right\}, \ldots, \left\{ \rv{x}_{n}\leq x_{n}\right\}$ are independent for any $x_{1}, \ldots, x_{n} \in \rnums^{n}$.
 
     It follows that
@@ -131,7 +131,7 @@ In this chapter, we are dealing with multiple random variables.
         \pdf{x_{1},\ldots,x_{n}} &= \pdf{x_{1}}\cdots\pdf{x_{n}},\\
         \pmf{x_{1},\ldots,x_{n}} &= \pmf{x_{1}}\cdots\pmf{x_{n}}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{remark}
     Here some remarks about mutual independence.
@@ -143,14 +143,14 @@ In this chapter, we are dealing with multiple random variables.
     \end{itemize}
 \end{remark}
 
-\begin{mydefinition}[Group independence]
+\begin{definitionBox}[Group independence]
     A group of random variables $\mc{G}_{\mbf{x}} = \left\{ \rv{x}_{1}, \ldots,\rv{x}_{n}\right\}$ is \emph{independent} of a group of random variables $\mc{G}_{\mbf{y}} = \left\{ \rv{y}_{1}, \ldots,\rv{y}_{m}\right\}$ if 
     \begin{align}
         \pdf{\mbf{x},\mbf{y}} &= \pdf{\mbf{x}}\pdf{\mbf{y}}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Independent and identically distributed (i.i.d.) random variables]
+\begin{definitionBox}[Independent and identically distributed (i.i.d.) random variables]
     The random variables $\rv{x}_{1}, \ldots, \rv{x}_{n}$ are called \emph{independent and identically distributed (i.i.d.)} if 
     \begin{enumerate}
         \item they are independent, and
@@ -160,7 +160,7 @@ In this chapter, we are dealing with multiple random variables.
             \pmf[x_{1}]{x} &= \cdots = \pmf[x_{n}]{x}.           
         \end{align}
     \end{enumerate}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsubsection{Complex random variables}
 The statistics (PDF, CDF, etc.) of the $n$ complex random variables
@@ -173,12 +173,12 @@ The statistics (PDF, CDF, etc.) of the $n$ complex random variables
     \rv{z}_{n} &= \rv{x}_{n} + \jmath\rv{y}_{n}
 \end{align}
 are determined by the joint PDF $\pdf{x_{1},\ldots,x_{n},y_{1},\ldots,y_{n}}$ of the $2n$ real random variables $\mbf{x}, \mbf{y}$.
-\begin{mydefinition}[Mutually independent complex random variables]
+\begin{definitionBox}[Mutually independent complex random variables]
     The complex random variables $\rv{z}_{1},\ldots,\rv{z}_{n}$ as defined in \eqref{eq:def. complex RV} are \emph{mutually independent} if 
     \begin{align}
         \pdf{\mbf{x},\mbf{y}} &= \pdf{x_{1},y_{1}}\cdots\pdf{x_{n},x_{n}}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 
 \section{Transformed random variables}
@@ -604,7 +604,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
 
 \section{Statistics of random variables}
 \subsection{Order statistics}
-\begin{mydefinition}[Order statistics]
+\begin{definitionBox}[Order statistics]
     Let $\rv{x}_{1},\ldots,\rv{x}_{n}$ be i.i.d. random variables with marginal CDF and PDF $\cdf{\cdot}$ and $\pdf{\cdot}$, respectively. Consider the transformation
     \begin{align}
         \rv{x}_{(1)}&= \text{ smallest value of } (\rv{x}_{1},\ldots,\rv{x}_{n})\\
@@ -613,7 +613,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
         \rv{x}_{(n)}&= \text{ $n$th smallest (\ie, largest) value of} (\rv{x}_{1},\ldots,\rv{x}_{n}),
     \end{align}
     then $\rv{x}_{(1)},\ldots,\rv{x}_{(n)}$ are the \emph{order statistics} of $\rv{x}_{1},\ldots,\rv{x}_{n}$. Furthermore, $\rv{x}_{(k)}$ is the \emph{$k$th order statistic} of $\rv{x}_{1},\ldots,\rv{x}_{n}$.
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}
    [CDF of order statistics]    
@@ -640,16 +640,16 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
     where $\expect{\cdot}$ is the multidimensional expectation operator (Definition~\ref{def: SRV expectation operator}).
 \end{mytheorem}
 
-\begin{mydefinition}[Mean of a random vector]
+\begin{definitionBox}[Mean of a random vector]
     The \emph{mean} of a random vector $\mbfrv{x} = \bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$ is defined as
     \begin{align}
         \expect{\mbfrv{x}} &= 
         \bbm \expect{\rv{x}_{1}} & \cdots &   \expect{\rv{x}_{n}}\ebm^{\trans}.
     \end{align}
     Note that the mean of a random vector is also a vector of the same length. That is, $\expect{\mbfrv{x}}\in\rnums^{n}$.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Mean of a random matrix]
+\begin{definitionBox}[Mean of a random matrix]
     Let 
     \begin{align}
         \mbfrv{X} &= 
@@ -660,7 +660,7 @@ Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear 
         \expect{\mbfrv{X}} &=
         \bbm \expect{\mbfrv{x}_{1}}^{\trans} \\ \vdots\\ \expect{\mbfrv{x}_{m}}^{\trans} \ebm.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsubsection*{Properties of the expectation operator}
 The expectation operator is linear. That is
@@ -675,15 +675,15 @@ for any $\mbfrv{x}$ (real or complex) and any \emph{deterministic} $\alpha_{1},\
 for any deterministic matrix $\mbf{A}$.
 
 \subsection{Covariance and correlation}
-\begin{mydefinition}[Correlation matrix]
+\begin{definitionBox}[Correlation matrix]
     The \emph{correlation matrix} of the (complex) random variable $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$ is defined as
     \begin{align}
         \mbf{R} &= \expect{\mbfrv{x}\mbfrv{x}^{\herm}},
     \end{align}
     where $(\cdot)^{\herm}$ is the Hermitian\footnote{Hermitian: $\mbf{x}^{\herm}=\left(\mbf{x}^{\ast}\right)^{\trans}=\left(\mbf{x}^{\trans}\right)^{\ast}$.} of a vector. The $(i,j)$th element of $\mbf{R}$ is the correlation of $\rv{x}_{i}$ and $\rv{x}_{j}$.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Covariance matrix]
+\begin{definitionBox}[Covariance matrix]
    The \emph{covariance matrix} of the random vector $\mbfrv{x}=\bbm \rv{x}_{1}&\cdots&\rv{x}_{n} \ebm^{\trans}$ is 
    \begin{align}
        \mbf{C} &= \expect{\left(\mbfrv{x}-\expect{\mbfrv{x}}\right)\left(\mbfrv{x}-\expect{\mbfrv{x}}\right)^{\herm}}.
@@ -693,20 +693,20 @@ for any deterministic matrix $\mbf{A}$.
        C_{ij} = \expect{\left(\rv{x}_{i}-\expect{\rv{x}_{i}}\right)\left(\rv{x}_{j}-\expect{\rv{x}_{j}}\right)^{\ast}}.
    \end{align}
    The covariance matrix $\mbf{C}$ of $\mbfrv{x}$ is equal to the correlation matrix of the ``centered'' random vector $\mbfrv{x}-\expect{\mbfrv{x}}$.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Mutually orthogonal random variables]
+\begin{definitionBox}[Mutually orthogonal random variables]
     The random variables $\stringRVs{x}{n}$ are called \emph{mutually orthogonal} if the correlation matrix $\mbf{R}$ is diagonal. That is, $R_{ij}=0, i\neq j$.
-\end{mydefinition}
-\begin{mydefinition}[Mutually uncorrelated random variables]
+\end{definitionBox}
+\begin{definitionBox}[Mutually uncorrelated random variables]
     The random variables $\stringRVs{x}{n}$ are called \emph{mutually uncorrelated} if the covariance matrix $\mbf{C}$ is diagonal. That is, $C_{ij}=0, i\neq j$.
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{myBlueBox}
     \textbf{Notes:} If the random variables $\stringRVs{x}{n}$ are independent then they are uncorrelated. The converse is not true in general.
 \end{myBlueBox}
 
-\begin{mydefinition}[Uncorrelated random vectors]
+\begin{definitionBox}[Uncorrelated random vectors]
     Two random vectors $\mbfrv{x}$ and $\mbfrv{y}$  are called \emph{uncorrelated} if 
     \begin{align}
         \expect{\left(\mbfrv{x}-\expect{\mbfrv{x}}\right)\left(\mbfrv{y}-\expect{\mbfrv{y}}\right)^{\herm}}=\mbf{0}.
@@ -715,13 +715,13 @@ for any deterministic matrix $\mbf{A}$.
     \begin{align}
         \expect{\mbfrv{x}\mbfrv{y}^{\herm}} &= \expect{\mbfrv{x}}\expect{\mbfrv{y}}^{\herm}.
     \end{align}
-\end{mydefinition}
-\begin{mydefinition}[Orthogonal random vectors]
+\end{definitionBox}
+\begin{definitionBox}[Orthogonal random vectors]
     Two random vectors $\mbfrv{x}$ and $\mbfrv{y}$ are called orthogonal if 
     \begin{align}
         \expect{\mbfrv{x}\mbfrv{y}^{\herm}} &= \mbf{0}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsubsection*{Properties}
 \begin{enumerate}
@@ -764,7 +764,7 @@ for any deterministic matrix $\mbf{A}$.
 
 \section{Moments and characteristic functions}
 
-\begin{mydefinition}[Moments of random vectors]
+\begin{definitionBox}[Moments of random vectors]
     \label{def:moments multiple rv}
     Consider the random variables $\stringRVs{x}{N}$ and $n_{i}=0,1,\ldots$.
     \begin{itemize}
@@ -782,9 +782,9 @@ for any deterministic matrix $\mbf{A}$.
             \expect{\abs{\rv{x}_{1}}^{n_{1}}\cdots\abs{\rv{x}_{N}}^{n_{N}}}.
         \end{align}
     \end{itemize}
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Characteristic function]
+\begin{definitionBox}[Characteristic function]
     The \emph{characteristic function} of a random vector $\mbfrv{x}$ is defined as  
     \begin{align}
         \Phi_{\mbf{x}}(\Omega) &= \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} e^{\jmath(\omega_{1}x_{1}+\ldots+\omega_{N}x_{N})}\pdf{x_{1},\ldots,x_{N}}\dee x_{1}\cdots\dee x_{N}\\
@@ -796,10 +796,10 @@ for any deterministic matrix $\mbf{A}$.
     \end{align}
 
     Note that it looks similar to the Fourier transform of the PDF but it's not exactly the same because of the sign in the exponential.
-\end{mydefinition}
+\end{definitionBox}
 
 
-\begin{mydefinition}[Moment generating function]
+\begin{definitionBox}[Moment generating function]
     The \emph{moment generating function} of a random vector $mbfrv{x}$ is defined as
     \begin{align}
         \var{\Phi}_{\mbf{x}}(\mbf{s}) &= \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty} e^{s_{1}x_{1}+\ldots+s_{N}x_{N}}\pdf{x_{1},\ldots,x_{N}}\dee x_{1}\cdots\dee x_{N}\\
@@ -809,7 +809,7 @@ for any deterministic matrix $\mbf{A}$.
     \begin{align}
         \mbf{s} = \bbm s_{1} & \cdots & s_{N} \ebm^{\trans}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 
 
@@ -839,12 +839,12 @@ for any deterministic matrix $\mbf{A}$.
 \section{Conditional distributions}
 Similar to the single random variable definition of conditional distributions (Definition~\ref{def:SRV conitional distributions}), the following are extensions for such definitions to the multivariate case.
 
-\begin{mydefinition}[CDF of continuous RV conditioned on discrete RV]
+\begin{definitionBox}[CDF of continuous RV conditioned on discrete RV]
     Let $\rv{x}$ and $\rv{y}$ be two random variables with $\rv{x}$ \emph{discrete}. The \emph{conditional CDF of $\rv{y}$ given $\rv{x}=x$} is defined as
     \begin{align}
         \cdf{y\middle|~\rv{x}=x} &= \prob{\rv{y}\leq y\middle|~ \rv{x}=x}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     Some remarks about CDFs.
     \begin{itemize}
@@ -854,21 +854,21 @@ Similar to the single random variable definition of conditional distributions (D
 \end{myremark}
 
 
-\begin{mydefinition}[PMF of discrete RV conditioned a discrete RV] 
+\begin{definitionBox}[PMF of discrete RV conditioned a discrete RV] 
     Let $\rv{x}$ and $\rv{y}$ be two joint discrete random variables. The \emph{conditional PMF of $\rv{y}$ given $\rv{x}=x$} is defined as
     \begin{align}
         \pmf{y\middle|~\rv{x}=x} &= \prob{\rv{y}=y\middle|~\rv{x}=x}\\
         &= \f{\pmf{}_{xy}(x,y)}{\pmf{}_{x}(x)}.
     \end{align}
     Notation: $\pmf{y\middle|~\rv{x}=x}\to\pmf{}_{y|x}(y|x)$, or $\pmf{y|x}$.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[PDF of continuous RV conditioned on continuous RV]
+\begin{definitionBox}[PDF of continuous RV conditioned on continuous RV]
     Let $\rv{x}$ and $\rv{y}$ be two jointly continuous random variables. The \emph{conditional PDF of $\rv{y}$ given $\rv{x}=x$} is defined as
     \begin{align}
         \pdf{y\middle|~\rv{x}=x} &= \f{\pdf{}_{xy}(x,y)}{\pdf{}_{x}(x)}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     Some remarks about PDFs.
     \begin{itemize}
@@ -877,7 +877,7 @@ Similar to the single random variable definition of conditional distributions (D
     \end{itemize}
 \end{myremark}
 
-\begin{mydefinition}[CDF of continous RV conditioned on continuous RV]
+\begin{definitionBox}[CDF of continous RV conditioned on continuous RV]
     Let $\rv{x}$, $\rv{y}$ be two jointly continuous random variables. The \emph{conditional CDF of $\rv{y}$ given $\rv{x}=x$} is defined as
     \begin{align}
         \cdf{y\middle|~\rv{x}=x}=\int_{-\infty}^{y}\pdf{}_{y|x}(\lambda|x)\dee\lambda.
@@ -885,7 +885,7 @@ Similar to the single random variable definition of conditional distributions (D
     \begin{itemize}
         \item Notation: $\cdf{y|\rv{x}=x}\to\cdf{}_{y|x}(y|x)$, or $\cdf{y|x}$.
     \end{itemize}
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     Some remarks about CDFs.
     \begin{enumerate}
@@ -906,7 +906,7 @@ Similar to the single random variable definition of conditional distributions (D
 
 
 
-\begin{mydefinition}[Multivaraite conditional PDF]
+\begin{definitionBox}[Multivaraite conditional PDF]
     The \emph{multivariate conditional PDF} of $\rv{x}_{n},\ldots,\rv{x}_{k+1}$ given $\rv{k}=x_{k}, \ldots,\rv{x}_{1}=x_{1}$ is
     \begin{align}
         \pdf{x_{N},\ldots,x_{k+1}\middle|~ x_{k},\ldots,x_{1}} &= 
@@ -916,15 +916,15 @@ Similar to the single random variable definition of conditional distributions (D
                 \pdf{x_{k},\ldots,x_{1}}
                 }
             \end{align} 
-        \end{mydefinition}
+        \end{definitionBox}
 
-\begin{mydefinition}[Multivariate conditional CDF]
+\begin{definitionBox}[Multivariate conditional CDF]
     The \emph{multivariate conditional CDF} of $\rv{x}_{n},\ldots,\rv{x}_{k+1}$ given $\rv{k}=x_{k}, \ldots,\rv{x}_{1}=x_{1}$ is
     \begin{align}
         \cdf{x_{N},\ldots,x_{k+1}\middle|~ x_{k},\ldots,x_{1}} &= \\
         \int_{-\infty}^{x_{n}}\cdots\int_{-\infty}^{x_{k+1}} &\pdf{}_{x_{n},\ldots,x_{k+1}|x_{k},\ldots,x_{1}}(\lambda_{n},\ldots,\lambda_{k+1}|~x_{k},\ldots,x_{1})\dee\lambda_{n}\cdots\dee\lambda_{k+1}.
     \end{align} 
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection{Properties of conditional probability}
 \begin{enumerate}
@@ -990,13 +990,13 @@ The Schur's compliment can be used to compute this value. Specifically,
 
 
 \section{Conditional expectation and variance}
-\begin{mydefinition}[Conditional mean]
+\begin{definitionBox}[Conditional mean]
     Given $n$ random variables $\stringRVs{x}{n}$, the \emph{conditional mean} of the random variable $h(\rv{x}_{1},\ldots,\rv{x}_{k})$ conditioned on $\rv{x}_{k+1},\ldots,\rv{x}_{n}$ is
     \begin{align}
         \expect{h(\rv{x}_{1},\ldots,\rv{x}_{k})\middle|~x_{k+1},\ldots,x_{n}}
         = \\ \int_{-\infty}^{\infty}\cdots\int_{-\infty}^{\infty}&h(x_{1},\ldots,x_{k})\pdf{x_{1},\ldots,x_{k}\middle|~x_{k+1},\ldots,x_{n}}\dee x_{1}\cdots \dee x_{k}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{myremark}
     Some remarks about conditional means.
@@ -1071,12 +1071,12 @@ The Schur's compliment can be used to compute this value. Specifically,
     \end{align}
 \end{mytheorem}
 
-\begin{mydefinition}[Conditional variance]
+\begin{definitionBox}[Conditional variance]
     Let $\rv{x}$, $\rv{y}$ be two random variables. Then the \emph{conditional variance of $\rv{x}$ given $\rv{y}=y$} is
     \begin{align}
         \var{\rv{x}\middle|~\rv{y}=y} &= \expect{\left(\rv{x}-\expect{\rv{x}\middle|~\rv{y}=y}\right)^{2}\middle|~ \rv{y}=y}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \subsection{Properties of conditional variance}
 \begin{enumerate}
     \item $\var{\rv{x}\middle|~\rv{y}=y}=\expect{\rv{x}^{2}\middle|~\rv{y}=y}-\expect{\rv{x}\middle|~\rv{y}=y}^{2}.$

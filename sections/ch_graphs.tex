@@ -1,15 +1,15 @@
 \section{Graph definitions and terminology}
-\begin{mydefinition}[Directed graphs]
+\begin{definitionBox}[Directed graphs]
     A directed graph consists of a set of vertices and a set of directed edges that connect pairs of vertices.
 
     In probability, the vertices are random variables. Figure~\ref{fig:simple_dag} shows an example of a directed graph.
-\end{mydefinition}
-\begin{mydefinition}[Directed acyclic graph]
+\end{definitionBox}
+\begin{definitionBox}[Directed acyclic graph]
     \label{def:directed acyclic graph}
     A directed acyclic graph (DAG) is a directed graph that contains no cycles. That is, no directed paths from a vertex back to itself.
 
     In case of probability, a DAG is called a \emph{Bayesian network} (BN).
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{figure}[h]
     \centering
@@ -58,9 +58,9 @@ The terms are illustrated in the figures below.
 \end{figure}
 
 \section{Graphs in Probability}
-\begin{mydefinition}[Bayesian networks]
+\begin{definitionBox}[Bayesian networks]
     A Bayesian network is a directed acyclic graph (DAG) (check Def.~\ref{def:directed acyclic graph}) that has random variables as vertices.
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}
    [Representing JPDFs using DAGs]    
@@ -80,7 +80,7 @@ The terms are illustrated in the figures below.
      where $\bar{\mc{X}}_{i}$ are all other random variables but the parents and descendants of $\rv{x}_{i}$.
 \end{mytheorem}
 
-\begin{mydefinition}[D-donnection and d-separation]
+\begin{definitionBox}[D-donnection and d-separation]
     Consider a set of $n$ random variables $\rv{x}_{1}, \ldots, \rv{x}_{n}$ whose JPDF is represented by $G$. 
     Furthermore, let $\mc{A}$, $\mc{B}$, and $\mc{C}$ be mutually exclusive sets with $\mc{A},\mc{C}\neq\emptyset$.
 
@@ -90,7 +90,7 @@ The terms are illustrated in the figures below.
         \item no non-collider along the path belongs in $\mc{B}$.
     \end{enumerate}
     If $\mc{A}$ and $\mc{C}$ are not d-connected given $\mc{B}$, then they are called \emph{d-separated given $\mc{B}$}.
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}
    [D-connection and d-separation] 

@@ -4,10 +4,10 @@ Recall:
     \item A random variable (\defref{def:random variable}) $\rv{x}$ maps outcomes to number.
     \item A random vector (\defref{def:multiple random variable}) $\mbfrv{x}$ maps outcomes to vectors.
 \end{itemize}
-\begin{mydefinition}[Random process]
+\begin{definitionBox}[Random process]
     \label{def:random process}
     A random process (RP)\index{Random process (RP)} $\rv{x}(t)$, $t\in T$, maps outcomes to \emph{functions} of $t$.
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     Some remarks on random processes. 
     \begin{itemize}
@@ -40,14 +40,14 @@ Recall:
     \index{Continuous-time continuous-state process}
 \end{table}
 
-\begin{mydefinition}[First order distribution of a RP]
+\begin{definitionBox}[First order distribution of a RP]
     \index{First order distribution of a RP}
     The \emph{first order} distribution of the RV $\rv{x}(t)$ is  
     \begin{align}
         \cdf{x; t} &= \underbrace{\prob{\rv{x}(t) \leq x)}}_{\text{CDF of } \rv{x}(t)}
     \end{align}
-\end{mydefinition}
-\begin{mydefinition}[First order statistic of a RP]
+\end{definitionBox}
+\begin{definitionBox}[First order statistic of a RP]
     \index{First order statistic of a RP}
     There are two cases.
     \begin{enumerate}
@@ -61,16 +61,16 @@ Recall:
             \pmf{x; t} &= \prob{\rv{x}(t) = x}, \qquad \forall t\in T.
         \end{align}
     \end{enumerate}
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Second order distribution of a RP]
+\begin{definitionBox}[Second order distribution of a RP]
     \index{Second order distribution of a RP}
     The \emph{second order distribution of a RP} $\rv{x}(t)$ is
     \begin{align}
         \cdf{x_{1}, x_{2}; t_{1}, t_{2}} &= \underbrace{\prob{\rv{x}(t_{1}) \leq x_{1}, \rv{x}(t_{2})\leq x_{2}}}_{\text{JCDF of } \rv{x}(t_{1}), \rv{x}(t_{2})}
     \end{align}
-\end{mydefinition}
-\begin{mydefinition}[Second order density of a RP]
+\end{definitionBox}
+\begin{definitionBox}[Second order density of a RP]
     \index{Second order density of a RP}
     There are two cases.
     \begin{enumerate}
@@ -84,9 +84,9 @@ Recall:
             \pmf{x_{1}, x_{2}; t_{1}, t_{2}} &= \prob{\rv{x}(t_{1}) = x_{1}, \rv{x}(t_{2}) = x_{2}}, \qquad \forall t\in T.
         \end{align}
     \end{enumerate}
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Higher order statistics of a RP]
+\begin{definitionBox}[Higher order statistics of a RP]
     For the $n$ RVs $\rv{x}(t_{1}), \ldots, \rv{x}(t_{n})$, 
     \begin{enumerate}
         \item the $n$th order distribution of $\rv{x}(t)$ is 
@@ -102,10 +102,10 @@ Recall:
             \pmf{x_{1}, \ldots, x_{n}; t_{1}, \ldots, t_{n}}.
         \end{align}
     \end{enumerate}
-\end{mydefinition}
+\end{definitionBox}
 
 \section{Mean, autocorrelation, and autocovariance}
-\begin{mydefinition}[Mean of a random process]
+\begin{definitionBox}[Mean of a random process]
     \index{Mean of a RP}  
     The \emph{mean} $\rpmean(t)$ of a RP $\rv{x}(t)$ is 
     \begin{align}
@@ -113,17 +113,17 @@ Recall:
         &= \int x\pdf{x; t}\dee x.
     \end{align}
     Note that the mean is a function of time.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Autocorrelation]
+\begin{definitionBox}[Autocorrelation]
     \index{Autocorrelation of a RP}
     The \emph{autocorrelation} $\acor{t_{1}}[t_{2}]$ of a random process $\rv{x}(t)$ is
     \begin{align}
         \acor{t_{1}}[t_{2}] &= \expect{\rv{x}(t_{1})\rv{x}(t_{2})}\\
         &= \int\int x_{1}x_{2}\pdf{x_{1}, x_{2}; t_{1}, t_{2}}\dee x_{1} \dee x_{2}.
     \end{align}
-\end{mydefinition}
-\begin{mydefinition}[Autocovariance]
+\end{definitionBox}
+\begin{definitionBox}[Autocovariance]
     \index{Autocovariance of a RP}
     The \emph{autocovariance} $\acov{t_{1}}[t_{2}]$ of a random process $\rv{x}(t)$ is
     \begin{align}
@@ -134,19 +134,19 @@ Recall:
     \begin{align}
         \acov{t}[t] &= \var{\rv{x}(t)}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \section{Properties of random processes}
-\begin{mydefinition}[Independent increments]
+\begin{definitionBox}[Independent increments]
     \index{Independent increments of a RP}
     A RP $\rv{x}(t)$ is said to have \emph{independent increments} if for any $k$ and any choice of $t_{1} < t_{2} < \ldots < t_{k}$, the RVs 
     \begin{align}
         \rv{x}(t_{2}) - \rv{x}(t_{1}), \ldots, \rv{x}(t_{k}) - \rv{x}(t_{k-1})
     \end{align}
     are independent RVs.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Markov RP]
+\begin{definitionBox}[Markov RP]
     \index{Markov RP}
     A RP $\rv{x}(t)$ is said to be \emph{Markov} if the future of the process given the present is independent of the past. That is, for any $k$ and choice of 
     \begin{align}
@@ -157,20 +157,20 @@ Recall:
         &\pdf[x(t_{k+1})]{x_{k+1}\mid \rv{x}(t_{k})=x_{k}, \rv{x}(t_{k-1})=x_{k-1}, \ldots, \rv{x}(t_{1})=x_{1}}\\
         &\qquad\quad= \pdf[x(t_{k+1})]{x_{k+1} \mid \rv{x}(t_{k})=x_{k}}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 %
-\begin{mydefinition}[Independent RPs]
+\begin{definitionBox}[Independent RPs]
   \index{Independent RPs}
   Two RPs $\rv{x}(t)$ and $\rv{y}(t)$ are called \emph{independent} if the sets $(\rv{x}(t_{1}), \ldots, \rv{x}(t_{n}) )$ and $\left( \rv{y}(t_{1}^{\prime}), \ldots, \rv{y}(t_{n}^{\prime}) \right))$ are mutually independent for any $n$, $n^{\prime}$ and choice of pointes $t_{1}, \ldots, t_{n}$ and $t^{\prime}_{1}, \ldots, t^{\prime}_{n^{\prime}}$.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[White noise]
+\begin{definitionBox}[White noise]
     \index{White noise}
     A RP $\rv{x}(t)$ is called \emph{white noise} if its values $\rv{x}(t_{1})$ and $\rv{x}(t_{2})$ are uncorrelated for any $t_{1}\neq t_{2}$ . That is,
     \begin{align}
         \acov{t_{1}}[t_{2}] &= 0, \qquad \forall t_{1}\neq t_{2}.
     \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}
     The autocovariance of a non-trivial white-noise process must be of the form
     \begin{align}
@@ -178,15 +178,15 @@ Recall:
     \end{align}
 \end{myremark}
 
-\begin{mydefinition}[Strictly white noise]
+\begin{definitionBox}[Strictly white noise]
     \index{Strictly white noise}  
     A RP $\rv{x}(t)$ is called \emph{strictly white noise} if its values $\rv{x}(t_{1})$ and $\rv{x}(t_{2})$ are \emph{independent} for all $t_{1}\neq t_{2}$.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Normal (Gaussian) RPs]
+\begin{definitionBox}[Normal (Gaussian) RPs]
     \index{Normal RPs}\index{Gaussian RPs}
     A RP $\rv{x}(t)$ is called \emph{Normal (Gaussian)} if for any $k$ and any choice of $t_{1}, \ldots, t_{k}$, the RVs $\rv{x}(t_{1}), \ldots, \rv{x}(t_{k})$ are jointly normal. 
-\end{mydefinition}
+\end{definitionBox}
 \begin{myremark}[Gaussian RPs]
     The statistics of a Normal RP are completely determined by its mean $\eta(t)$ and autocovariance $\acov{t_{1}}[t_{2}]$.
 \end{myremark}

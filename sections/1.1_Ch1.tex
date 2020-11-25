@@ -5,21 +5,21 @@ Probability is a measure of:
     \item Our certainty or belief that a statement is true. My belief could be different than yours;
     \item How frequently an event will occur.
 \end{itemize}
-\begin{mydefinition}[Random experiment]
+\begin{definitionBox}[Random experiment]
         A \emph{random experiment} is an experiment (or a physical process) whose outcome is not certain but all of its possible outcomes are known and predictable in advance.        
 
         A random experiment is modeled as a probability space (check Definition~\ref{def: proability space}).
-\end{mydefinition}
-\begin{mydefinition}[Sample space $S$]
+\end{definitionBox}
+\begin{definitionBox}[Sample space $S$]
     The \emph{sample space} $S$ is the set of \emph{all} possible \emph{outcomes}.
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}[Event]
+\begin{definitionBox}[Event]
     An \emph{event} $A$ is a \emph{subset} of $S$. That is, $A\subseteq S$. It's NOT an element of $S$! It is rather an element of the power set $\pSet_{S}$ (Definition~\ref{def: power set}).
 
     Thus, an event $A$ is a \emph{set} of outcomes. 
-\end{mydefinition}
-\begin{mydefinition}[Power set of $S$]
+\end{definitionBox}
+\begin{definitionBox}[Power set of $S$]
     \label{def: power set}
     The \emph{power set} of the sample space $S$ is the set containing all subsets of a set $S$. It's denoted by $\pSet_{S}$, or simply $\pSet$.
     \thline
@@ -28,7 +28,7 @@ Probability is a measure of:
         \item $\varnothing \subseteq S$: Impossible event.
         \item $S \subseteq S$: Certain event.
     \end{itemize}
-\end{mydefinition}
+\end{definitionBox}
 \begin{example}[Flipping a coin]
     Flipping a coin \emph{once} has the sample space
     \begin{align}
@@ -63,7 +63,7 @@ Probability is a measure of:
     \label{fig:prob. intuition}
 \end{figure}
 
-\begin{mydefinition}[Probability]
+\begin{definitionBox}[Probability]
     \emph{Probability} is a set function $\prob{}:\pSet_{S}\mapsto [0,1]$ that assigns to an event $A\in\pSet_{S}$ (recall $A\subseteq S)$ a number $\prob{A}$ that satisfies the following three axioms:
     \begin{enumerate}
         \item $\prob{A}\geq0$,
@@ -74,7 +74,7 @@ Probability is a measure of:
         \end{align}
     \end{enumerate}
     The number $\prob{A}$ is called the probability of $A$.
-\end{mydefinition}
+\end{definitionBox}
 \begin{remark}
         It is NOT always possible to define a function $P:\pSet\mapsto[0,1]$ that satisfies the three axioms.
         Workaround: focus on the events in a $\sigma$-algebra $\fCal$.
@@ -90,7 +90,7 @@ Probability is a measure of:
         \end{myBlueBox}
 \end{remark}
 
-\begin{mydefinition}[$\sigma$-algebra]
+\begin{definitionBox}[$\sigma$-algebra]
     A set $\fCal$ of subsets of $S$, that is, $\fCal\subseteq \pSet$ is \emph{$\sigma$-algebra} if and only if
     \begin{enumerate}
         \item $S\in\fCal$,
@@ -98,9 +98,9 @@ Probability is a measure of:
         \item If the sets $A_{1}, A_{2}, \ldots$ belong to $\fCal$, then so does $\bigcup_{i=1}^{\infty}A_{i}$.
     \end{enumerate}
     If $S$ is countable, then $\fCal=\pSet_{S}$ is used.
-\end{mydefinition}
+\end{definitionBox}
 A random experiment is modeled as a probability space.
-\begin{mydefinition}[Probability space]
+\begin{definitionBox}[Probability space]
     \label{def: proability space}
     A \emph{probability space} is a triplet
     \begin{align}
@@ -112,7 +112,7 @@ A random experiment is modeled as a probability space.
         \item $\fCal$ is the events algebra, and
         \item $\prob{}:\fCal\mapsto[0,1]$ is the probability function.
     \end{enumerate}
-\end{mydefinition}
+\end{definitionBox}
 
 \section{Basic theorems}
 \begin{theoremBox}[Basic theorems]
@@ -165,13 +165,13 @@ Given
     \item $A, ~B\in\mc{F}$ with $\prob{B}\neq0$.
 \end{enumerate}
 
-\begin{mydefinition}
+\begin{definitionBox}
     [Conditional probability]    
     The conditional probability of $A$ given $B$, $\prob{A\middle|~B}$, defined as 
     \begin{align}
         \prob{A|B} &= \f{\prob{A\bigcap B}}{\prob{B}}.
     \end{align}    
-\end{mydefinition}
+\end{definitionBox}
 \begin{mytheorem}
   [Conditional probability]    
   Let $B\in\mc{F}$ with $\prob{B}\neq 0$. The mapping 
@@ -228,7 +228,7 @@ Therefore,
     \end{enumerate}
 \end{myBlackBox}
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Indpendence]    
   \label{def:independence}
   The events $A, B\in\mc{F}$ are called \emph{independent} if 
@@ -241,22 +241,22 @@ Therefore,
       \text{  or  }    
         \prob{AB}=\prob{A}\prob{B}
   \end{align}
-\end{mydefinition}
-\begin{mydefinition}
+\end{definitionBox}
+\begin{definitionBox}
   [Independence (multiple events)]    
   The events $A, B, C\in\mc{F}$ are called \emph{independent} if
   \begin{itemize}
       \item They are independent in pairs, \underline{and}
       \item $\prob{ABC}=\prob{A}\prob{B}\prob{C}$.
   \end{itemize}
-\end{mydefinition}
-\begin{mydefinition}
+\end{definitionBox}
+\begin{definitionBox}
   [Conditional independence]    
   Events $A, B\in\mc{F}$ are called \emph{conditionally independent given $C\in\mc{F}$, with $\prob{C}\neq 0$}, if
   \begin{align}
       \prob{AB|C} &= \prob{A|C}\prob{B|C}.
   \end{align}
-\end{mydefinition}
+\end{definitionBox}
 \begin{myBlueBox}
     \textbf{Remark:} Conditional independence is quite different from independence. They do not imply each other. Here are some examples.
     
@@ -292,7 +292,7 @@ In many random experiments, it is convenient to assign numerical labels to outco
         \label{fig:1 assigning numerical labels to outcomes}
     \end{figure}
 \end{example}
-\begin{mydefinition}
+\begin{definitionBox}
   [Random variable (RV)]    
   \label{def:random variable}
   A \emph{random variable (RV)} (denoted by an underline) $\rv{x}:S\to\rnums$ is a mapping from $S$ to $\rnums$ with the following properties.
@@ -301,8 +301,8 @@ In many random experiments, it is convenient to assign numerical labels to outco
       \item $\prob{\left\{ s\in S: \rv{x}(s)=\infty\right\}}=0$ and $\prob{\left\{ s\in S: \rv{x}(s)=-\infty\right\}}=0$
   \end{enumerate}
   $S$ is referred to as the \emph{domain} of the RV $\rv{x}(\cdot)$ (since a RV is a mapping, then it has a domain and a range). [The domain can be thought of as the sample space\footnote{Not quite sure of this statement.}.]
-\end{mydefinition}
-\begin{mydefinition}
+\end{definitionBox}
+\begin{definitionBox}
   [Cumulative distribution function (CDF)]    
   The function $F : \rnums\to[0,1]$ defined by 
   \begin{align}
@@ -315,7 +315,7 @@ In many random experiments, it is convenient to assign numerical labels to outco
   is called the \emph{cumulative distribution function (CDF)} of $\rv{x}$. Note that \eqref{eq:def CDF shorthand} is a shorthand for \eqref{eq:def CDF full}.
 
   \textbf{Note:} sometimes the CDF will be denoted with a subscript of the RV (\eg, $F_{x}(x)$). This is for clarity as to make sure that the CDF is over the RV $\rv{x}$. This come more in handy when there are multiple variables in hands (such as in integration).
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection{Properties of random variables}
 Here are some properties of random variables.
@@ -331,7 +331,7 @@ Here are some properties of random variables.
     \item $\prob{\left\{ x_{1}\leq \rv{x} \leq x_{2}\right\}}=F_{x}(x_{2})-F_{x}(x_{1}^{-})$
 \end{enumerate}
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Types of RVs]    
   A RV $\rv{x}$ is called 
   \begin{itemize}
@@ -343,9 +343,9 @@ Here are some properties of random variables.
       \end{enumerate}
       \item \emph{Mixed} if it is neither continuous nor discrete.
   \end{itemize}
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Probability mass function (PMF)]    
   Let $\rv{x}$ be a discrete RV. Then,
   \begin{itemize}
@@ -366,7 +366,7 @@ Here are some properties of random variables.
       \item $\sum_{i=1}^{\infty}\pmf{x_{i}} = 1$ and $\pmf{x}\geq 0$, $\forall x$ (defining properties),
       \item $\prob{\rv{x}\in \mc{A}}=\sum_{x_{i}\in \mc{A}} \pmf{x_{i}}$.
   \end{itemize}
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{figure}[h]
     \centering
@@ -375,13 +375,13 @@ Here are some properties of random variables.
     \label{fig: example CDF discrete RV}
 \end{figure}
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Porbability density function (PDF)]    
   The \emph{probability density function (PDF)}, $\pdf{x}$ or $\pdf{}_{x}(x)$, of a RV $\rv{x}$ is defined as
   \begin{align}
       \pdf{}_{x}(x) &= \td{\cdf{}_{x}(x)}{x}.
   \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection{Properties of PDFs}
 If $\rv{x}$ is continuous with PDF $\pdf{x}$
@@ -413,7 +413,7 @@ If $\rv{x}$ is continuous with PDF $\pdf{x}$
 
 
 \subsection{Conditional distributions}
-\begin{mydefinition}[Conditional distributions]      
+\begin{definitionBox}[Conditional distributions]      
     \label{def:SRV conitional distributions}
     Let $M\in\mc{F}$ with $\prob{M}\neq 0$. Then
     \begin{enumerate}
@@ -437,7 +437,7 @@ If $\rv{x}$ is continuous with PDF $\pdf{x}$
         \end{align}
         Note that conditional CDFs, PDFs, and PMFs behave like unconditional ones.
     \end{enumerate}
-\end{mydefinition}
+\end{definitionBox}
 \subsubsection*{Properties of conditional distributions}
 Let $B_{1}, B_{2}, \ldots, B_{n}$ be a partition of $S$, $\prob{B_{i}}\neq 0$. Let $A\in\mc{F}$, $\prob{A}\neq0$.
 \begin{itemize}
@@ -475,13 +475,13 @@ When $\rv{x}$ is discrete with $\mc{R}_{x}=\left\{ x_{1},x_{2},\ldots\right\}$, 
     \end{align}
 \end{itemize}
 When $\rv{x}$ is continuous, it is not possible to divide by $\prob{\rv{x}=x}=0$. Therefore, another definition for conditional PDF is needed.
-\begin{mydefinition}
+\begin{definitionBox}
   [Conditional PDF]    
   The \emph{conditional PDF} of $A\in\mc{F}$ given $\rv{x}=x$ (assuming $\pdf{}_{x}(x)\neq0$) is
   \begin{align}
       \prob{A| \rv{x}=x} &= \f{\pdf[x]{x|A}\prob{A}}{\pdf[x]{x}}.
   \end{align}
-\end{mydefinition}
+\end{definitionBox}
 The properties of such conditional PDF are
 \begin{itemize}
     \item \textbf{Total probability}: $\prob{A}=\int_{-\infty}^{\infty} \prob{A|\rv{x}=x}\pdf[x]{x}\dee x$/
@@ -646,7 +646,7 @@ The method will be motivated by two examples:
 
 \section{Statistics of random variables}
 Sometimes, information about the random variables such as the mean is sought after. Information about a random variables are referred to as the \emph{statistics} of it.
-\begin{mydefinition}
+\begin{definitionBox}
   [Expectation operator]    
   \label{def: SRV expectation operator}
   The expectation operator $\expect{\cdot}$ is a functional operator that operates on random variables. Specifically:
@@ -663,9 +663,9 @@ Sometimes, information about the random variables such as the mean is sought aft
         \end{align}
   \end{itemize}
   
-\end{mydefinition}
+\end{definitionBox}
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Mean of a random variable]    
   The mean of a random variable $\rv{x}$, $\mu_{x}$, is defined as
   \begin{align}
@@ -688,7 +688,7 @@ Sometimes, information about the random variables such as the mean is sought aft
   \begin{align}
       \expect{\rv{x}|M} &= \int_{-\infty}^{\infty} x\pdf{x|M}\dee x.
   \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection*{Properties of the mean}
 \begin{itemize}
@@ -707,7 +707,7 @@ Sometimes, information about the random variables such as the mean is sought aft
     \end{align}
 \end{itemize}
 
-\begin{mydefinition}
+\begin{definitionBox}
   [Variance and standard deviation]    
   Let $\rv{x}$ be a random variable. Then the \emph{variance} of $\rv{x}$, $\var{\rv{x}}$, is defined as
   \begin{align}
@@ -721,7 +721,7 @@ Sometimes, information about the random variables such as the mean is sought aft
   \begin{align}
       \var{a\rv{x}+b} &= a^2\var{\rv{x}}.
   \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}[Markov's inequality]
     Let $\rv{x}$ be a non-negative random variable. That is, $\prob{\rv{x}<0}=0$. For any $\epsilon>0$:
@@ -746,7 +746,7 @@ Sometimes, information about the random variables such as the mean is sought aft
 
 \subsection{Moments}
 
-\begin{mydefinition}[Moments] 
+\begin{definitionBox}[Moments] 
     \label{def:moments single rv}
     The different moments of a random variable are defined as follows.   
     \begin{itemize}
@@ -755,10 +755,10 @@ Sometimes, information about the random variables such as the mean is sought aft
         \item \emph{$n$-th absolute moment} of $\rv{x}$: $\expect{\abs{\rv{x}}^{n}}$.
         \item \emph{$n$-th absolute central moment} of $\rv{x}$: $\mu_{n}=\expect{\abs{\rv{x}-\expect{\rv{x}}}^{n}}$.
     \end{itemize}
-\end{mydefinition}
+\end{definitionBox}
 
 \subsection{Characteristic functions}
-\begin{mydefinition}
+\begin{definitionBox}
   [Characteristic function]    
   The \emph{characteristic function} of a random variable $\rv{x}$ is the Fourier transform of its PDF. Specifically,
   \begin{align}
@@ -768,14 +768,14 @@ Sometimes, information about the random variables such as the mean is sought aft
   \begin{align}
       \pdf{}_{x}(x) &= \f{1}{2\pi}\int_{-\infty}^{\infty} e^{-\jmath\omega x}\Phi_{x}(\omega) \dee \omega.
   \end{align}
-\end{mydefinition}
-\begin{mydefinition}
+\end{definitionBox}
+\begin{definitionBox}
   [Moment generating function]    
   The \emph{moment generating function} of $\rv{x}$ is the Laplace transform of its PDF. Specifically, 
   \begin{align}
       \bar{\Phi}_{x}(s) &= \int_{-\infty}^{\infty} e^{Sx}\pdf{}_{x}(x)\dee x.
   \end{align}
-\end{mydefinition}
+\end{definitionBox}
 
 \begin{mytheorem}[Moment theorem]
     \begin{align}
