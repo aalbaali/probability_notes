@@ -1,3 +1,4 @@
+\section{Definitions}
 \begin{definitionBox}[Strict sense stationary]
     A random process $\rv{x}(t)$ is called \emph{strict sense stationary} if its statistical properties are invariant to a shift in time. That is,
     \begin{align}
@@ -95,3 +96,62 @@
         \end{align}
     \end{itemize}
 \end{remarkBox}
+\begin{definitionBox}[Power spectral density (PSD)]
+    The \emph{power spectrum} or \emph{power spectral density} (PSD) of a WSS process $\rv{x}(t)$ (real or complex) is the Fourier transform $\psd[xx]{\omega}$ of its autocorrelation $\acor[xx]{\tau} = \expect{\rv{x}(t+\tau)\rv{x}(t)^{\herm}}$. That is,
+    \begin{align}
+        \psd[xx]{\omega} &= \fouriert{\acor[xx]{\tau} }\\
+        &= \int_{-\infty}^{\infty}\acor[xx]{\tau}e^{-\jmath\omega\tau}\dee\tau.
+    \end{align}
+    The autocorrelation function can be obtained from the PSD using the inverse Fourier transform. Specifically,
+    \begin{align}
+        \acor[xx]{\tau} &= \invfouriert{\psd[xx]{\omega}}\\
+        &= \f{1}{2\pi} \int_{-\infty}^{\infty} \psd[xx]{\omega}e^{\jmath\omega\tau}\dee\omega.
+    \end{align}
+\end{definitionBox}
+
+\begin{remarkBox}
+    Some properties of the power spectral density.
+    \begin{itemize}
+        \item Since $\acor[xx]{\tau}^{\herm} = \acor[xx]{-\tau}$, then 
+        \begin{align}
+            \psd[xx]{\omega}^{\herm} &= \psd[xx]{\omega}.
+        \end{align}
+        That is, the PSD is always a real function of $\omega$.
+    \end{itemize}
+    \item If $\rv{x}(t)$ is a real process, then the PSD is a \emph{real} and \emph{even} function of $\omega$.
+\end{remarkBox}
+
+
+\begin{definitionBox}[Cross PSD]
+    The \emph{cross power spectrum} or \emph{cross power spectral density} of the jointly WSS processes $\rv{x}(t)$ and $\rv{y}(t)$ is the Fourier transform, $\psd[xy]{\omega}$ of their cross-correlation. That is,
+    \begin{align}
+        \psd[xy]{\omega} &= \fouriert{\acor[xy]{\tau}}\\
+        &= \int_{-\infty}^{\infty} \acor[xy]{\tau}e^{-\jmath\omega\tau}\dee\tau.
+    \end{align}
+    The cross-correlation function can be computed from the cross PSD using the inverse Fourier transform. That is,
+    \begin{align}
+        \acor[xy]{\tau} &= \invfouriert{\psd[xy]{\omega}}\\
+        &= \f{1}{2\pi}\int_{-\infty}^{\infty}\psd[xy]{\omega}e^{\jmath\omega\tau}\dee\omega.
+    \end{align}
+    In general, the cross PSD is a complex function of $\omega$ with the property
+    \begin{align}
+        \psd[xy]{\omega} &= \psd[yx]{\omega}^{\herm}.
+    \end{align}
+\end{definitionBox}
+
+
+\section{Theorems}
+\begin{theoremBox}
+   [Wiener-Kinchin]    
+     For any random process $\rv{x}(t)$, 
+     \begin{align}
+         \psd[xx]{\omega}\geq 0.
+     \end{align}
+\end{theoremBox}
+
+\begin{theoremBox}
+   [Existence of PSD]    
+     Given any arbitrary finite\footnote{I.e., $\int\psd{\omega}\dee\omega<\infty$.} positive function $\psd{\omega}$, there exists a complex process $\rv{x}(t)$ with PSD $\psd[xx]{\omega}$ equal to $\psd{\omega}$.
+\end{theoremBox}
+
+
