@@ -1,0 +1,97 @@
+\begin{definitionBox}[Strict sense stationary]
+    A random process $\rv{x}(t)$ is called \emph{strict sense stationary} if its statistical properties are invariant to a shift in time. That is,
+    \begin{align}
+        \pdf{x_{1}, \ldots, x_{n}; t_{1}, \ldots, t_{n}} &=
+        \pdf{x_{1}, \ldots, x_{n}; t_{1+\tau}, \ldots, t_{n+\tau}}
+    \end{align}
+    for any $n$, $t_{1}, \ldots, t_{n}$, and $\tau$.
+    % \index{Strict sense stationary (SSS)}
+    % \index{SSS|see {Strict sense stationary}}
+\end{definitionBox}
+
+\begin{definitionBox}[Jointly SSS]
+    Two processes $\rv{x}(t)$ and $\rv{y}(t)$ are called \emph{jointly stationary} if the joint statistics of 
+    \begin{align}
+        \rv{x}(t_{1}), \ldots, \rv{x}(t_{n}), \rv{y}(t_{1}^{\prime}), \ldots, \rv{y}(t_{m}^{\prime})
+    \end{align}
+    are the same as the joint statistics of 
+    \begin{align}
+        \rv{x}(t_{1} + \tau), \ldots, \rv{x}(t_{n} + \tau), \rv{y}(t_{1}^{\prime} + \tau), \ldots, \rv{y}(t_{m}^{\prime} + \tau)
+    \end{align}
+    for any $t_{1}, \ldots, t_{n}$, $n$, $t_{1}', \ldots, t_{m}'$, $m$, and $\tau$. 
+    % \index{Jointly strictly sense stationary}
+    % \index{Strict sense stationary (SSS)!Jointly strictly sense stationary}
+\end{definitionBox}
+
+\begin{definitionBox}[Complex stationary]
+    A complex process $\rv{z}(t) = \rv{x}(t) + \jmath \rv{y}(t)$ is called \emph{stationary} if the processes $\rv{x}(t)$ and $\rv{y}(t)$ are jointly stationary.
+    % \index{Strict sense stationary (SSS)!Complex stationary}
+    % \index{Complex stationary processes}
+\end{definitionBox}
+
+\begin{definitionBox}[Wide sense stationary]
+    A random process $\rv{x}(t)$ is called \emph{wide sense stationary (WSS)} if 
+    \begin{enumerate}
+        \item its mean is constant
+        \begin{align}
+            \expect{\rv{x}(t)} &= \eta,
+        \end{align}
+        and
+        \item its autocorrelation function $\acor{t_{1}}[t_{2}]$ depends only on $t_{1} - t_{2}$. That is,
+        \begin{align}
+            \expect{\rv{x}(t_{1})\rv{x}(t_{2})^{\herm}} &= \acor{t_{1}-t_{2}},
+        \end{align}
+        or equivalently
+        \begin{align}
+            \expect{\rv{x}(t+\tau)\rv{x}^{\herm}} &= \acor{\tau}.
+        \end{align}
+    \end{enumerate}
+    % \index{Wide sense stationary (WSS)}
+\end{definitionBox}
+
+\begin{remarkBox}
+    A SSS process is also WSS. However, the inverse is true only for Gaussian process.
+\end{remarkBox}
+
+\begin{definitionBox}[Crosscorrelation]
+    Let $\rv{x}(t)$ and $\rv{y}(t)$ be two random processes. The \emph{cross-correlation} $\acor[xy]{t_{1}}[t_{2}]$ of $\rv{x}(t)$ and $\rv{y}(t)$ is
+    \begin{align}
+        \acor[xy]{t_{1}}[t_{2}] &= \expect{\rv{x}(t_{1})\rv{y}(t_{2})^{\herm}}.
+    \end{align}
+\end{definitionBox}
+
+\begin{definitionBox}[Joinly WSS]
+    Two processes $\rv{x}(t)$ and $\rv{y}(t)$ are called jointly WSS if
+    \begin{enumerate}
+        \item each one of them is WSS, and
+        \item their cross-correlation function $\acor[xy]{t_{1}}[t_{2}]$ depends only on $t_{1}-t_{2}$. That is,
+        \begin{align}
+            \expect{\rv{x}(t_{1})\rv{y}(t_{2})^{\herm}} &= \acor[xy]{t_{1}-t_{2}},
+        \end{align}
+        or, equivalently,
+        \begin{align}
+            \acor[xy]{t+\tau}[t] &= \expect{\rv{x}(t+\tau)\rv{y}(t)^{\herm}}\\
+            &= \acor[xy]{\tau}.
+        \end{align}
+    \end{enumerate}
+\end{definitionBox}
+\begin{remarkBox}
+    Some properties of WSS processes. 
+    
+    \begin{itemize}
+        \item For $\tau=0$,
+        \begin{align}
+            \expect{\abs{\rv{x}(t)}^{2}} &= \acor{0}.
+        \end{align}
+        \item $\acor{\tau} = \acor{-\tau}^{\herm}$.
+        \item For a real WSS random processes, the autocorrelation function is an even function of $\tau$. 
+        \item The autocorrelation function of a real random process is maximized at $\tau=0$. That is,
+        \begin{align}
+            \acor{0} \geq \acor{\tau}.
+        \end{align}
+        Furthermore,
+        \begin{align}
+            \acor{0}\geq \abs{\acor{\tau}}.
+        \end{align}
+    \end{itemize}
+\end{remarkBox}
