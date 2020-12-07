@@ -1,0 +1,176 @@
+\section{Definitions}
+\begin{definitionBox}[Point process]
+    A \emph{point process} is a collection of random points $\rv{\tau}_{i}$ on the (positive) time axis such that
+    \begin{align}
+        \rv{\tau}_{1}\leq \rv{\tau}_{2}\leq\ldots\leq\rv{\tau}_{n}\leq\ldots.
+    \end{align}
+    \index{Point process}
+\end{definitionBox}
+
+\begin{definitionBox}[Counting random process]
+    To every point process we can associate a counting-time discrete-state \emph{counting random process} $\rv{x}(t)$, $t\geq 0$ where
+    \begin{align}
+        \rv{x}(t) &= \text{\# of points } \rv{\tau}_{i}\in(0,t].
+    \end{align}
+\end{definitionBox}
+
+\begin{definitionBox}[Renewal process]
+    To every point process it is possible to associate a continuous-state random sequence $\rv{y}_{n}$ called a \emph{renewal process} such that 
+    \begin{align}
+        \rv{y}_{1} = \rv{\tau}_{1}, \rv{y}_{2} = \rv{\tau}_{2} - \rv{\tau}_{1},\ldots, \rv{y}_{n}=\rv{\tau}_{n} - \rv{\tau}_{n-1}.
+    \end{align}
+    In other words,
+    \begin{align}
+        \rv{y}_{n} &= 
+        \begin{cases}
+            \rv{\tau}_{1}, & n=1,\\
+            \rv{\tau}_{n} - \rv{\tau}_{n-1}, & n>1.
+        \end{cases}
+    \end{align}
+\end{definitionBox}
+
+\section{Poisson counting processes}
+\begin{definitionBox}[Poisson point process]
+    A \emph{Poisson point process} is a point process with the following two properties:
+    \begin{enumerate}
+        \item The number of points in any non-overlapping time intervals are independent random variables;
+        \item The number $\rv{n}(t_{1}, t_{2})$ of points $\rv{\tau}_{i}$ in an interval with endpoints $t_{1}$, $t_{2}$, and length $t =t_{2}-t_{1}$ is a Poisson random variable with parameter $\lambda t$. That is,
+        \begin{align}
+            \prob{\rv{n}(t_{1}, t_{2}) = k} &= \f{(\lambda t)^{k}}{k!}e^{-\lambda t}.
+        \end{align}
+        Note that there parameter $\lambda$ is the \emph{density} of the points, or the average number of points per unit interval.
+    \end{enumerate}
+\end{definitionBox}
+
+\begin{definitionBox}[Poisson process]
+    A \emph{Poisson process} is a counting process corresponding to a Poisson point process. That is, for a given Poisson point process $(\rv{\tau}_{i})$, the Poisson process $\rv{x}(t)$ is
+    \begin{align}
+        \rv{x}(t) &= \rv{n}(0, t) \\
+        &= \text{\# of points } \rv{\tau}_{i} in (0, t].
+    \end{align}    
+
+    The Poisson process $\rv{x}(t)$ is a counting process with increments that are
+    \begin{enumerate}
+        \item independent, and
+        \item Poisson distributed. That is, $\rv{x}(t_{n}) - \rv{x}(t_{n-1})$ is a Poisson random variable with parameter $\lambda (t_{n} - t_{n-1})$, where $\lambda$ is the \emph{rate} of the process.
+    \end{enumerate}
+\end{definitionBox}
+\begin{remarkBox}[Poisson process]
+    Note that the parameter $\lambda$ is ``rate'', or the density of the point process. 
+    
+    For a fixed $t$, $\rv{x}(t)$ is
+    \begin{itemize}
+        \item Poisson random variable with parameter $\lambda t$,
+        \item $\expect{\rv{x}(t)} = \eta(t) = \lambda t$,
+        \item $\var{\rv{x}(t)} = \lambda t$.
+    \end{itemize}
+\end{remarkBox}
+
+
+
+\begin{theoremBox}
+   [Counting random process]    
+     Let $\rv{x}(t)$ be a counting random process with the properties:
+     \begin{enumerate}
+         \item The following expression holds
+         \begin{align}
+             \prob{ \text{$n$ points in } (t_{1}, t_{1} + \delta)}&=
+             \prob{ \text{$n$ points in } (t_{2}, t_{2} + \delta)}
+         \end{align}
+         for all $n$, $t_{1}$, $t_{2}$, and $\delta$;
+         \item The probability
+         \begin{align}
+            \prob{ \text{$n$ points in } (t_{1}, t_{1} + \delta)}
+         \end{align}
+         does not depend on the number and locations of points in $(0, t]$;
+
+         \item $\lim_{\delta \to 0}\prob{\rv{x}(t+\delta) - \rv{x}(t) > 1}=0$;
+         \item $0<\prob{\rv{x}(t)=0}<1$ for all $t>0$;
+         \item $\rv{x}(0)=0$.
+     \end{enumerate}
+     Then $\rv{x}(t)$ is a Poisson random process.
+\end{theoremBox}
+
+\begin{theoremBox}
+   [Aucorrelation of Poisson process]    
+     The \emph{autocorrelation} function of a Poisson process with rate $\lambda$ is given by
+     \begin{align}
+         \acor{t_{1}}[t_{2}] &= \lambda \min(t_{1}, t_{2}) + \lambda^{2}t_{1}t_{2}.
+     \end{align}
+\end{theoremBox}
+
+\begin{theoremBox}
+   [Autocovariance of Poisson process]    
+     The \emph{autocovariance} of a Poisson process is given by
+     \begin{align}
+         \acov{t_{1}}[t_{2}] &= \acor{t_{1}}[t_{2}] - \eta(t_{1})\eta(t_{2})\\
+         &= \lambda\min(t_{1}, t_{2}).
+     \end{align}
+\end{theoremBox}
+
+\begin{theoremBox}
+    If $\rv{x}_{1}(t)$ and $\rv{x}_{2}(t)$ are two independent Poisson random processes with rates $\lambda_{1}$ and $\lambda_{2}$, respectively, then
+    \begin{enumerate}
+        \item the process $\rv{x}_{1} + \rv{x}_{2}(t)$ is also a Poisson random process with rate $\lambda_{1} + \lambda_{2}$, and
+        \item the underlying points process is a Poisson point process with density $\lambda_{1} + \lambda_{2}$.
+    \end{enumerate}
+\end{theoremBox}
+
+\begin{theoremBox}
+   [Random selection of Poisson points]    
+     Consider a Poisson points process with density $\lambda$ and suppose that each point is independently tagged with probability $p$. Let $\rv{y}(t)$ be the number of \emph{tagged}  points in $(0, t]$. That is,
+     \begin{align}
+         \rv{y}(t) &= \text{ \# of tagged points in } (0, t].
+     \end{align}
+     Then,
+     \begin{enumerate}
+         \item $\rv{y}(t)$ is a Poisson random process with rate $\lambda p$, and
+         \item the underlying point process is a Poisson point process with density $\lambda p$. 
+     \end{enumerate}
+\end{theoremBox}
+
+\begin{property}[Memoryless property]
+    By definition, the number of arrivals in $(t, t+\delta]$ is independent of the number of arrivals in $(0, t]$. That is also true for any $\delta >0$.
+
+    Essentially, the probability of an arrival at any instant is independent of the past history of the process.
+\end{property}
+
+\begin{definitionBox}[Interarrival time sequence]
+    Assume a Point point process $(\rv{\tau}_{i}$) and the associated renewal process $\rv{y}_{1}, \ldots, \rv{y}_{n},\ldots$. Then, the process $\rv{y}_{n}$ is called the \emph{interarrival time} sequence.
+\end{definitionBox}
+
+\begin{theoremBox}
+     For a Poisson point process with density $\lambda$, the interarrival times sequence $\rv{y}_{1},\ldots, \rv{y}_{n},\ldots$ consists of i.i.d. random variables distributed according to the exponential distribution. That is,
+     \begin{align}
+         \pdf{y_{n}} &= 
+         \begin{cases}
+            \lambda e^{-\lambda y_{n}}, & y_{n}\geq 0,\\
+            0, y_{n}<0.
+        \end{cases}
+     \end{align}
+\end{theoremBox}
+
+
+\section{Random walks}
+Consider a random sequence $\rv{x}_{i}$, where $\rv{x}_{i}$ are i.i.d., and
+\begin{align}
+    \rv{x}_{i} &= 
+    \begin{cases}
+        1, &\text{ w.p. } p,\\
+        -1, &\text{ w.p. } q = 1-p.
+    \end{cases}
+\end{align}
+\begin{definitionBox}[Random walk]
+    A \emph{random walk} is a random process defined as
+    \begin{align}
+        \rv{w}_{0} &= 0,\\
+        \rv{w}_{n} &= \sum_{i=1}^{n} \rv{x}_{i}.
+    \end{align}
+\end{definitionBox}
+\begin{remarkBox}
+    Terminology:
+    \begin{itemize}
+        \item Symmetric walk if $p=q$, 
+        \item unsymmetrical walk if $p\neq q$.
+    \end{itemize}
+\end{remarkBox}
