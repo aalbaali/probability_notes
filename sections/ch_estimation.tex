@@ -540,3 +540,241 @@ where
 \end{align}
 is the Jacobian of the error function \eqref{eq:MAP estimate Markov LS error function} w.r.t. the design variables, evaluated at the MAP estimate $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$.
 
+
+
+\section{Expectation maximization (EM)}
+% zhat is the estimated missing data
+\newcommand{\zhat}[2][{}]{\ifthenelse{\equal{#1}{}}{\hat{z}_{#2}}{\hat{z}_{#2}^{(#1)}}}
+
+\subsection{Notations}
+Let the observations be $X=\left\{ x_{1}, \ldots, x_{n} \right\}$ be the set of realizations of the random variable $\rv{x}\in\rnums$. Additionally, let $Z = \left\{ z_{1},\ldots, z_{n} \right\}$ be the set of realizations of $\rv{z}\in\left\{ 0,1 \right\}$ which is the ``missing'' data of the problem.\footnote{The data is ``missing'' in the sense that, if this data was available, then the problem would be significantly simplified.} The set of complete data is denoted by $Y = \{X, Z\}$.
+Furthermore, let the two PDF that $\rv{x}$ is distributed from be denoted by $\pdf[1]{x; \mbs{\lambda}_{1}}$ and $\pdf[2]{x; \mbs{\lambda}_{2}}$, where $\mbs{\lambda}_{i}$ is the set of parameters for each of the two PDFs.
+
+The set of unknown parameters are $\mbs{\theta} = \left\{ \mbs{\lambda}_{1}, \mbs{\lambda}_{2}, \pi_{1} \right\}$.
+
+\subsection{Problem statement}
+Let $\rv{x}\in\rnums$ be a random variable\footnote{In this document a single random variable will be used. It is possible to generalization to multivariate random variables.} that can be sampled from one of two distributions $\pdf[1]{x; \mbs{\lambda}_{1}}$ and $\pdf[2]{x; \mbs{\lambda}_{2}}$.\footnote{In this document, we'll assume that there are only two possible distributions but the idea generalizes to multiple distributions.}
+Whether $\rv{x}$ will be sampled from $\pdf[1]{x; \mbs{\lambda}_{1}}$ or $\pdf[2]{x; \mbs{\lambda}_{2}}$ will depend on another random variable $\rv{z}\in\left\{ 0, 1 \right\}$. Specifically, the conditional PDF of $\rv{x}$ given $\rv{z}$ is
+\begin{align}
+    \label{eq:PDF x given z}
+    \pdf{x\mid z; \mbs{\lambda} } &=
+    \begin{cases}
+        \pdf[1]{x; \mbs{\lambda}_{1}}, & z=0,\\
+        \pdf[2]{x; \mbs{\lambda}_{2}}, & z=1,
+    \end{cases}
+\end{align}
+where $\mbs{\lambda} = \{\mbs{\lambda}_{1}, \mbs{\lambda}_{2}\}$. Let the PMF of $\rv{z}$ be given by
+\begin{align}
+    \label{eq:PMF z}
+    \pmf{z} &= 
+    \begin{cases}
+        \pi_{1}, & z=0,\\
+        1-\pi_{1}, & z=1,\\
+        0, & \text{otherwise}.
+    \end{cases}
+\end{align}
+The problem is to estimate the parameters $\mbs{\theta}$ without having known $\pi_{1}$. The set of unknown parameters will be denoted by $\mbs{\theta} = \left\{ \mbs{\lambda}, \pi_{1} \right\}$. 
+% If the parameters $\mbs{\theta}$ were known, then the PDF of $\rv{x}$ would be given by
+% \begin{align}
+%     \pdf[x]{x; \mbs{\theta}} &= \pi_{1}\pdf[1]{x; \mbs{\lambda}_{1}} + (1-\pi_{1})\pdf[2]{x; \mbs{\lambda}_{2}}.
+% \end{align}
+\subsection*{Doing ``the math''}
+The PDF $\pdf{y; \mbs{\theta}}$ is needed in the expectation step. The PDF is given by
+\begin{align}
+    \pdf{y; \mbs{\theta}} 
+    &= \pdf{x, z; \mbs{\theta}}\\
+    \label{eq:PDF x mid z X PMF z}
+    &= \pdf{x \mid z; \mbs{\theta}}\pmf{z; \mbs{\theta}}.        
+\end{align}
+Plugging \eqref{eq:PDF x given z} and \eqref{eq:PMF z} into  \eqref{eq:PDF x mid z X PMF z} gives
+\begin{align}
+    \pdf{x, z; \mbs{\theta}}  &=
+    \pdf{x \mid z; \mbs{\theta}}\pmf{z; \mbs{\theta}} \\
+    \label{eq:PDF x mid z X PMF z Expanded}
+    &=
+    \begin{cases}
+        \pdf[1]{x; \mbs{\lambda}_{1}}\pi_{1}, & z=0,\\
+        \pdf[2]{x; \mbs{\lambda}_{2}}(1-\pi_{1}), & z=1,
+    \end{cases}
+\end{align}
+which can be rewritten\footnote{This may be confusing at first, by simply replace $z$ with $0$ or $1$ and the expression \eqref{eq:PDF x mid z X PMF z Expanded} will be exactly recovered.} as
+\begin{align}
+    \pdf{x, z; \mbs{\theta}} 
+    &= 
+    \left(\pi_{1}\pdf[1]{x; \mbs{\lambda}_{1}}\right)^{1-z}\left( (1-\pi_{1})\pdf[2]{x; \mbs{\lambda}_{2}} \right)^{z}.
+\end{align}
+The marginal PDF on $\rv{x}$ is obtained by marginalizing out $\rv{z}$ from $\pdf{x, z;\mbs{\theta}}$ to give
+\begin{align}
+    \pdf{x; \mbs{\theta}} &= \sum_{i=0}^{1}\pdf{x, z=i; \mbs{\theta}}\\
+    &= \pi_{1}\pdf[1]{x; \mbs{\theta}} + (1-\pi_{1})\pdf[2]{x; \mbs{\theta}}\\
+    \label{eq:PDF x given theta Expanded}
+    &= \pi_{1}\pdf[1]{x; \mbs{\lambda}_{1}} + (1-\pi_{1})\pdf[2]{x; \mbs{\lambda}_{2}}.
+\end{align}
+
+\subsection{The expectation step}
+% References: \cite[Eq.~(8.43)]{hastie_elements_2009} and \cite[Sec.~9.13.4]{wasserman_all_2004}, 
+From \cite{hastie_elements_2009} and \cite{wasserman_all_2004}, the function to be maximized is $Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right)$,\footnote{$\mbs{\theta}^{(j)}$ is the $j$th estimate of $\mbs{\theta}$.} which is the expectation of the log-likelihood of the complete data. That is,
+\begin{align}
+    \label{eq:Q(theta|thetaj)}
+    Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right) &= \expect[\rv{Y}]{\log \pdf{\rv{Y} ; \mbs{\theta}} \mid X, \mbs{\theta}^{(j)}}.
+\end{align}
+The log-likelihood function of the complete data is given by
+\begin{align}
+    \log \pdf{\rv{Y} ; \mbs{\theta}} 
+    &=
+    \sum_{i=1}^{n}
+    \log \left( \left(\pi_{1}\pdf[1]{\rv{x}_{i}; \mbs{\lambda}_{1}}\right)^{1-\rv{z}_{i}} \right.\nonumber\\&\qquad\cdot\left.\left( \left(1-\pi_{1}\right)\pdf[2]{\rv{x}_{i}; \mbs{\lambda}_{2}} \right)^{\rv{z}_{i}} \right) \\
+    &=
+    \sum_{i=1}^{n} (1-\rv{z}_{i})\left( \log \pi_{1}+ \log \pdf[1]{\rv{x}_{i}; \mbs{\lambda}_{1}} \right)\nonumber\\&\qquad
+    +\sum_{i=1}^{n}\rv{z}_{i}\left(\log\left( 1-\pi_{1} \right)  + \log\pdf[2]{\rv{x}_{i}; \mbs{\lambda}_{2}}\right)\\
+    &=
+    \sum_{i=1}^{n} (1-\rv{z}_{i}) \log \pdf[1]{\rv{x}_{i}; \mbs{\lambda}_{1}} + \rv{z}_{i}\log\pdf[2]{\rv{x}_{i}; \mbs{\lambda}_{2}}
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\rv{z}_{i}\log\left( 1-\pi_{1} \right) + (1-\rv{z}_{i})\log \pi_{1}.
+\end{align}
+The conditional expectation \eqref{eq:Q(theta|thetaj)} can then be expanded to give
+\begin{align}
+    Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right) 
+    &= \expect[\rv{Y}]{\log \pdf{\rv{Y} ; \mbs{\theta}} \mid X, \mbs{\theta}^{(j)}}\\
+    &= \expect[\rv{Z}]{\log \pdf{\rv{X}, \rv{Z} ; \mbs{\theta}} \mid \rv{X}=X, \mbs{\theta}^{(j)}}\\
+    &=
+    \label{eq:Qtheta|thetaJ: split in params}
+    \sum_{i=1}^{n} \left(1-\expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\right) \log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}} + \expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\log\pdf[2]{{x}_{i}; \mbs{\lambda}_{2}}
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\log\left( 1-\pi_{1}\right) + \left(1-\expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\right)\log \pi_{1}.
+    % \\
+    % &=
+    % \sum_{i=1}^{n} \expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}} \left( 
+    %     \log\pdf[2]{{x}_{i}; \mbs{\lambda}_{2}}
+    %     -\log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}}
+    % \right)
+    % \nonumber\\&\qquad  
+    % +\sum_{i=1}^{n}
+    %     \left(
+    %         \log \pi_{1} 
+    %         -\log\left( 1-\pi_{1}\right) 
+    %     \right)
+    % \nonumber\\&\qquad        
+    % +\sum_{i=1}^{n} 
+    %     \log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}} +
+    %     \log\left( 1-\pi_{1}\right).
+\end{align}
+The expectation $\expect{\rv{z}_{i} \mid X, \mbs{\theta}^{(j)}}$ is simplified to $\expect[z_{i}]{\rv{z}_{i} \mid x_{i}, \mbs{\theta}^{(j)}}$ 
+since
+\begin{align}
+    \pmf{z_{i}\mid X} 
+    &= \f{\pdf{X \mid z_{i}}\pmf{z_{i}}}{\pdf{X}}\\
+    &= \f{\pdf{x_{1}}\cdots\pdf{x_{i}\mid z_{i}}\cdots \pdf{x_{n}} \pmf{z_{i}}}{\pdf{x_{1}}\cdots\pdf{x_{i}}\cdots\pdf{x_{n}}}\\
+    &= \f{\pdf{x_{i}\mid z_{i}}\pmf{z_{i}}}{\pdf{x_{i}}}\\
+    &= \pmf{z_{i}\mid x_{i}},
+\end{align}
+where the independence of $\rv{x}_{j}$ from $\rv{z}_{i}$ for $i\neq j$ was used.
+The expectation is therefore
+\begin{align}
+    \expect{\rv{z}_{i} \mid x_{i}, \mbs{\theta}^{(j)}}
+    &=
+    \sum_{k=0}^{1}\f{\pdf{x_{i},z;\mbs{\theta}^{(j)}}}{\pdf{x_{i}; \mbs{\theta}^{(j)}}}z_{k}\\
+    &=
+    \f{1}{\pdf{x_{i}; \mbs{\theta}^{(j)}}}\sum_{k=0}^{1}\pdf{x_{i},z;\mbs{\theta}^{(j)}}z_{k}\\
+    &=
+    \f{1}{\pdf{x_{i}; \mbs{\theta}^{(j)}}}\left( \pdf[1]{x_{i}; \mbs{\lambda}_{1}^{(j)}}\pi_{1}^{(j)}(0)\right.\nonumber\\&\qquad + \left.\pdf[2]{x_{i}; \mbs{\lambda}_{2}^{(j)}}(1-\pi_{1}^{(j)})(1) \right)\\
+    &=
+    \f{
+        \pdf[2]{x_{i}; \mbs{\lambda}_{2}^{(j)}}\left(1-\pi_{1}^{(j)}\right)
+    }{
+        \pi_{1}^{(j)}\pdf[1]{x_{i}; \mbs{\lambda}^{(j)}} + \left( 1-\pi_{1}^{(j)} \right)\pdf[2]{x_{i}; \mbs{\lambda}_{2}^{(j)}}
+    }.
+\end{align}
+Note that the expectation step does not require us to exploit the two PDFs $\pdf[i]{x; \mbs{\lambda}_{i}}$; just plug in the data and get an estimate of $\rv{z}_{i}$ for $i=1,\ldots, n$.
+
+
+\begin{blueBox}
+    From here onwards, the notation 
+    \begin{align}
+        \label{eq:xhat notation def}
+        \zhat[j]{i} &\coloneqq  
+        \expect{\rv{z}_{i} \mid x_{i}, \mbs{\theta}^{(j)}}
+    \end{align}
+    will be used.
+\end{blueBox}
+\subsection{Maximization step}
+Now that the missing data $\rv{z}_{i}$ is estimated in the expectation step, the next step is to estimate a new set of parameters $\mbs{\theta}^{(j+1)}$ using maximum likelihood (ML) estimator on the log-likelihood function of the complete \emph{estimated} data set $\hat{Y} = \left\{ X, \hat{Z}^{(j)} \right\}$. \footnote{Note that $\hat{Z}^{(j)} = \left\{ \zhat[j]{1},\ldots, \zhat[j]{n} \right\}$.}
+
+Let the PDFs $\pdf[i]{x; \mbs{\lambda}_{i}}$ be exponentially distributed with parameter $\lambda_{i}$. Then, the PDFs can be written as
+\begin{align}
+    \pdf[i]{x; \lambda_{i}} &= 
+    \begin{cases}
+        \lambda_{i}e^{-\lambda_{i} x}, & x\geq 0,\\
+        0, &x<0,
+    \end{cases}
+\end{align}
+for $i=1,2$. The parameters in this case are $\mbs{\theta} = \left\{ \lambda_{1}, \lambda_{2}, \pi_{1} \right\}$.
+
+For the ease of reading, the notation \eqref{eq:xhat notation def} will be used to rewrite $Q\left( \mbs{\theta}\mid\mbs{\theta}^{(j)} \right)$ from \eqref{eq:Qtheta|thetaJ: split in params}. Then, 
+\begin{align}
+    Q\left( \mbs{\theta} \mid \mbs{\theta}^{(j)} \right)
+    &=
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) \log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}} + \zhat[j]{i}\log\pdf[2]{{x}_{i}; \mbs{\lambda}_{2}}
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\zhat[j]{i}\log\left( 1-\pi_{1} \right) + \left(1-\zhat[j]{i}\right)\log\pi_{1}\\
+    &=
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) \log \left( \lambda_{1}e^{-\lambda_{1} x_{i}} \right) + \zhat[j]{i}\log\left(\lambda_{2}e^{-\lambda_{2} x_{i}}\right)
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\zhat[j]{i}\log\left( 1-\pi_{1} \right)  + \left(1-\zhat[j]{i}\right)\log\pi_{1}\\
+    &=
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right)  \left( \log\lambda_{1} -\lambda_{1} x_{i} \right) + \zhat[j]{i}\left(\log\lambda_{2} -\lambda_{2} x_{i}\right)
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\zhat[j]{i}\log\left( 1-\pi_{1} \right) + \left(1-\zhat[j]{i}\right)\log\pi_{1}.
+\end{align}
+The function $Q\left( \mbs{\theta}\mid \mbs{\theta}^{(j)} \right)$ is to be differentiated with respect to the parameters $\mbs{\theta}$ and be equated to zero in order to solve for the critical points.
+\begin{align}
+    \pd{
+        Q\left( \mbs{\theta}\mid \mbs{\theta}^{(j)} \right)
+    }{
+        \lambda_{1}
+    }
+    &= 
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right)  \left( \f{1}{\lambda_{1}}- x_{i} \right)\\
+    &= 
+    \f{1}{\lambda_{1}}\sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) 
+    -
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) x_{i}.
+\end{align}
+Equating the partial derivative to zero and solving for $\lambda_{1}$ gives the next estimate
+\begin{align}
+    \hat{\lambda}_{1}^{(j+1)} 
+    &= 
+    \f{
+        \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right)
+    }{
+        \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) x_{i}  
+    }.
+\end{align}
+The similar procedure can be done for $\lambda_{2}$ which gives the expression
+\begin{align}
+    \hat{\lambda}_{2}^{(j+1)} 
+    &= 
+    \f{
+        \sum_{i=1}^{n} \zhat[j]{i}
+    }{
+        \sum_{i=1}^{n}\zhat[j]{i} x_{i}  
+    }.
+\end{align}
+Now, differentiate $Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right)$ with respect to $\pi_{1}$.
+\begin{align}
+    \pd{
+        Q\left( \mbs{\theta}\mid\mbs{\theta}^{(j)} \right)
+    }{
+        \pi_{1}
+    }
+    &=
+    \sum_{i=1}^{n}-\zhat[j]{i}\f{1}{1-\pi_{1}} + \left(1-\zhat[j]{i}\right)\f{1}{ \pi}\\
+    &=
+    \f{1}{\pi_{1}\left( 1-\pi_{1} \right)}\sum_{i=1}^{n} (1-\pi_{1})\left(1-\zhat[j]{i}\right) -\zhat[j]{i}\pi_{1}\\
+    &=
+    \f{1}{\pi_{1}\left( 1-\pi_{1} \right)}\sum_{i=1}^{n}\left(1 -\zhat[j]{i} - \pi_{1}\right).
+\end{align}
+Equating to $0$ and solving for $\pi_{1}$ gives the next estimate
+\begin{align}
+    \hat{\pi}_{1}^{(j+1)} &= 1 - \f{1}{n}\sum_{i=1}^{n}\zhat[j]{i}.
+\end{align}
