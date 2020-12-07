@@ -1,0 +1,156 @@
+\section{Definitions}
+\begin{definitionBox}[Markov process]
+    A random process $\rv{x}(t)$ is a \emph{Markov process} if ``the future of the process given the present is independent of the past''. That is, 
+    \begin{align}
+        \cdf{x_{k+1}; t_{k+1}\mid x_{k},\ldots,x_{1}; t_{k},\ldots, t_{1}} &= \cdf{x_{k+1};t_{k+1}\mid x_{k}; t_{k}}.
+    \end{align}
+\end{definitionBox}
+\begin{remarkBox}
+    Terminology:
+    \begin{itemize}
+        \item \emph{Markov sequence} is a discrete time Markov process.
+        \item \emph{Markov chain} is a discrete-value Markov process.
+    \end{itemize}
+\end{remarkBox}
+
+\begin{definitionBox}[Markov chain]
+    A discrete-time Markov chain  $\rv{x}_{n}$, $n=0,\ldots$ is a discrete time discrete-value random sequence such that
+    \begin{align}
+        \prob{\rv{x}_{n+1}=j\mid \rv{x}_{n}=i,\rv{x}_{n-1}=i_{n-1},\ldots, \rv{x}_{0}=i_{0}} &=
+        \prob{\rv{x}_{n+1}=j\mid \rv{x}_{n}=i}.
+    \end{align}
+\end{definitionBox}
+\begin{remarkBox}[Terminology]
+    \begin{itemize}
+        \item The set of states or state space $\mc{X}$ is a set of values that $\rv{x}_{n}$ can take. Assumption, $\mc{X}\subset\mc{Z}$.
+        \item The state at time $n$ is denoted by $\rv{x}_{n}$.
+        \item If $\rv{x}_{n}=i$ the it is said that at time $n$ the chain is at state $i$.
+
+        \item $p_{ij}(n)=p_{i\to j}(n) = \prob{\rv{x}_{n}=j\mid \rv{x}_{n-1}=i}$ is the \emph{one-step transition probability} from state $i$ to state $j$ at time $n$.
+        \item Homogeneous transition probabilities do not change with $n$. That is,
+        \begin{align}
+            p_{ij}(n) = p_{ij}.
+        \end{align}
+        \item From the axioms of probability,
+        \begin{align}
+            p_{ij}&\geq 0, \\
+            \sum_{j} p_{ij} &= 1.
+        \end{align}
+        \item \emph{State diagram}: a graph with nodes representing the different states of the chain and directional arcs for all pairs of states $(i,j)$ with $p_{ij}>0$.
+        \item \emph{Finite Markov chain}: number of states is finite. That is,
+        \begin{align}
+            \mc{X} &= \left\{ 0, \ldots, M \right\}.
+        \end{align}
+        \item \emph{Transition matrix} $\mbf{P}$
+        \begin{align}
+            \mbf{P}&=
+            \bbm p_{00} & \cdots & p_{0M}\\
+            \vdots & \ddots & \vdots\\
+            p_{M0} & \cdots & p_{MM}.
+             \ebm
+        \end{align}
+        Clearly, the rows of $\mbf{P}$ must sum to $1$.
+    \end{itemize}
+\end{remarkBox}
+
+\begin{definitionBox}[Right stochastic matrix]
+    A square matrix with non-negative elements is called 
+    \begin{itemize}
+        \item right stochastic if its rows sum up to 1,
+        \item left stochastic if its columns sum up to 1,
+        \item doubly stochastic if it is both left and right stochastic.
+    \end{itemize}
+\end{definitionBox}
+\begin{property}[Transition matrix]
+    The transition matrix $\mbf{P}$ is a right stochastic matrix. That is,
+    \begin{align}
+        \bbm p_{00} & \cdots & p_{0M}\\
+        \vdots & \ddots & \vdots\\
+        p_{M0} & \cdots & p_{MM}.
+        \ebm
+        \bbm 1\\1\\\vdots\\ 1 \ebm
+        &=
+        \bbm 1\\1\\\vdots\\1 \ebm.
+    \end{align}
+\end{property}
+
+\begin{theoremBox}
+   [Eigenvalues of right stochastic matrix]    
+    A right stochastic matrix always has an eigenvalue equal to $1$. For any other eigenvalue $\lambda$, it satisfies 
+    \begin{align}
+        \abs{ \lambda} \leq 1.
+    \end{align}
+    It should be noted that a stochastic matrix can have complex eigenvalues.     
+\end{theoremBox}
+
+\begin{definitionBox}[$n$-step transition probaiblity]
+    The $n$-step transition probability $p_{ij}^{(n)}$ is the probability that the state will reach state $j$ in $n$ steps beginning from state $i$. That is,
+    \begin{align}
+        p_{ij}^{(n)} &= \prob{\rv{x}_{n}\mid \rv{x}_{0}=i}.
+    \end{align}
+\end{definitionBox}
+\begin{remarkBox}
+    It should be noted that the $n$-step transition probabilities are homogeneous. Therefore,
+    \begin{align}
+        p_{ij}^{(n)} 
+        &= \prob{\rv{x}_{n}\mid \rv{x}_{0}=i}\\
+        &= \prob{\rv{x}_{n+m}\mid \rv{x}_{m}=i}.        
+    \end{align}
+\end{remarkBox}
+
+\begin{theoremBox}
+   [Chapman-Kologorov]    
+     For any states $i$, $j$, and $n$, $m$>0, 
+     \begin{align}
+         p_{ij}^{(n+m)} &= \sum_{k\in\mc{X}} p_{ik}^{(n)}p_{kj}^{(m)}.
+     \end{align}
+\end{theoremBox}
+
+\begin{remarkBox}
+    The $n$th transition probability is given by
+    \begin{align}
+        \mbf{P}^{(n)} &= \mbf{P}^{n}.
+    \end{align}
+\end{remarkBox}
+
+\begin{definitionBox}[State probability]
+    The $j$th \emph{state probability} $\pi_{j}(n)$ at time $n$ is defined as
+    \begin{align}
+        \pi_{j}(n) &= \prob{\rv{x}_{n} = j}.
+    \end{align}
+    The following holds.
+    \begin{align}
+        \pi_{j}(n) 
+        &= \sum_{i\in\mc{X}} \prob{\rv{x}_{n}=j, \rv{x}_{n-1}=i}\\
+        &= \sum_{i\in\mc{X}} \underbrace{\prob{\rv{x}_{n}=j \mid \rv{x}_{n-1}=i}}_{P_{ij}}\underbrace{\prob{\rv{x}_{n-1}=i}}_{\pi_{i}(n-1)}\\
+        &= \sum_{i}\pi_{i}(n-1)P_{ij}
+    \end{align}
+\end{definitionBox}
+For a finite state Markov chain, 
+\begin{itemize}
+    \item the $n$th state probability vector (row matrix really) is given by
+    \begin{align}
+        \Pi(n) &= \bbm \pi_{0}(n) & \ldots & \pi_{M}(n) \ebm.
+    \end{align}
+    \item The following expression holds
+    \begin{align}
+        \Pi(n) &= \Pi(n-1)\mbf{P}\\
+        &= \Pi(0)\mbf{P}^{n}.
+    \end{align}
+\end{itemize}
+\begin{definitionBox}[Steady state probability]
+    The limiting (or steady) state probability $\bar{\pi}_{j}$ is defined as
+    \begin{align}
+        \bar{\pi}_{j} &= \lim_{n\to \infty}\pi_{j}(n)
+    \end{align}
+    \textbf{if} the limit exists.
+\end{definitionBox}
+In many cases, it is of interest to analyze the behavior of the chain after a very long period of time. For finite state Markov chains, the limiting state probability vector is
+\begin{align}
+    \bar{\Pi}&= \bbm \bar{\pi}_{0} & \ldots & \bar{\pi}_{M} \ebm.
+\end{align}
+Note that the limit may or may not exist and if they exist, they may or may not depend on the initial state probabilities.
+
+% \begin{definitionBox}[Communicating states] 
+%     If in the state diagram there is a path from state $i$ to state $j$, the it is said that ``$i$ communicates with $j$''. The notation is $i\to j$. 
+% \end{definitionBox}

@@ -1,0 +1,90 @@
+Suppose that the mean $\mu_{n}$ of a random sequence $\rv{x}_{n}$ is to be estimated. Then, the process usually involves
+\begin{enumerate}
+    \item obtaining $M$ realizations $x^{(1)}_{n}, \ldots, x_{n}^{(M)}$ of $\rv{x}_{n}$, $n=1,\ldots$, and then
+    \item estimate the mean using ``ensemble'' averaging
+    \begin{align}
+        \hat{\mu}_{n} &= \f{1}{M} \sum_{m=1}^{M}x_{n}^{(m)}.
+    \end{align}
+\end{enumerate}
+Suppose however, that there is access to only a \emph{single} realization of the random sequence. Then it is only possible to perform time averaging; it is no longer possible to perform ensemble averaging. The question that ergodicity tries to answer is ``is it possible to substitute ensemble averages with time averages?''
+
+\subsection*{Case 1}
+\begin{itemize}
+    \item Random sequence $\rv{x}_{n}$ consists of i.i.d. random variables such that $\expect{\rv{x}_{n}}=\mu$.
+    \item Single realizations $x_{1}, \ldots, x_{N}$.
+    \item The mean can then be estimated using $\hat{\mu}=\f{1}{N}\sum_{n=1}^{N}x_{n}$.
+    \item The corresponding estimator converges to $\mu$ in the mean squared sense.
+\end{itemize}
+
+\subsection*{Case 2}
+\begin{itemize}
+    \item The random sequence $\rv{x}_{n} = \rv{a}$ with $\rv{x}_{n}=\expect{\rv{a}}=\mu$.
+    \item Single realization $x_{1}=a$, $x_{2}=a, \ldots, x_{N}=a$.
+    \item Estimate of the mean is $\hat{\mu}=\f{1}{N}\sum_{n=1}^{N}x_{n}=a$.
+    \item In this case, time averaging will \textbf{not} work.
+    \item MSE of the corresponding estimator is
+    \begin{align}
+        \expect{(\rv{a}-\mu)^{2}} &= \var{\rv{a}} \\
+        &\neq 0.
+    \end{align}
+\end{itemize}
+
+\begin{definitionBox}[Time average estimator]
+    The \emph{time average estimator} of the mean of a random process $\rv{x}(t)$, $t\in\rnums$ is
+    \begin{align}
+        \hat{\mu}_{T} &= \f{1}{2T}\int_{-T}^{T}\rv{x}(t)\dee t.
+    \end{align}
+    It is assumed that all realizations of $\rv{x}(t)$ are integrable.
+\end{definitionBox}
+
+\begin{definitionBox}[Ergodic]
+    A WSS process $\rv{x}(t)$ is called \emph{ergodic} in the mean if the time average of $\rv{x}(t)$ converges (in the mean square sense) to the mean $\mu$ of the process. That is,
+    \begin{align}
+        \lim_{T\to\infty}\hat{\mu}_{T} &= \lim_{T\to\infty}\f{1}{2T}\int_{-T}^{T}\rv{x}(t)\dee t\\
+        &= \mu.
+    \end{align}
+\end{definitionBox}
+\begin{remarkBox}
+    For an ergodic process, the expectation of the ergodic mean is given by
+    \begin{align}
+        \expect{ \rv{\hat{\mu}}_{T}} &= \f{1}{2T}\int_{-T}^{T}\expect{\rv{x}(t)}\dee t\\
+        &= \mu.
+    \end{align}
+    The estimator $\rv{\hat{\mu}}_{T}$ is an unbiased estimator of $\mu$. Furthermore, 
+    \begin{align}
+        \var{\rv{\hat{\mu}}_{T}} &= \expect{\abs{\rv{\hat{\mu}}_{T}-\mu}^{2}}\\
+        &\overset{T\to\infty}{\to} 0.
+    \end{align}
+    Finally,
+    \begin{align}
+        \var{\rv{\hat{\mu}}_{T}} &= \f{1}{2T}\int_{-2T}^{2T}\acov[xx]{\tau}\left( 1-\f{\abs{\tau}}{2T} \right)\dee\tau.
+    \end{align}
+\end{remarkBox}
+
+\begin{theoremBox}   
+     A WSS process $\rv{x}(t)$ is ergodic in the mean if and only if
+     \begin{align}
+         \f{1}{2T}\int_{-2T}^{2T}\acov[xx]{\tau}\left( 1-\f{\abs{\tau}}{2T} \right)\dee \tau
+         &\overset{T\to\infty}{\to} 0.
+     \end{align}
+     Equivalently, if and only if 
+     \begin{align}
+        \f{1}{2T}\int_{-2T}^{2T}\acov[xx]{\tau}\dee \tau
+        &\overset{T\to\infty}{\to} 0.
+     \end{align}
+     And one more time, if and only if
+     \begin{align}
+         \int_{-\infty}^{\infty}\abs{\acov[xx]{\tau}}\dee\tau<\infty.
+     \end{align}
+\end{theoremBox}
+
+\begin{theoremBox}
+     A WSS process $\rv{x}(t)$ is ergodic in the mean if 
+     \begin{align}
+         \acov[xx]{\tau}&\overset{\tau\to\infty}{\to} 0,
+     \end{align}
+     or
+     \begin{align}
+         \acor[xx]{\tau}&\overset{\tau\to\infty}{\to} \mu^{2}.
+     \end{align}
+\end{theoremBox}
