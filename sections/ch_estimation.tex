@@ -1,0 +1,780 @@
+\section{Motivation}
+Let $\rv{x}$ be a random variable whose CDF, $\cdf{x}$, \emph{is unknown}. The goal is estimate $\cdf{x}$ from $n$ observations of $\rv{x}$, $x_{1}, \ldots, x_{n}$.
+
+\begin{definitionBox}[Empirical CDF]
+    The empirical CDF of $\rv{x}$ from the observations $x_{1}, \ldots, x_{n}$ is
+    \begin{align}
+        \hat{\cdf{}}(x) &= \f{1}{n} \times \left( \# \text{ of observations } x_{i} \leq x \right).
+    \end{align}
+\end{definitionBox}
+The empirical CDF $\hat{\cdf{}}(x)$ is the CDF of a discrete random variable with PMF
+\begin{align}
+    \hat{\pmf{}}_{n}(x) &= 
+    \begin{cases}
+        \f{1}{n}, & x = x_{i}, \quad i = 1,\ldots, n,\\
+        0 & \text{Otherwise}.
+    \end{cases}
+\end{align}
+The PDF is then given by
+\begin{align}
+    \label{eq:empirical pdf constant weight}
+    \hat{\pdf{}}_{n}(x) &= \sum_{i=1}^{n}\f{1}{n}\delta(x-x_{i}).
+\end{align}
+
+The empirical PDF $\hat{\pdf{}}(x)$ in \eqref{eq:empirical pdf constant weight} assigns constant weights to every observation. The empirical PDF can be generalized by giving different weights to different observations. Specifically,
+\begin{align}
+    \hat{\pdf{}}_{n}(x) &= \sum_{i=1}^{n}\f{1}{n}k(x-x_{i}),
+\end{align}
+where $k(\cdot)$ is the kernel function such that it is
+\begin{enumerate}
+    \item symmetric around 0, and
+    \item $\int_{-\infty}^{\infty}k(x)\dee x = 1$.
+\end{enumerate}
+A common choice is the Gaussian kernel. That is, a PDF of $\mc{N}(0,1)$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Parameter estimation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Problem statement}
+Let $\mbfrv{x}$ be a random variable. Furthermore, let $\pdf{\mbf{x}; \mbs{\theta}}$ be the PDF of $\mbfrv{x}$ of \emph{known form} (\eg, Gaussian distribution) but depending on \emph{unknown} parameters $\mbs{\theta}$ (\eg, mean and covariance of a Gaussian distribution).
+\begin{example}
+    A Gaussian random variable has a PDF parameterized w.r.t. to the mean ${\mu}$ and the variance $\sigma^{2}$. Thus, the parameters could be $\mbs{\theta} = \bbm \mu, \sigma^{2} \ebm$.
+\end{example}
+
+The goal is to estimate $\mbs{\theta}$ from $n$ observations of $\mbfrv{x}$: $\mbf{x}_{1}, \ldots, \mbf{x}_{n}$. 
+
+Define the data vector 
+\begin{align}
+    \mbf{X} &= \bbm \mbf{x}_{1}\\\vdots\\\mbf{x}_{n} \ebm.
+\end{align}
+The data vector $\mbf{X}$ is a realization of the random vector 
+\begin{align}
+    \mbfrv{X} &= \bbm \mbfrv{x}_{1} \\ \vdots \\ \mbfrv{x}_{n} \ebm,
+\end{align}
+where $\mbfrv{x}_{i}$, $i=1,\ldots, n$ are i.i.d.
+
+\subsection*{Approaches}
+There are two approaches to parameter estimation.
+\begin{enumerate}
+    \item \emph{Point estimation}: identify a function $g(\cdot)$ of the sample such that $g(\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n})$ is a good (in some sense) approximation of $\mbs{\theta}$.
+    \item \emph{Interval estimation}: identify two functions $g_{1}(\cdot)$ and $g_{2}(\cdot)$ of the sample, such that
+    \begin{align}
+        \prob{g_{1}(\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n})<\mbs{\theta}<g_{2}(\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n})} = \gamma,
+    \end{align}
+    where $\gamma$ is the confidence interval.
+\end{enumerate}
+
+\section{Definitions and terminology}
+\begin{definitionBox}[Estimator]
+    The estimator of $\mbs{\theta}$ is given in the form
+    \begin{align}
+        \hat{\mbsrv{\theta}} &= g(\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{n}).
+    \end{align}
+
+    The estimator models the behaviour of the estimation method over all possible samples.
+\end{definitionBox}
+\begin{definitionBox}[Estimate of $\mbs{\theta}$]
+    The \emph{deterministic} quantity $g(\mbf{x}_{1},\ldots,\mbf{x}_{n})$. That is, the the output of $\hat{\mbsrv{\theta}}$ for the realizations $\mbf{x}_{1}, \ldots, \mbf{x}_{n}$.
+\end{definitionBox}
+\begin{definitionBox}[Statistic]
+    Any function of $\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{n}$.
+\end{definitionBox}
+\begin{definitionBox}[Bias]
+    The estimator $g(\mbfrv{x}_{1}, \ldots, \mbfrv{x}_{n})$ is called
+    \begin{itemize}
+        \item \emph{unbiased} if 
+        \begin{align}
+            \expect{g(\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n})} &= \mbs{\theta}.
+        \end{align}
+        \item Otherwise, it's called \emph{biased} with bias
+        \begin{align}
+            \expect{g(\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n})} - \mbs{\theta}.
+        \end{align}
+    \end{itemize}
+\end{definitionBox}
+
+\begin{definitionBox}[Asymptic unbias]
+    A biased estimator for which
+    \begin{align}
+        \expect{g(\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n})} \overset{N\to\infty}{\to} \mbs{\theta}
+    \end{align}
+    is called \emph{asymptotically unbiased}.
+\end{definitionBox}
+
+\begin{definitionBox}[Mean-squared best estimator]
+   For a fixed $n$, the estimator that minimizes the mean-squared (MS) error 
+   \begin{align}
+       \mbf{e}_{n} &= \expect{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})^{\trans}g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}}
+   \end{align}
+   is called the \emph{best} estimator (in the mean-squared sense).
+\end{definitionBox}
+
+\begin{definitionBox}[Consistency]
+    The estimator $g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})$ is called \emph{consistent} if 
+    \begin{align}
+        \lim_{n\to\infty} \prob{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}>\mbs{\epsilon}} &= 0, \forall \mbs{\epsilon}>\mbf{0},
+    \end{align}
+    or
+    \begin{align}
+        \lim_{n\to\infty} \prob{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}<\mbs{\epsilon}} &= 1, \forall \mbs{\epsilon}>\mbf{0}.
+    \end{align}
+\end{definitionBox}
+
+\begin{mytheorem}
+    [Sufficient condition for consistency]    
+    Let $g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})$ be an estimator of $\mbs{\theta}$. Then, if
+    \begin{align}
+        \lim_{n\to\infty} \expect{\abs{g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})^{\trans}g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})}} &= \mbf{0},
+    \end{align}
+    then $g(\mbfrv{x}_{1},\ldots\mbfrv{x}_{n})$ is a \emph{consistent estimator} of $\mbs{\theta}$.
+
+    The converse is not true in general. That is, this is a sufficient but not necessary condition.
+\end{mytheorem}
+
+
+\begin{mytheorem}
+   [Sample mean estimator]    
+     Let $\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n}$ be a random sample of size $n$ and let $\mbfrv{x}_{1},\ldots, \mbfrv{x}_{n}$ be \emph{uncorrelated}. The \emph{sample mean estimator}
+     \begin{align}
+         \hat{\mbsrv{\mu}}_{n} &= \f{1}{n}\sum_{i=1}^{n}\mbfrv{x}_{i}
+     \end{align}
+     is
+     \begin{itemize}
+         \item an \emph{unbiased estimator} of $\mbs{\mu}$;
+         \item a \emph{consistent estimator} of $\mbs{\mu}$.
+     \end{itemize}
+\end{mytheorem}
+
+\begin{mytheorem}
+   [Variance estimaton]    
+   Consider the sample average estimators of the mean and variance of Gaussian random variable $\rv{x}$ from a random sample $\rv{x}_{1},\ldots, \rv{x}_{n}$ of size $n$:
+   \begin{align}
+       \hat{\rv{\mu}}_{n} &= \f{1}{n}\sum_{i=1}^{n}\rv{x}_{i},\\
+       \hat{\rv{\sigma}}_{n}^{2} &= \f{1}{n} \sum_{i=1}^{n}\left( \rv{x}_{i}-\hat{\rv{\mu}}_{n} \right)^{2}.
+   \end{align}
+   The random variables $\hat{\rv{\mu}}_{n}$ and $\hat{\rv{sigma}}_{n}^{2}$ are independent.
+\end{mytheorem}
+
+\section{Method of moments}
+Recall that moments are defined in Def.~\ref{def:moments single rv} and Def.~\ref{def:moments multiple rv}. 
+The $m$-th moment estimator is given by
+\begin{align}
+    \hat{m}_{m}(\mbf{X}) &= 
+    \f{1}{n}\sum_{i}^{n}x_{i}^{m}.
+\end{align}
+Let $\mbs{\theta}\in\rnums^{k}$ be of size $k$ and let 
+\begin{align}
+    \mbf{X} &= \bbm x_{1} \\\vdots\\x_{n} \ebm 
+\end{align}
+be the samples of the random variable $\rv{x}$. Then, 
+the idea of method of moments is to estimate the first $k$ moments, thus getting $k$ equations, and then solving the $k$ equations for $\mbs{\theta}$.
+
+\begin{example}
+    Estimate the mean $\mu$ and variance $\sigma^{2}$ of a random variable $\rv{x}$ from a random sample $\mbfrv{X} = \bbm \rv{x}_{1}&\ldots&\rv{x}_{n} \ebm^{\trans}$.
+
+    The moments are given by
+    \begin{alignat}{2}
+        m_{1}(\mu, \sigma^{2}) &= \expect{\rv{x}} &&= \mu, \\
+        m_{2}(\mu, \sigma^{2}) &= \expect{\rv{x}^{2}} &&= \mu^{2} + \sigma^{2}.
+    \end{alignat}
+    The sample average estimates of the moments are given by
+    \begin{align}
+        \hat{m}_{1}(\mbf{X}) &= \f{1}{n}\sum_{i=1}^{n}x_{i},\\
+        \hat{x}_{2}(\mbf{X}) &= \f{1}{n}\sum_{i=1}^{n}x_{i}^{2}.
+    \end{align}
+    Thus, the parameter estimates can be computed by solving the system of equations
+    \begin{align}
+        \mu &= \hat{m}_{1}(\mbf{X})\\
+        \mu^{2} + \sigma^{2} &= \hat{m}_{2}(\mbf{X}).
+    \end{align}
+    The solution is given by
+    \begin{align}
+        \hat{\mu} &= \hat{m}_{1}(\mbf{X}) \\
+            &= \f{1}{n}\sum_{i=1}^{n}x_{i},\\
+        \hat{\sigma}^{2} &= \hat{m}_{2}(\mbf{X}) - \hat{m}_{1}^{2}(\mbf{X})\\
+        &= \f{1}{n}\sum_{i=1}^{n}x_{i}^{2}  - \left(\f{1}{n}\sum_{i=1}^{n}x_{i}\right)^{2}.
+    \end{align}
+\end{example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Maximum likelihood
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Maximum likelihood (ML) estimator}
+\begin{definitionBox}[Likelihood]
+    Given the observations $\mbfrv{x}_{1} = \mbf{x}_{1}', \ldots, \mbfrv{x}_{n}=\mbf{x}_{n}'$, the \emph{likelihood} of $\mbs{\theta}$ is the joint PDF of $\mbfrv{x}_{1},\ldots,\mbfrv{x}_{n}$ evaluated at the observed points
+    \begin{align}
+        L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}') &=
+        \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\\
+         &= \pdf{}_{\mbf{x}}(\mbf{x}_{1}';\mbs{\theta})\cdots\pdf{}_{\mbf{x}}(\mbf{x}_{n}';\mbs{\theta}).
+    \end{align}
+\end{definitionBox}
+\begin{myremark}
+    \begin{itemize}
+        \item The likelihood $\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}$ is treated as a function of $\mbs{\theta}$.
+        \item It is not a PDF. That is,
+        \begin{align}
+            \int_{-\infty}^{\infty}\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\dee\mbs{\theta}\neq 1.
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\begin{definitionBox}[Maximum-likelihood estimator]
+    The maximum-likelihood (ML) estimate of $\mbs{\theta}$, $\hat{\mbs{\theta}}_{\mathrm{ML}}$, is the value of $\mbs{\theta}$ that maximizes $\pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}$. That is,
+    \begin{align}
+        \hat{\mbs{\theta}}_{\mathrm{ML}} 
+        &= \argmax_{\mbs{\theta}\in\rnums^{k}} L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}')\\
+        &= \argmax_{\mbs{\theta}\in\rnums^{k}} \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+    \end{align}
+\end{definitionBox}
+
+\begin{myremark}
+    Some remarks regarding the ML estimator.
+    \begin{itemize}
+        \item Log-likelihood function 
+        \begin{align}
+            \ell(\mbf{x}_{1}',\ldots,\mbf{x}_{n}';\mbs{\theta}) 
+            &= \log L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}')\\
+            &= \log \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}.
+        \end{align}
+        \item The maximizer of the log-likelihood function is the same maximizer of the likelihood function. That is,
+        \begin{align}
+            \argmax_{\mbs{\theta}\in\rnums^{k}} L(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}')
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} \ell(\mbs{\theta}; \mbf{x}_{1}', \ldots, \mbf{x}_{N}').
+        \end{align}
+        \item The ML estimate is 
+        \begin{align}
+            \hat{\mbs{\theta}}_{\mathrm{ML}} 
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\\
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} \log \pdf{\mbf{x}_{1}',\ldots, \mbf{x}_{n}';\mbs{\theta}}\\
+            &= \argmax_{\mbs{\theta}\in\rnums^{k}} L(\mbf{x}_{1}',\ldots,\mbf{x}_{n}';\mbs{\theta}).
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\begin{myremark}
+    Some remarks on ML estimation.
+    \begin{enumerate}
+        \item Let $\hat{\mbsrv{\theta}}_{\mathrm{ML}}$ be the ML estimator of $\mbs{\theta}$ and let $g(\mbs{\theta})$ be a function of $\mbs{\theta}$. Then, the ML estimator of $g(\mbs{\theta})$ is $g(\hat{\mbsrv{\theta}}_{\mathrm{ML}})$.
+        
+        \item Limitations of the ML estimation:
+        \begin{enumerate}
+            \item The ML estimate may not exist.
+            \item The ML estimate may not be unique. 
+        \end{enumerate}        
+        
+        \item Maximum likelihood estimate can be finding by minimizing the negative likelihood or negative log-likelihood.
+    \end{enumerate}
+\end{myremark}
+    
+\begin{example}
+    Let $\rv{x}\sim U[0,\theta]$ be a uniformly distributed random variable in the form
+    \begin{align}
+        \pdf{x; \theta} &= 
+        \begin{cases}
+            \f{1}{\theta}, &x\in[0,\theta],\\
+            0,&\text{otherwise},
+        \end{cases}
+    \end{align}
+    where $\theta$ is some unknown parameter. Find the ML estimator of $\theta$ from a random sample of size $N$.
+
+    \begin{enumerate}
+        \item First, get the joint PDF of all the random samples
+        \begin{align}
+            \pdf{x_{1}, \ldots, x_{N}; \theta} &= \pdf{x_{1};\theta}\cdots\pdf{x_{N}; \theta}\\
+            &= 
+            \begin{cases}
+                \f{1}{\theta^{N}}, &x_{i}\in[0, \theta], i=1,\ldots,N,\\
+                0, &\text{otherwise},
+            \end{cases}
+        \end{align}
+        where the fact that the random samples $\rv{x}_{i}$ for $i=1,\ldots,N$ are i.i.d. 
+
+        \item The likelihood of $\theta$ is then given as a function of the samples of $\rv{x}_{i}=x_{i}'$. Specifically, the likelihood is
+        \begin{align}
+            L(\theta; x_{1}', \ldots, x_{N}') &=
+            \pdf{\rv{x}_{1} = x_{1}', \ldots, \rv{x}_{N} = x_{N}'; \theta}\\
+            &=
+            \begin{cases}
+                \f{1}{\theta^{N}}, &x_{i}'\in[0,\theta], i=1,\ldots, N, \\
+                0, &\text{otherwise}
+            \end{cases}\\
+            &=
+            \begin{cases}
+                \label{eq:example ML uniform distribution}
+                \f{1}{\theta^{N}}, &\max_{i}(x_{i})\leq\theta, \\
+                0, &\text{otherwise}.
+            \end{cases}
+        \end{align}
+        Note that it was not necessary to specify the lower bound $\min_{i}(x_{i})\geq 0$ since the samples are drawn from a uniform distribution $U[0, \theta]$ which is bounded from below by $0$. Thus, $\prob{\rv{x}<0} = 0$. Therefore, it is impossible to have a sample $x_{i}'<0$.
+
+        \item Maximize the likelihood function. Maximizing \eqref{eq:example ML uniform distribution} is a \emph{constrained} optimization problem that entails maximizing $\f{1}{\theta^{N}}$. 
+        
+        Maximizing $\f{1}{\theta^{N}}$ is the same as minimizing $\theta$. However, since $\theta$ is bounded from below by the constraint in \eqref{eq:example ML uniform distribution}, then the minimum value of $\theta$ is $\max_{i}(x_{i})$. Thus,
+        \begin{align}
+            \hat{\theta}_{\mathrm{ML}} &= \max_{i}(x_{i}).
+        \end{align}
+    \end{enumerate}
+    \triqed
+\end{example}
+\section{Bayesian parameter estimation}
+% \subsection*{Introduction and terminology}
+In the previous sections, the approaches used were the \emph{classical} or \emph{frequentist} approaches. The classical approach
+\begin{enumerate}
+    \item treats the unknown parameter as deterministic parameter, and
+    \item assumes no prior information on the unknown parameter was available.
+\end{enumerate}
+
+For Bayesian approach on the other hand
+\begin{enumerate}
+    \item assumes that unknown parameter is random with known pdf $\pdf{\mbs{\theta}}$, called the \emph{prior};
+    \item the JPDF of random sample given $\mbsrv{\theta} = \theta$ (likelihood) is given by
+    \begin{align}
+        \pdf{\mbf{x}_{1},\ldots,\mbf{x}_{n}\middle|~ \mbs{\theta}};
+    \end{align}
+    \item The estimation problem becomes a prediction problem; predict $\mbsrv{\theta}$ from a correlated (with $\mbsrv{\theta}$) sample $\mbfrv{X}$.
+\end{enumerate}
+
+The mean-squared (or Bayes) estimate $\hat{\mbs{\theta}}$ of $\mbsrv{\theta}$ given $\mbfrv{X}=\mbf{X}$ is
+\begin{align}
+    \label{eq:bayesian estimator E(theta|X)}
+    \hat{\mbs{\theta}} &= \expect{\mbsrv{\theta}\middle|~\mbf{X}}\\
+    &= \int_{-\infty}^{\infty}\mbs{\theta}\pdf{\mbs{\theta}\middle|~\mbf{X}}\dee\mbs{\theta},
+\end{align}
+where
+\begin{align}
+    \pdf{\mbs{\theta}\middle|~\mbf{X}} &= 
+        \f{
+            \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}
+        }{\pdf{\mbf{X}}}\\
+    &=
+        \f{
+            \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}
+        }{
+            \int_{-\infty}^{\infty}\pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}\dee\mbs{\theta}
+        }.
+\end{align}
+
+\begin{myBlueBox}
+    \textbf{Terminology}
+    \begin{itemize}
+        \item The mean-squared estimator is also referred to as the Bayes estimator.
+        \item $\pdf{\mbs{\theta}}$: \emph{prior} pdf of $\mbsrv{\theta}$ (before observing the sample).
+        \item $\pdf{\mbs{\theta}\middle|~\mbf{X}}$: \emph{posterior} pdf of $\mbs{\theta}$ (after observing the sample).
+        \item In \cite{barfoot_state_2017}, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ is sometimes referred to as the likelihood of $\mbf{X}$ given $\mbs{\theta}$. This is not to be confused with the likelihood from the ML estimator. In estimation, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ can also be referred to as an \emph{observation model}. 
+    \end{itemize}
+\end{myBlueBox}
+
+\begin{myremark}
+    Some remarks about Bayesian estimation.    
+    \begin{itemize}
+        \item $\expect{\mbsrv{\theta}\middle|~\mbf{X}}$ from \eqref{eq:bayesian estimator E(theta|X)} is difficult to solve for two reasons. First, the denominator of the posterior pdf involves evaluating an integral over the entire sample space of $\mbs{\theta}$. Second, evaluating the expectation $\expect{\cdot}$ requires \emph{another} integral to be evaluated over the entire sample space.
+        
+        \item Maximum a-posteriori (MAP) estimate maximizes the \emph{posterior} pdf $\pdf{\mbs{\theta}\middle|~\mbf{X}}$ with respect to $\mbs{\theta}$. Since the denominator of the prior is constant, then it can be omitted. That is,
+        \begin{align}
+            \hat{\mbs{\theta}}_{\mathrm{MAP}} 
+            &= \argmax_{\mbs{\theta}} \pdf{\mbs{\theta}\middle|~\mbf{X}}\\
+            &= \argmax_{\mbs{\theta}} \f{\pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}}{\pdf{\mbf{X}}}\\
+            &= \argmax_{\mbs{\theta}} \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}.
+        \end{align}
+    \end{itemize}
+\end{myremark}
+
+\section{Maximum a-posteriori (MAP) estimator}
+This estimator is an \emph{approximation} to the Bayes estimator discussed in the previous section. It is easier (less computationally intensive) to compute.
+\begin{definitionBox}[Maximum a-posteriori estimator]
+    Maximum a-posteriori (MAP) estimate maximizes the \emph{posterior} pdf $\pdf{\mbs{\theta}\middle|~\mbf{X}}$ with respect to $\mbs{\theta}$. Since the denominator of the prior is constant, then it can be omitted. That is,
+        \begin{align}
+            \hat{\mbs{\theta}}_{\mathrm{MAP}} 
+            &= \argmax_{\mbs{\theta}} \pdf{\mbs{\theta}\middle|~\mbf{X}}\\
+            &= \argmax_{\mbs{\theta}} \f{\pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}}{\pdf{\mbf{X}}}\\
+            &= \argmax_{\mbs{\theta}} \pdf{\mbf{X}\middle|~\mbs{\theta}}\pdf{\mbs{\theta}}.
+        \end{align}
+\end{definitionBox}
+
+\subsection{MAP estimator of a Markov normally distributed random variable}
+
+In this section, the MAP estimator for normally distributed variables that follow a Markov chain will be derived. For each problem, a process model is provided in the form 
+\begin{align}
+    \label{eq:MAP state estimation process model}
+    \mbfrv{x}_{k+1} &= \mbfrv{f}(\mbf{x}_{k}, \mbfrv{u}_{k}, \mbfuline{w}_{k}),
+\end{align}
+where $\mbfuline{w}_{k}\sim\mc{N}(\mbf{0},\mbf{Q}_{k})$ is the process noise and the covariance matrix $\mbf{Q}_{K}$ is known. A prior is distributed according to $\mbfhat{x}_{0}\sim\mc{N}\left( \mbfhat{x}_{1}, \mbfcheck{P}_{0} \right)$.
+
+Furthermore, a measurement model is given in the form
+\begin{align}
+    \label{eq:MAP state estimation measurement model}
+    \mbfrv{y}_{k} &= \mbf{g}(\mbfrv{x}_{k}, \mbfuline{v}_{k}),
+\end{align}
+where $\mbfuline{v}_{k}\sim\mc{N}(\mbf{0},\mbf{R}_{k})$ is the Gaussian measurement noise, where the covariance matrix $\mbf{R}_{k}$ is known. 
+
+The goal is to estimate states' $\mbfrv{x}_{1:K}$ parameters using the realizations of the prior $\mbf{x}_{0}$, the realizations of the interoceptive measurements $\mbf{u}_{k}$ and realizations of the exteroceptive measurements $\mbf{y}_{k}$. If the RVs are Gaussian, then they can be parametrized by a mean and a covariance (\ie, $\mbfrv{x}_{k}\sim\mc{N}(\mbs{\mu}_{k}, \mbs{\Sigma}_{k})$). 
+
+\begin{myremark}
+    The interoceptive measurement $\mbfrv{u}_{k}$ is a random variable that can be assumed to be distributed according to
+    \begin{align}
+        \mbfrv{u}_{k}\sim\mc{N}\left( \mbf{u}_{k}, \mbf{Q}_{k}^{\mbf{u}} \right).
+    \end{align}
+    The measurement is assumed to be random due to measurement noise. However, the measurement noise can be embedded into the process noise $\mbf{Q}$. Therefore, it is possible to assume that the interoceptive measurements are not random, but the interoceptive measurement process noise is indeed random and will be embedded with the process noise $\mbfrv{w}_{k}$.
+\end{myremark}
+\begin{myremark}
+    The states will be assumed to be normally distributed. That is, $\mbfrv{x}_{k}\sim\mc{N}\left( \mbf{x}_{k}, \mbf{P}_{k} \right)$. Therefore, the parameters to be estimated should
+    \begin{align}
+        \tilde{\mbs{\theta}} &= \left\{ \mbf{x}_{0}, \ldots, \mbf{x}_{N}, \mbf{P}_{0}, \ldots, \mbf{P}_{N}\right\}.
+    \end{align}
+    However, to make things easier, the covariances $\mbf{P}_{0:N}$ will not be estimated (they will be computed after the MAP estimate is computed). Thus, the parameters that'll be estimated is given by
+    \begin{align}
+        \mbs{\theta} &= \left\{ \mbf{x}_{0}, \ldots, \mbf{x}_{N}\right\}.
+    \end{align}
+    The realizations are then
+    \begin{align}
+        \mbf{X} &= \left\{ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}, \mbf{y}_{1:N}\right\}.
+    \end{align}
+\end{myremark}
+For the MAP estimator, the PDF of interest is
+\begin{align}
+    \pdf{\mbs{\theta}\middle|~ \mbf{X}} 
+    \label{eq:MAP state estimation f(theta|X)}
+    &= \pdf{\mbf{x}_{0}, \ldots, \mbf{x}_{N} \middle|~ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}, \mbf{y}_{1:N}} \\
+    &= \f{\pdf{\mbf{y}_{1:N}\middle|~ \mbf{x}_{0:N}, \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}}\pdf{\mbf{x}_{0:N}\middle|~\mbfcheck{x}_{0}, \mbf{u}_{0:N-1}}}{\pdf{\mbf{y}_{1:N}\middle|~ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}}}\\
+    &= \eta \pdf{\mbf{y}_{1}\middle|~ \mbf{x}_{1}}\cdots\pdf{\mbf{y}_{N}\middle|~\mbf{x}_{N}}
+        \pdf{\mbf{x}_{N}\middle|~\mbf{x}_{N-1}, \mbf{u}_{N-1}}\cdots\pdf{\mbf{x}_{1}\middle|~\mbf{x}_{0}, \mbf{u}_{0}}\pdf{\mbf{x}_{0} \middle|~ \mbfcheck{x}_{0}}\\
+    \label{eq:MAP state estimation f(y|x)f(x|xm1)}
+    &= \eta \prod_{k=1}^{N}\pdf{\mbf{y}_{k}\middle|~\mbf{x}_{k}}\prod_{k=1}^{N}\pdf{\mbf{x}_{k}\middle|~\mbf{x}_{k-1}, \mbf{u}_{k-1}} \pdf{\mbf{x}_{0}, \middle|~ \mbfcheck{x}_{0}},
+\end{align}
+where $\eta$ is a normalizing parameter that is independent of the design variables ($\mbf{x}_{0:N}$) and the following assumptions were used
+\begin{enumerate}
+    \item The measurements $\mbf{y}_{k}$ depends only on $\mbf{x}_{k}$ (and measurement noise $\mbfrv{n}_{k}$ )as shown in the measurement model \eqref{eq:MAP state estimation measurement model}. Thus, the random variable $\mbfrv{y}_{k}$ is independent of all other random variables. 
+    
+    \item The state $\mbfrv{x}_{k}$ depends only on $\mbfrv{x}_{k-1}$ and $\mbf{u}_{k-1}$ (and process noise $\mbfrv{w}_{k-1}$) as shown in \eqref{eq:MAP state estimation process model}. Therefore, the random variables $\mbf{x}_{0:N}$ follow the \textbf{Markov sequence}: the future states $\mbfrv{x}_{k+1:N}$ are independent of the past states $\mbfrv{x}_{0:k-1}$ given the present state $\mbfrv{x}_{k}$. The Markov sequence is dictated by the process model \eqref{eq:MAP state estimation process model}.
+        
+\end{enumerate}
+
+If $\mbfrv{x}_{0:N}$ are assumed to be [marginally] Gaussian, then it is easier to minimize the negative-log of \eqref{eq:MAP state estimation f(theta|X)} than maximize \eqref{eq:MAP state estimation f(theta|X)} directly. 
+
+Taking the negative-log of \eqref{eq:MAP state estimation f(y|x)f(x|xm1)} gives
+\begin{align}    
+    -\log \pdf{\mbf{x}_{0:N}\middle|~ \mbfcheck{x}_{0}, \mbf{u}_{0:N-1}, \mbf{y}_{1:N}}
+    \label{eq:negative log likelihood}
+    &=
+    \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} +\\
+    &\qquad\nonumber
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})} + 
+    \mbs{\gamma},
+\end{align}
+where 
+\begin{align}
+    \norm{\mbf{z}}^{2}_{\mbs{\Sigma}} &\triangleq \mbf{z}^{\trans}\mbs{\Sigma}\inv\mbf{z},
+\end{align}
+and
+$\mbs{\gamma}$ are constant terms that are independent of the design variables thus they will not affect the optimization.
+
+Therefore, the MAP estimate of $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$ is the solution to 
+\begin{align}
+    \mbfhat{x}_{0:N}^{\mathrm{MAP}} &= \argmin_{\mbf{x}_{0:N}\in\rnums^{n}} \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})},
+    &= \argmin_{\mbf{x}_{0:N}\in\rnums^{n}} J
+\end{align}
+which is a (nonlinear) weighted least squares problem. 
+
+\begin{myremark}
+    In \eqref{eq:negative log likelihood}, it was assumed that $\mbf{w}_{k} = \mbf{n}_{k} = \mbf{0}$. I'm not not sure why this assumption is done. The way I think of it is that the noise $\mbf{w}_{k}$ is embedded into the interoceptive measurement $\mbf{u}_{k}$. Similarly, the noise in $\mbf{n}_{k}$ is embedded in the exteroceptive measurement $\mbf{y}_{k}$.
+\end{myremark}
+
+\subsection{Expressing the nonlinear least squares problem in matrix form}
+The objective function can be expressed as
+\begin{align}
+    J(\mbf{x}_{0:N}) 
+    &= 
+    \f{1}{2}\norm{\mbf{x}_{0} - \mbfcheck{x}_{0}}^{2}_{\mbfcheck{P}_{0}} + 
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{x}_{k} - \mbf{f}(\mbf{x}_{k-1}, \mbf{u}_{k-1}, \mbf{0})} +
+    \f{1}{2}\sum_{k=1}^{N} \norm{\mbf{y}_{k} - \mbf{g}(\mbf{x}_{k}, \mbf{0})}^{2}_{\mbf{R}_{k}} \\ 
+    &=
+    \f{1}{2}\mbf{e}(\mbf{x}_{0:N})^{\trans}\mbf{W}\mbf{e}(\mbf{x}_{0:N}),
+\end{align}
+where
+\begin{align}
+    \mbf{e}(\mbf{x}_{0:N}) &=
+    \bbm
+        \mbf{x}_{0} - \mbfcheck{x}_{0} \\ 
+        \hline
+        \mbf{x}_{1} - \mbf{f}\left( \mbf{x}_{0}, \mbf{u}_{0}, \mbf{0} \right) \\
+        \vdots\\
+        \mbf{x}_{N} - \mbf{f}\left( \mbf{x}_{N-1}, \mbf{u}_{N-1}, \mbf{0} \right) \\
+        \hline
+        \mbf{y}_{1} - \mbf{g}(\mbf{x}_{1}, \mbf{0})\\
+        \vdots\\
+        \mbf{y}_{N} - \mbf{g}(\mbf{x}_{N}, \mbf{0})\\
+    \ebm
+    \label{eq:MAP estimate Markov LS error function}
+\end{align}
+is the \emph{error function}, and
+\begin{align}
+    \mbf{W}\inv &= 
+    \bbm
+        \mbfcheck{P}_{0}    &   &   &   &   &   &   \\
+            &  \mbf{Q}_{0} &   &   &   &   &   \\
+            &   & \ddots  &   &   &   &   \\
+            &   &   & \mbf{Q}_{N}  &   &   &   \\
+            &   &   &   & \mbf{R}_{1}  &   &   \\
+            &   &   &   &   & \ddots  &   \\
+            &   &   &   &   &   & \mbf{R}_{N}  
+    \ebm
+    \label{eq:MAP estimate Markov LS weight matrix}
+\end{align}
+is the \emph{weight matrix}. 
+
+\subsection{Covariance on MAP estimate}
+In the optimization problem above, the covariance was not estimated. However, it can be estimated by using the MAP state estimates $\mbfhat{x}^{\mathrm{MAP}}_{0:N}$. The \emph{joint} covariance can be approximated by
+\begin{align}
+    \cov{\mbfhat{x}_{0:N}^{\mathrm{MAP}}} &=
+    \left( \mbf{J}\left(\mbfhat{x}_{0:N}^{\mathrm{MAP}}\right)^{\trans}\mbf{W}\mbf{J}\left(\mbfhat{x}_{0:N}^{\mathrm{MAP}}\right) \right)\inv,
+\end{align}
+where 
+\begin{align}
+    \mbf{J}\left(\mbfhat{x}_{0:N}^{\mathrm{MAP}}\right) &= 
+    \left. \td{\mbf{e}\left( \mbf{x}_{0:N} \right)}{\mbf{x}_{0:N}}\right|_{\mbf{x}_{0:N}=\mbfhat{x}_{0:N}^{\mathrm{MAP}}}.
+\end{align}
+is the Jacobian of the error function \eqref{eq:MAP estimate Markov LS error function} w.r.t. the design variables, evaluated at the MAP estimate $\mbfhat{x}_{0:N}^{\mathrm{MAP}}$.
+
+
+
+\section{Expectation maximization (EM)}
+% zhat is the estimated missing data
+\newcommand{\zhat}[2][{}]{\ifthenelse{\equal{#1}{}}{\hat{z}_{#2}}{\hat{z}_{#2}^{(#1)}}}
+
+\subsection{Notations}
+Let the observations be $X=\left\{ x_{1}, \ldots, x_{n} \right\}$ be the set of realizations of the random variable $\rv{x}\in\rnums$. Additionally, let $Z = \left\{ z_{1},\ldots, z_{n} \right\}$ be the set of realizations of $\rv{z}\in\left\{ 0,1 \right\}$ which is the ``missing'' data of the problem.\footnote{The data is ``missing'' in the sense that, if this data was available, then the problem would be significantly simplified.} The set of complete data is denoted by $Y = \{X, Z\}$.
+Furthermore, let the two PDF that $\rv{x}$ is distributed from be denoted by $\pdf[1]{x; \mbs{\lambda}_{1}}$ and $\pdf[2]{x; \mbs{\lambda}_{2}}$, where $\mbs{\lambda}_{i}$ is the set of parameters for each of the two PDFs.
+
+The set of unknown parameters are $\mbs{\theta} = \left\{ \mbs{\lambda}_{1}, \mbs{\lambda}_{2}, \pi_{1} \right\}$.
+
+\subsection{Problem statement}
+Let $\rv{x}\in\rnums$ be a random variable\footnote{In this document a single random variable will be used. It is possible to generalization to multivariate random variables.} that can be sampled from one of two distributions $\pdf[1]{x; \mbs{\lambda}_{1}}$ and $\pdf[2]{x; \mbs{\lambda}_{2}}$.\footnote{In this document, we'll assume that there are only two possible distributions but the idea generalizes to multiple distributions.}
+Whether $\rv{x}$ will be sampled from $\pdf[1]{x; \mbs{\lambda}_{1}}$ or $\pdf[2]{x; \mbs{\lambda}_{2}}$ will depend on another random variable $\rv{z}\in\left\{ 0, 1 \right\}$. Specifically, the conditional PDF of $\rv{x}$ given $\rv{z}$ is
+\begin{align}
+    \label{eq:PDF x given z}
+    \pdf{x\mid z; \mbs{\lambda} } &=
+    \begin{cases}
+        \pdf[1]{x; \mbs{\lambda}_{1}}, & z=0,\\
+        \pdf[2]{x; \mbs{\lambda}_{2}}, & z=1,
+    \end{cases}
+\end{align}
+where $\mbs{\lambda} = \{\mbs{\lambda}_{1}, \mbs{\lambda}_{2}\}$. Let the PMF of $\rv{z}$ be given by
+\begin{align}
+    \label{eq:PMF z}
+    \pmf{z} &= 
+    \begin{cases}
+        \pi_{1}, & z=0,\\
+        1-\pi_{1}, & z=1,\\
+        0, & \text{otherwise}.
+    \end{cases}
+\end{align}
+The problem is to estimate the parameters $\mbs{\theta}$ without having known $\pi_{1}$. The set of unknown parameters will be denoted by $\mbs{\theta} = \left\{ \mbs{\lambda}, \pi_{1} \right\}$. 
+% If the parameters $\mbs{\theta}$ were known, then the PDF of $\rv{x}$ would be given by
+% \begin{align}
+%     \pdf[x]{x; \mbs{\theta}} &= \pi_{1}\pdf[1]{x; \mbs{\lambda}_{1}} + (1-\pi_{1})\pdf[2]{x; \mbs{\lambda}_{2}}.
+% \end{align}
+\subsection*{Doing ``the math''}
+The PDF $\pdf{y; \mbs{\theta}}$ is needed in the expectation step. The PDF is given by
+\begin{align}
+    \pdf{y; \mbs{\theta}} 
+    &= \pdf{x, z; \mbs{\theta}}\\
+    \label{eq:PDF x mid z X PMF z}
+    &= \pdf{x \mid z; \mbs{\theta}}\pmf{z; \mbs{\theta}}.        
+\end{align}
+Plugging \eqref{eq:PDF x given z} and \eqref{eq:PMF z} into  \eqref{eq:PDF x mid z X PMF z} gives
+\begin{align}
+    \pdf{x, z; \mbs{\theta}}  &=
+    \pdf{x \mid z; \mbs{\theta}}\pmf{z; \mbs{\theta}} \\
+    \label{eq:PDF x mid z X PMF z Expanded}
+    &=
+    \begin{cases}
+        \pdf[1]{x; \mbs{\lambda}_{1}}\pi_{1}, & z=0,\\
+        \pdf[2]{x; \mbs{\lambda}_{2}}(1-\pi_{1}), & z=1,
+    \end{cases}
+\end{align}
+which can be rewritten\footnote{This may be confusing at first, by simply replace $z$ with $0$ or $1$ and the expression \eqref{eq:PDF x mid z X PMF z Expanded} will be exactly recovered.} as
+\begin{align}
+    \pdf{x, z; \mbs{\theta}} 
+    &= 
+    \left(\pi_{1}\pdf[1]{x; \mbs{\lambda}_{1}}\right)^{1-z}\left( (1-\pi_{1})\pdf[2]{x; \mbs{\lambda}_{2}} \right)^{z}.
+\end{align}
+The marginal PDF on $\rv{x}$ is obtained by marginalizing out $\rv{z}$ from $\pdf{x, z;\mbs{\theta}}$ to give
+\begin{align}
+    \pdf{x; \mbs{\theta}} &= \sum_{i=0}^{1}\pdf{x, z=i; \mbs{\theta}}\\
+    &= \pi_{1}\pdf[1]{x; \mbs{\theta}} + (1-\pi_{1})\pdf[2]{x; \mbs{\theta}}\\
+    \label{eq:PDF x given theta Expanded}
+    &= \pi_{1}\pdf[1]{x; \mbs{\lambda}_{1}} + (1-\pi_{1})\pdf[2]{x; \mbs{\lambda}_{2}}.
+\end{align}
+
+\subsection{The expectation step}
+% References: \cite[Eq.~(8.43)]{hastie_elements_2009} and \cite[Sec.~9.13.4]{wasserman_all_2004}, 
+From \cite{hastie_elements_2009} and \cite{wasserman_all_2004}, the function to be maximized is $Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right)$,\footnote{$\mbs{\theta}^{(j)}$ is the $j$th estimate of $\mbs{\theta}$.} which is the expectation of the log-likelihood of the complete data. That is,
+\begin{align}
+    \label{eq:Q(theta|thetaj)}
+    Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right) &= \expect[\rv{Y}]{\log \pdf{\rv{Y} ; \mbs{\theta}} \mid X, \mbs{\theta}^{(j)}}.
+\end{align}
+The log-likelihood function of the complete data is given by
+\begin{align}
+    \log \pdf{\rv{Y} ; \mbs{\theta}} 
+    &=
+    \sum_{i=1}^{n}
+    \log \left( \left(\pi_{1}\pdf[1]{\rv{x}_{i}; \mbs{\lambda}_{1}}\right)^{1-\rv{z}_{i}} \right.\nonumber\\&\qquad\cdot\left.\left( \left(1-\pi_{1}\right)\pdf[2]{\rv{x}_{i}; \mbs{\lambda}_{2}} \right)^{\rv{z}_{i}} \right) \\
+    &=
+    \sum_{i=1}^{n} (1-\rv{z}_{i})\left( \log \pi_{1}+ \log \pdf[1]{\rv{x}_{i}; \mbs{\lambda}_{1}} \right)\nonumber\\&\qquad
+    +\sum_{i=1}^{n}\rv{z}_{i}\left(\log\left( 1-\pi_{1} \right)  + \log\pdf[2]{\rv{x}_{i}; \mbs{\lambda}_{2}}\right)\\
+    &=
+    \sum_{i=1}^{n} (1-\rv{z}_{i}) \log \pdf[1]{\rv{x}_{i}; \mbs{\lambda}_{1}} + \rv{z}_{i}\log\pdf[2]{\rv{x}_{i}; \mbs{\lambda}_{2}}
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\rv{z}_{i}\log\left( 1-\pi_{1} \right) + (1-\rv{z}_{i})\log \pi_{1}.
+\end{align}
+The conditional expectation \eqref{eq:Q(theta|thetaj)} can then be expanded to give
+\begin{align}
+    Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right) 
+    &= \expect[\rv{Y}]{\log \pdf{\rv{Y} ; \mbs{\theta}} \mid X, \mbs{\theta}^{(j)}}\\
+    &= \expect[\rv{Z}]{\log \pdf{\rv{X}, \rv{Z} ; \mbs{\theta}} \mid \rv{X}=X, \mbs{\theta}^{(j)}}\\
+    &=
+    \label{eq:Qtheta|thetaJ: split in params}
+    \sum_{i=1}^{n} \left(1-\expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\right) \log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}} + \expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\log\pdf[2]{{x}_{i}; \mbs{\lambda}_{2}}
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\log\left( 1-\pi_{1}\right) + \left(1-\expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}}\right)\log \pi_{1}.
+    % \\
+    % &=
+    % \sum_{i=1}^{n} \expect{\rv{z}_{i}\mid X, \mbs{\theta}^{(j)}} \left( 
+    %     \log\pdf[2]{{x}_{i}; \mbs{\lambda}_{2}}
+    %     -\log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}}
+    % \right)
+    % \nonumber\\&\qquad  
+    % +\sum_{i=1}^{n}
+    %     \left(
+    %         \log \pi_{1} 
+    %         -\log\left( 1-\pi_{1}\right) 
+    %     \right)
+    % \nonumber\\&\qquad        
+    % +\sum_{i=1}^{n} 
+    %     \log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}} +
+    %     \log\left( 1-\pi_{1}\right).
+\end{align}
+The expectation $\expect{\rv{z}_{i} \mid X, \mbs{\theta}^{(j)}}$ is simplified to $\expect[z_{i}]{\rv{z}_{i} \mid x_{i}, \mbs{\theta}^{(j)}}$ 
+since
+\begin{align}
+    \pmf{z_{i}\mid X} 
+    &= \f{\pdf{X \mid z_{i}}\pmf{z_{i}}}{\pdf{X}}\\
+    &= \f{\pdf{x_{1}}\cdots\pdf{x_{i}\mid z_{i}}\cdots \pdf{x_{n}} \pmf{z_{i}}}{\pdf{x_{1}}\cdots\pdf{x_{i}}\cdots\pdf{x_{n}}}\\
+    &= \f{\pdf{x_{i}\mid z_{i}}\pmf{z_{i}}}{\pdf{x_{i}}}\\
+    &= \pmf{z_{i}\mid x_{i}},
+\end{align}
+where the independence of $\rv{x}_{j}$ from $\rv{z}_{i}$ for $i\neq j$ was used.
+The expectation is therefore
+\begin{align}
+    \expect{\rv{z}_{i} \mid x_{i}, \mbs{\theta}^{(j)}}
+    &=
+    \sum_{k=0}^{1}\f{\pdf{x_{i},z;\mbs{\theta}^{(j)}}}{\pdf{x_{i}; \mbs{\theta}^{(j)}}}z_{k}\\
+    &=
+    \f{1}{\pdf{x_{i}; \mbs{\theta}^{(j)}}}\sum_{k=0}^{1}\pdf{x_{i},z;\mbs{\theta}^{(j)}}z_{k}\\
+    &=
+    \f{1}{\pdf{x_{i}; \mbs{\theta}^{(j)}}}\left( \pdf[1]{x_{i}; \mbs{\lambda}_{1}^{(j)}}\pi_{1}^{(j)}(0)\right.\nonumber\\&\qquad + \left.\pdf[2]{x_{i}; \mbs{\lambda}_{2}^{(j)}}(1-\pi_{1}^{(j)})(1) \right)\\
+    &=
+    \f{
+        \pdf[2]{x_{i}; \mbs{\lambda}_{2}^{(j)}}\left(1-\pi_{1}^{(j)}\right)
+    }{
+        \pi_{1}^{(j)}\pdf[1]{x_{i}; \mbs{\lambda}^{(j)}} + \left( 1-\pi_{1}^{(j)} \right)\pdf[2]{x_{i}; \mbs{\lambda}_{2}^{(j)}}
+    }.
+\end{align}
+Note that the expectation step does not require us to exploit the two PDFs $\pdf[i]{x; \mbs{\lambda}_{i}}$; just plug in the data and get an estimate of $\rv{z}_{i}$ for $i=1,\ldots, n$.
+
+
+\begin{blueBox}
+    From here onwards, the notation 
+    \begin{align}
+        \label{eq:xhat notation def}
+        \zhat[j]{i} &\coloneqq  
+        \expect{\rv{z}_{i} \mid x_{i}, \mbs{\theta}^{(j)}}
+    \end{align}
+    will be used.
+\end{blueBox}
+\subsection{Maximization step}
+Now that the missing data $\rv{z}_{i}$ is estimated in the expectation step, the next step is to estimate a new set of parameters $\mbs{\theta}^{(j+1)}$ using maximum likelihood (ML) estimator on the log-likelihood function of the complete \emph{estimated} data set $\hat{Y} = \left\{ X, \hat{Z}^{(j)} \right\}$. \footnote{Note that $\hat{Z}^{(j)} = \left\{ \zhat[j]{1},\ldots, \zhat[j]{n} \right\}$.}
+
+Let the PDFs $\pdf[i]{x; \mbs{\lambda}_{i}}$ be exponentially distributed with parameter $\lambda_{i}$. Then, the PDFs can be written as
+\begin{align}
+    \pdf[i]{x; \lambda_{i}} &= 
+    \begin{cases}
+        \lambda_{i}e^{-\lambda_{i} x}, & x\geq 0,\\
+        0, &x<0,
+    \end{cases}
+\end{align}
+for $i=1,2$. The parameters in this case are $\mbs{\theta} = \left\{ \lambda_{1}, \lambda_{2}, \pi_{1} \right\}$.
+
+For the ease of reading, the notation \eqref{eq:xhat notation def} will be used to rewrite $Q\left( \mbs{\theta}\mid\mbs{\theta}^{(j)} \right)$ from \eqref{eq:Qtheta|thetaJ: split in params}. Then, 
+\begin{align}
+    Q\left( \mbs{\theta} \mid \mbs{\theta}^{(j)} \right)
+    &=
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) \log \pdf[1]{{x}_{i}; \mbs{\lambda}_{1}} + \zhat[j]{i}\log\pdf[2]{{x}_{i}; \mbs{\lambda}_{2}}
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\zhat[j]{i}\log\left( 1-\pi_{1} \right) + \left(1-\zhat[j]{i}\right)\log\pi_{1}\\
+    &=
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) \log \left( \lambda_{1}e^{-\lambda_{1} x_{i}} \right) + \zhat[j]{i}\log\left(\lambda_{2}e^{-\lambda_{2} x_{i}}\right)
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\zhat[j]{i}\log\left( 1-\pi_{1} \right)  + \left(1-\zhat[j]{i}\right)\log\pi_{1}\\
+    &=
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right)  \left( \log\lambda_{1} -\lambda_{1} x_{i} \right) + \zhat[j]{i}\left(\log\lambda_{2} -\lambda_{2} x_{i}\right)
+    \nonumber\\&\qquad
+    +\sum_{i=1}^{n}\zhat[j]{i}\log\left( 1-\pi_{1} \right) + \left(1-\zhat[j]{i}\right)\log\pi_{1}.
+\end{align}
+The function $Q\left( \mbs{\theta}\mid \mbs{\theta}^{(j)} \right)$ is to be differentiated with respect to the parameters $\mbs{\theta}$ and be equated to zero in order to solve for the critical points.
+\begin{align}
+    \pd{
+        Q\left( \mbs{\theta}\mid \mbs{\theta}^{(j)} \right)
+    }{
+        \lambda_{1}
+    }
+    &= 
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right)  \left( \f{1}{\lambda_{1}}- x_{i} \right)\\
+    &= 
+    \f{1}{\lambda_{1}}\sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) 
+    -
+    \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) x_{i}.
+\end{align}
+Equating the partial derivative to zero and solving for $\lambda_{1}$ gives the next estimate
+\begin{align}
+    \hat{\lambda}_{1}^{(j+1)} 
+    &= 
+    \f{
+        \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right)
+    }{
+        \sum_{i=1}^{n} \left(1-\zhat[j]{i}\right) x_{i}  
+    }.
+\end{align}
+The similar procedure can be done for $\lambda_{2}$ which gives the expression
+\begin{align}
+    \hat{\lambda}_{2}^{(j+1)} 
+    &= 
+    \f{
+        \sum_{i=1}^{n} \zhat[j]{i}
+    }{
+        \sum_{i=1}^{n}\zhat[j]{i} x_{i}  
+    }.
+\end{align}
+Now, differentiate $Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right)$ with respect to $\pi_{1}$.
+\begin{align}
+    \pd{
+        Q\left( \mbs{\theta}\mid\mbs{\theta}^{(j)} \right)
+    }{
+        \pi_{1}
+    }
+    &=
+    \sum_{i=1}^{n}-\zhat[j]{i}\f{1}{1-\pi_{1}} + \left(1-\zhat[j]{i}\right)\f{1}{ \pi}\\
+    &=
+    \f{1}{\pi_{1}\left( 1-\pi_{1} \right)}\sum_{i=1}^{n} (1-\pi_{1})\left(1-\zhat[j]{i}\right) -\zhat[j]{i}\pi_{1}\\
+    &=
+    \f{1}{\pi_{1}\left( 1-\pi_{1} \right)}\sum_{i=1}^{n}\left(1 -\zhat[j]{i} - \pi_{1}\right).
+\end{align}
+Equating to $0$ and solving for $\pi_{1}$ gives the next estimate
+\begin{align}
+    \hat{\pi}_{1}^{(j+1)} &= 1 - \f{1}{n}\sum_{i=1}^{n}\zhat[j]{i}.
+\end{align}

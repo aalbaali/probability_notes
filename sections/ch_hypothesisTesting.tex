@@ -1,0 +1,223 @@
+\section{Problem statement}
+\emph{Hypothesis testing}\index{Hypothesis testing}, also known as \emph{detection}\index{Detection}\footnote{Detection is a term usually used in Engineering while hypothesis testing is the proper statistical term.} is a specific parameter estimation problem where the unknown parameter takes one of $M$ possible values.
+
+Say there's an unknown parameter $\eta$ to be determined. Furthermore, say there are some measurements of a random variable that is correlated with $\eta$. Furthermore, say there are different disjoint sets $\mc{Z}_{0}, \mc{Z}_{1},\ldots, \mc{Z}_{M-1}$ that $\eta$ can belong to, then the problem is to determine the most likelihood set to which $\eta$ belongs.
+
+\begin{myBlackBox}
+    Construct a detector that ``maps back'' the observed point to the hypothesis that produced it. That is, the ``correct'' hypothesis. 
+\end{myBlackBox}
+
+\begin{example}
+    Consider a digital transmitter that outputs bits that can be either $1$ or $0$. Then, there are $M=2$ possible outputs. The hypothesis to be tested are
+    \begin{enumerate}
+        \item Hypothesis $H_{0}$ : Transmitted bit is $\rv{b} = -1$, with probability $\pi_{0}=1/2$, and
+        \item Hypothesis $H_{1}$ : Transmitted bit is $\rv{b} = 1$, with probability $\pi_{1} = 1/2$.
+    \end{enumerate}
+\end{example}
+
+\section{Terminology}
+Consider a \emph{probabilistic transition mechanism}\index{Transition mechanism}
+\begin{align}
+    \text{source output } \to \text{ random point } x \in \mc{Z}.
+\end{align}
+\begin{itemize}
+    \item $\mc{Z}$ : \emph{Observation space}\index{Observation space}.
+    \item Under hypothesis $H_{m}$ : observed point follows $\pdf{x|H_{m}}$.
+\end{itemize}
+\subsection*{Assumptions}
+\begin{enumerate}
+    \item Prior probabilities 
+    \begin{align}
+        \pi_{m} := \prob{H_{m}}
+    \end{align}
+    are known.
+    \item Conditional PDFs $\pdf{x|~H_{m}}$ are known for all $m = 0, \ldots, M - 1$.
+\end{enumerate}
+The strategy is to partition the observation space $\mc{Z}$ into $M$ subspaces $\mc{Z}_{0}, \ldots, \mc{Z}_{M-1}$. The decision\index{Decision rule} (or detection\index{Detection rule}) rule is
+\begin{quotation}
+    ``if the observed point $x$ lies in $\mc{Z}_{m}$, then the detector should decide in favor of $H_{m}$''.
+\end{quotation}
+
+\section{Binary hypothesis testing}
+In this document, most of the work will be on $M=2$ hypothesis. This is popular in engineering and they have special names.
+\begin{enumerate}
+    \item $H_{0}$ : Null hypothesis\index{Null hypothesis}.
+    \item $H_{1}$ : Alternate hypothesis\index{Alternate hypothesis}.
+\end{enumerate}
+Table~\ref{tab:terminology hypothesis testing} lists the terms used for hypothesis testing.
+%
+\begin{table}    
+    \centering
+    \begin{tabular}{lll}
+                                                 & \textbf{$H_{0}$ true}                                                               & \textbf{$H_{1}$ true}                                                                      \\ \hline
+    \multicolumn{1}{l|}{\textbf{Decide $H_{0}$}} &                                                                   Miss                  & \begin{tabular}[c]{@{}l@{}}Type II error\index{Type II error}\\ Missed Detection\index{Missed detection} \\ False Negative\index{False negative}\end{tabular} \\
+    \multicolumn{1}{l|}{\textbf{Decide $H_{1}$}} & \begin{tabular}[c]{@{}l@{}}Type I error\index{Type I error}\\ False Alarm\index{False alarm}\\ False Positive\index{False positive}\end{tabular} &    Detection                                                                                 
+    \end{tabular}
+    \caption{Terminology in hypothesis testing.}
+    \label{tab:terminology hypothesis testing}
+\end{table}
+
+\begin{example}[Additive Gaussian noise channel]
+    Consider the output (measurement)
+    \begin{align}
+        \rv{x} &= \rv{b} + \rv{n}, 
+    \end{align}
+    where the noise $\rv{n}\sim\mc{N}\left( 0, 1 \right))$ is independent of the bit $\rv{b}$. 
+    The observation space is given by $\mc{Z} = \rnums$. Under hypothesis $H_{m}$, the observed point follows $\pdf{x|H_{m}}$
+    \begin{itemize}
+        \item $\pdf{x|H_{0}} = \mc{N}(-1, 1)$, and 
+        \item $\pdf{x|H_{1}} = \mc{N}(1, 1)$, and .
+    \end{itemize}
+\end{example}
+
+Each decision has a cost. Specifically,
+\begin{alignat}{6}
+    &\text { decide } {H}_{0} &&\text { and } &&{H}_{0} &&\text { is true } &&\rightarrow &&\text { cost } {C}_{00} \\
+    &\text { decide } {H}_{1} &&\text { and } &&{H}_{0} &&\text { is true } &&\rightarrow &&\text { cost } {C}_{10} \\
+    &\text { decide } {H}_{1} &&\text { and } &&{H}_{1} &&\text { is true } &&\rightarrow &&\text { cost } C_{11} \\
+    &\text { decide } {H}_{0} &&\text { and } &&{H}_{1} &&\text { is true } &&\rightarrow &&\text { cost } {C}_{01}
+\end{alignat}
+The assumption is that it is more costly to make a mistake. That is,
+\begin{align}
+    C_{10} > C_{00} \text{  and  } C_{01} > C_{11}.
+\end{align}
+Let the goal be to find the detector that minimizes the average cost\index{Average cost} $C$ given by
+\begin{align}
+    C &= \sum_{i=0}^{1}\sum_{j=0}^{1}C_{ij}\prob{\text{decide } H_{i} \middle|~ H_{j}\text{ is true}},
+\end{align}
+where
+\begin{align}
+    \prob{\text{decide } H_{i} \middle|~ H_{j}\text{ is true}} &= \prob{\text{decide } H_{i} \middle|~ H_{j}\text{ is true}}\pi_{j}\\
+    &= \pi_{j}\int_{\mc{Z}_{i}}\pdf{x \middle|~ H_{j}}\dee x.
+\end{align}
+
+The region $\mc{Z}_{0}$ that minimizes the average cost is 
+\begin{align}
+    \mc{Z}_{0} &= \left\{ x\in\mc{Z} : \left.\pi_{0}\left(C_{10}-C_{00}\right) f\left(X \mid H_{0}\right) \geq \pi_{1}\left(C_{01}-C_{11}\right) f\left(X \mid H_{1}\right)\right) \right\}\\
+    &= \{ x\in\mc{Z} :  \overbrace{\frac{\pi_{0}\left(C_{10}-C_{00}\right)}{\pi_{1}\left(C_{01}-C_{11}\right)}}^{\text {threshold } \eta} \geq \underbrace{\frac{f\left(X \mid H_{1}\right)}{f\left(X \mid H_{0}\right)}}_{\text {Likelihood ratio }\Lambda(x)}\}
+\end{align}
+\index{Hypthesis ratio test threshold}\index{Likelihood ratio}
+
+The decision rule is therefore
+\begin{align}
+    \underbrace{\frac{\pi_{0}\left(C_{10}-C_{00}\right)}{\pi_{1}\left(C_{01}-C_{11}\right)}}_{\eta}\qquad
+    \genfrac{}{}{0pt}{1}{\overset{H_{0}}{\geq}}{\underset{H_{1}}{\leq}}
+    \qquad
+    \underbrace{\f{\pdf{x\mid H_{1}}}{\pdf{x\mid H_{0}}}}_{\Lambda(x)}.
+\end{align}
+
+If the goal is to minimize the error, then the problem is known as \emph{minimum probability of error decision rule}\index{Minimum probability of error decision rule}, where the costs are set to
+\begin{alignat}{2}
+    C_{01} &= C_{10} &&= 1,\\
+    C_{00} &= C_{11} &&= 0.
+\end{alignat}
+
+\section{Neyman-Pearson hypothesis testing}
+\index{Neyman-Pearson}
+In practice, the prior probabilities $\pi_{0}$ and $\pi_{1}$ may not be known. Thus, Neyman-Pearson have a different approach:
+\begin{itemize}
+    \item Probability of detection: 
+    \begin{align}
+        \symProb_{d} &:= \prob{\text{decide } H_{1} \mid H_{1} \text{ is true}}.
+    \end{align}
+    \item Probability of False Alarm\index{False alarm}: 
+    \begin{align}
+        \symProb_{\mathrm{fa}} &:= \prob{\text{decide } H_{1} \mid H_{0} \text{ is true}}\\
+        &= \alpha.
+    \end{align}
+\end{itemize}
+Neyman-Pearson criterion\index{Neyman-Pearson} is given by
+\begin{align}
+    \max &\symProb_{d}\\
+    \mathrm{s.t.}~ &\symProb_{\mathrm{fa}}\leq\alpha.
+\end{align}
+The term $\alpha$ is referred to as \emph{significance} \cite{li_common_2008}.
+The solution is to use the Likelihood ratio\index{Likelihood ratio} test with threshold $\eta$ such that
+\begin{align}
+    \prob{\Lambda(\rv{x}) < \eta \mid H_{0}} &= \alpha.
+\end{align}
+
+\begin{example}
+    Consider a (possibly unfair) coin with a probability of heads equal to $p$, where $p$ is a realization of a RV $\rv{p}$ that is uniform on the interval $[0,1]$. The goal is to decide among the following hypotheses:
+    \begin{alignat}{2}
+        H_{0}  &: \rv{p} &&\leq 1 / 3 \\
+        H_{1}  &: \rv{p} &&>1 / 3
+    \end{alignat}
+    What is the minimum probability of error decision rule\index{Minimum probability of error decision rule} if $N$ independent flips are observed?
+
+    The average cost is given by $C$ 
+    \begin{align}
+    \nonumber
+        C &= C_{00} \prob{\text{decide $H_0$, $H_0$ is true}} + 
+        C_{10} \prob{\text{decide $H_1$, $H_0$ is true}} + \\ 
+        &\qquad C_{01} \prob{\text{decide $H_0$, $H_1$ is true}} + 
+        C_{11} \prob{\text{decide $H_1$, $H_1$ is true}} \\ 
+        &= C_{00} \pi_0 \prob{H_0|H_0} +  C_{10} \pi_0 \prob{H_1|H_0} +   C_{01} \pi_1 \prob{H_0\mid H_1} +  C_{11}\pi_{1}\prob{H_1\mid H_1)}.    
+    \end{align}
+
+    Let $C_{00}=C_{11}=0$ and $C_{10}=C_{01}=1$ for minimum average cost detector. Then, the average cost is given by
+    \begin{align}
+        C 
+        &= \pi_{0}\prob{H_{1}\mid H_{0}} + \pi_{1}\prob{H_{0}\mid H_{1}}\\
+        &= \pi_{0}\sum_{x\in\mc{Z}_{1}} \pmf{x\mid H_{0}} + \pi_{1}\sum_{x\in\mc{Z}_{0}}\pmf{x\mid H_{1}}\\
+        &= \pi_{0}\sum_{x\in \mc{Z} -  \mc{Z}_{0}} \pmf{x\mid H_{0}} + \pi_{1}\sum_{x\in \mc{Z}_{0}}\pmf{x\mid H_{1}}\\
+        &= \pi_{0}\left(1 - \sum_{x\in\mc{Z}_{0}} \pmf{x\mid H_{0}}\right) + \pi_{1}\sum_{x\in \mc{Z}_{0}}\pmf{x\mid H_{1}}\\
+        &= \pi_0 + \sum_{x\in\mc{Z}_{0}}\pi_{1}\pmf{x\mid H_{1}} - \pi_{0}\pmf{x\mid H_{0}}.
+    \end{align}
+    The region $\mc{Z}_{0}$ that minimizes the above summation is given by
+    \begin{align}
+        \mc{Z}_{0} &= \left\{ 
+            x\in\mc{Z} : \pi_{0}\pmf{x\mid H_{0}} \geq \pi_{1}\pmf{x\mid H_{1}}
+        \right\}.
+    \end{align}
+    The decision rule can be written as
+    \begin{align}
+        \underbrace{\f{\pi_{0}}{\pi_{1}}}_{\eta}\qquad
+        {\overset{H_{0}}{\geq}\atop \underset{H_{1}}{\leq}}\qquad
+        \underbrace{\f{\pmf{x\mid H_{1}}}{\pmf{x\mid H_{0}}}}_{\Lambda(x)}
+    \end{align}
+    where the PMF $\pmf{x\mid H_0}$ is given by
+    \begin{align}
+        \pmf{x \mid H_{0}} 
+        &= P(\rv{x}=x \mid \rv{p}\leq 1/3)\\
+        &= \f{1}{\prob{\rv{p}\leq 1/3}} \prob{\rv{x}=x, \rv{p}\leq 1/3}\\
+        &= \f{1}{\pi_{0}} \int_{0}^{1/3} \pmf{x \mid p}\pdf{p}\dee p.
+    \end{align}
+    And the PMF $\pmf{x\mid H_{1}}$ is given by
+    \begin{align}
+        \pmf{x \mid H_{1}} 
+        &= P(\rv{x}=x \mid \rv{p}> 1/3)\\
+        &= \f{1}{\prob{\rv{p}> 1/3}} \prob{\rv{x}=x, \rv{p}> 1/3}\\
+        &= \f{1}{\pi_{1}} \int_{1/3}^{1} \pmf{x \mid p}\pdf{p}\dee p.
+    \end{align}
+    The PDF $\pdf{p} = U([0,1])$ is a uniform distribution and $\pmf{x\mid p}$ is the Binomial PMF $\rv{x}\sim B(N,p)$ given by
+    \begin{align}
+    \pmf{x \mid p} &= 
+    \begin{cases}
+        {N \choose x} p^{x}(1-p)^{N-x}, &x = 0, 1, \ldots, N,\\
+        0, &\text{otherwise}.
+    \end{cases}
+    \end{align}
+    $\eta$ is evaluated as
+    \begin{align}
+        \eta &= \frac{\pi_0(C_{10}-C_{00})}{\pi_1(C_{01}-C_{11})} \\
+            &= \frac{1}{2}.
+    \end{align}
+    Therefore the minimum probability of error decision rule is 
+    \begin{align}
+        \eta\qquad
+        {\overset{H_{0}}{\geq}\atop \underset{H_{1}}{\leq}}&\qquad
+        \f{\pmf{x\mid H_{1}}}{\pmf{x\mid H_{0}}} \\
+        \frac{1}{2}\qquad
+        {\overset{H_{0}}{\geq}\atop \underset{H_{1}}{\leq}}&\qquad
+        \f{\pi_{0} \int_{1/3}^{1} \pmf{x \mid p}\pdf{p}\dee p}{\pi_{1} \int_{0}^{\frac{1}{3}} \pmf{x \mid p}\pdf{p}\dee p} \\
+        1 \qquad
+        {\overset{H_{0}}{\geq}\atop \underset{H_{1}}{\leq}}&\qquad
+        \f{ \int_{1/3}^{1} \pmf{x \mid p}\pdf{p}\dee p}{ \int_{0}^{\frac{1}{3}} \pmf{x \mid p}\pdf{p}\dee p}\\[10pt]
+        { \int_{0}^{\frac{1}{3}} \pmf{x \mid p}\pdf{p}\dee p} \qquad
+        {\overset{H_{0}}{\geq}\atop \underset{H_{1}}{\leq}}&\qquad
+        { \int_{1/3}^{1} \pmf{x \mid p}\pdf{p}\dee p}.
+    \end{align}
+
+    \triqed
+\end{example}
