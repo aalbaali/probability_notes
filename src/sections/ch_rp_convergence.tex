@@ -250,7 +250,8 @@ The focus in this chapter will be on random sequences but the concepts generaliz
 \begin{remarkBox}[On the central limit theorem]
     Note that there was \emph{no assumption} on the distribution of the random variable $\rv{x}_{i}$, yet the random sequence $\rv{z}_{1},\ldots, \rv{z}_{n},\ldots$ converges (in distribution) to a standard normal distribution.
 
-    This theorem is often used to justify the assumption that noise of a signal is normally distributed (even though it may not really be normally distributed) \cite{li_evaluation_2012}. But the caveat in the theorem is that the sequence converges \emph{as $n\to\infty$}. So what should one do when there are few realizations (say less than 20)? Well, I'm not quite sure about this yet, but I think that the sequence $\rv{z}_{1}, \ldots, \rv{z}_{n}, \ldots$ would then converge to a Student $t$ distribution. This distribution converges to normal distribution when the number of samples (also known as degrees of freedom) are large (say larger than 20 samples).
+    This theorem is often used to justify the assumption that noise of a signal is normally distributed (even though it may not really be normally distributed) \cite{liEvaluationEstimationAlgorithms2012}.
+    But the caveat in the theorem is that the sequence converges \emph{as $n\to\infty$}. So what should one do when there are few realizations (say less than 20)? Well, I'm not quite sure about this yet, but I think that the sequence $\rv{z}_{1}, \ldots, \rv{z}_{n}, \ldots$ would then converge to a Student $t$ distribution. This distribution converges to normal distribution when the number of samples (also known as degrees of freedom) are large (say larger than 20 samples).
 \end{remarkBox}
 
 

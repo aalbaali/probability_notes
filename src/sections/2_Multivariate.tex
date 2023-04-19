@@ -234,7 +234,7 @@ Just as is the case for a single transformed random variable (Section~\ref{sec: 
 \end{enumerate}
 
 \subsection{Method of distribution}
-% From \cite[Sec.2.6.2]{murphy_machine_2012}, if $\rv{x}$
+% From \cite[Sec.2.6.2]{MachineLearningProbabilistic2012}, if $\rv{x}$
 \begin{myBlackBox}
     Given the function $g:\rnums^{n}\to\rnums^{k}$, where $k\leq n$, then carry the following. 
     \begin{enumerate}
@@ -309,7 +309,7 @@ Just as is the case for a single transformed random variable (Section~\ref{sec: 
 \end{mytheorem}
 
 \subsection{Method of transformation}
-Note that the method is derived in \cite[Sec.~2.6.2]{murphy_machine_2012}. 
+Note that the method is derived in \cite[Sec.~2.6.2]{MachineLearningProbabilistic2012}. 
 \subsubsection{Approach 1}
 \label{sec: MV method of transformation approach 1}
 \begin{myBlackBox}
@@ -484,7 +484,7 @@ Note that the relation is an exact relation, not an approximation.
 \subsection{Nonlinear transformation (covariance propagation)}
 For the nonlinear case, getting the exact transformed covariance is tedious and cumbersome.
 Therefore, tools that approximate the covariance are used that trade off between accuracy and computational efficiency.
-Most of the information from this section is obtained from \cite{gustafsson_nonlinear_2008}.
+Most of the information from this section is obtained from \cite{gustafssonNonlinearTransformationsStochastic2008}.
 Table~\ref{tab: summary transforms propagated covariances} summarizes the results.
 
 \begin{table}
@@ -567,7 +567,7 @@ Then, the stats of the propagated random variable $\mbfrv{y}$ are
 where $\alpha$ and $\beta$ are user-defined parameters to be discussed. Further, $\omega^{(0)}+(1-\alpha^{2}+\beta)$ is often denoted $\omega^{(0)}_{c}$. The UT discussed above is the `mod' version of the UT. There is another version denoted `std' obtained by removing the first term in \eqref{eq:UT mod propagated covariance}. I have no idea about the differences between the `std' and `mod' versions.
 
 \subsubsection*{User-defined parameters}
-The authors of \cite{gustafsson_nonlinear_2008} discuss the values to set the user-defined parameters. 
+The authors of \cite{gustafssonNonlinearTransformationsStochastic2008} discuss the values to set the user-defined parameters. 
 \begin{itemize}
     \item $\alpha$ controls the spread of the sigma points and is suggested to be approximately $10^{-3}$.
     \item $\beta$ compensates for the distribution (not really sure what that means), and should be chosen as $\beta=2$ when $\mbfrv{x}$ is Gaussian.
@@ -576,7 +576,7 @@ The authors of \cite{gustafsson_nonlinear_2008} discuss the values to set the us
 \end{itemize}
 
 \subsubsection{Spherical cubature method}
-Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$, then the spherical cubature method\footnote{It's a type of a sigma-point transformation.} approximates the mean and the covariance of the transformed random variable $\mbfrv{y}=\mbf{g}(\mbfrv{x})$. The method is summarized in Algorithm~\ref{alg: spherical cubature}. More details are available in \cite[Algorithm~6.8]{sarkka_bayesian_2013}
+Given a function a random variable $\mbfrv{x}\in\rnums^{n_{x}}$ and a nonlinear function $\mbf{g}:\rnums^{n_{x}}\to\rnums^{n_{y}}$, then the spherical cubature method\footnote{It's a type of a sigma-point transformation.} approximates the mean and the covariance of the transformed random variable $\mbfrv{y}=\mbf{g}(\mbfrv{x})$. The method is summarized in Algorithm~\ref{alg: spherical cubature}. More details are available in \cite[Algorithm~6.8]{sarkkaBayesianFilteringSmoothing2013}
 
 
 \begin{algorithm}[H]
@@ -966,7 +966,7 @@ Similar to the single random variable definition of conditional distributions (D
 
 
 \subsection{Conditional covariance}
-These equations are obtained from \cite[Eq.~(2.53b)]{barfoot_state_2017}.
+These equations are obtained from \cite[Eq.~(2.53b)]{barfootStateEstimationRobotics2017a}.
 
 Given a the random variable 
 \begin{align}

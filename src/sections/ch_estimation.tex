@@ -362,7 +362,7 @@ where
         \item The mean-squared estimator is also referred to as the Bayes estimator.
         \item $\pdf{\mbs{\theta}}$: \emph{prior} pdf of $\mbsrv{\theta}$ (before observing the sample).
         \item $\pdf{\mbs{\theta}\middle|~\mbf{X}}$: \emph{posterior} pdf of $\mbs{\theta}$ (after observing the sample).
-        \item In \cite{barfoot_state_2017}, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ is sometimes referred to as the likelihood of $\mbf{X}$ given $\mbs{\theta}$. This is not to be confused with the likelihood from the ML estimator. In estimation, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ can also be referred to as an \emph{observation model}. 
+        \item In \cite{barfootStateEstimationRobotics2017a}, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ is sometimes referred to as the likelihood of $\mbf{X}$ given $\mbs{\theta}$. This is not to be confused with the likelihood from the ML estimator. In estimation, the term $\pdf{\mbf{X}\middle|~\mbs{\theta}}$ can also be referred to as an \emph{observation model}. 
     \end{itemize}
 \end{myBlueBox}
 
@@ -612,8 +612,9 @@ The marginal PDF on $\rv{x}$ is obtained by marginalizing out $\rv{z}$ from $\pd
 \end{align}
 
 \subsection{The expectation step}
-% References: \cite[Eq.~(8.43)]{hastie_elements_2009} and \cite[Sec.~9.13.4]{wasserman_all_2004}, 
-From \cite{hastie_elements_2009} and \cite{wasserman_all_2004}, the function to be maximized is $Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right)$,\footnote{$\mbs{\theta}^{(j)}$ is the $j$th estimate of $\mbs{\theta}$.} which is the expectation of the log-likelihood of the complete data. That is,
+% References: \cite[Eq.~(8.43)]{hastieElementsStatisticalLearning2009} and \cite[Sec.~9.13.4]{wassermanAllStatisticsConcise2004}, 
+From \cite{hastieElementsStatisticalLearning2009} and \cite{wassermanAllStatisticsConcise2004}, the function to be maximized is $Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right)$,
+\footnote{$\mbs{\theta}^{(j)}$ is the $j$th estimate of $\mbs{\theta}$.} which is the expectation of the log-likelihood of the complete data. That is,
 \begin{align}
     \label{eq:Q(theta|thetaj)}
     Q\left(\mbs{\theta}\mid\mbs{\theta}^{(j)}\right) &= \expect[\rv{Y}]{\log \pdf{\rv{Y} ; \mbs{\theta}} \mid X, \mbs{\theta}^{(j)}}.
